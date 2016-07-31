@@ -20,7 +20,7 @@ F(u_\mathrm{smooth}) = ||u_\mathrm{smooth} - u_\mathrm{obs}||_{\mathbf{C}_\mathr
                        ||u_\mathrm{smooth}||_{\mathbf{C}_\mathrm{prior}}^2 .
 \end{equation} 
 The solution that minimizes eq. \ref{eq:Objective} is simply
-\begin{equation}
+\begin{equation}\label{eq:GeneralSolution}
 u_\mathrm{smooth} = (\mathbf{C}_\mathrm{obs}^{-1} + 
                      \mathbf{C}_\mathrm{prior}^{-1})^{-1}
                      \mathbf{C}_\mathrm{obs}^{-1} u_\mathrm{obs} .
@@ -30,24 +30,23 @@ The challenge is in choosing an appropriate $\mathbf{C}_\mathrm{prior}$.  Below 
 \section*{One-dimensional smoothing}
 When the signal is only assumed to covary in time, $u_\mathrm{prior}$ is commonly treated as Brownian motion (eg. Me Segall, McQuire, Murray, etc.).  We treat a $u_\mathrm{prior}$ as Brownian motion by assuming that its velocity is white noise with constant variance $\lambda^2$. That is to say
 \begin{equation}
-  \mathbf{D}_1 u_\mathrm{prior} = q, \ \ \ q \sim \mathcal{N}(0,\lambda^2)
+  \mathbf{D}_1 u_\mathrm{prior} = q, \ \ \ q \sim \mathcal{N}(0,\lambda^2).
 \end{equation}     
-where $\mathbf{D}_N$ denotes an $N$'th order differentiation matrix.  We then model $u_\mathrm{prior}$ as Brownian motion by setting $\mathbf{C}_\mathrm{prior}$ to be
-\begin{equation}
-\mathbf{C_\mathrm{prior}} = \lambda^2(\mathbf{D}_1^T\mathbf{D}_1)^{-1}.
+where $\mathbf{D}_N$ is a differentiation matrix which estimates an $N$'th order derivative. It is also common to treat $u_\mathrm{prior}$ as integrated Brownian motion, In such case, we would just replace $\mathbf{D}_1$ with $\mathbf{D}_2$. In either case, the appropriate choice of the $\mathbf{C}_\mathrm{prior}$ is   
+\begin{equation}\label{eq:BrownianPrior}
+\mathbf{C_\mathrm{prior}} = \lambda^2(\mathbf{D}_N^T\mathbf{D}_N)^{-1}.
 \end{equation}
-It is also common to treate $u_\mathrm{prior}$ as integrated Brownian motion. In such case, the appropriate choice of $\mathbf{C}_\mathrm{prior}$ would just use $\mathbf{D}_2$ rather than $\mathbf{D}_1$.  There is still a need to select $\lambda$, which described how rapidly we expect the smoothed signal to vary.  There are numerous methods for selecting $\lambda$.  For example, one could use maximum likelihood methods, a trade-off curve, or simply vary $\sigma$ until the smoothed signal looks appropriate when compared to the observations.  We note that smoothing is fundamentally a low-pass filter and so it is perhaps most useful to choose $\sigma$ based on its cut-off attenuation frequencies.  We then consider the solution for $u_\mathrm{smooth}$ in the frequency domain.  
+It should be noted that $\mathbf{D}_N^T\mathbf{D}_N$ is generally not invertible and we write it as such for the sake for clarity.  This is no problem because the inverse of $\mathbf{D}_N^T\mathbf{D}_N$ does not need to be taken when applying eq. \ref{eq:BrownianPrior} to eq. \ref{eq:GeneralSolution}.       
 
-For the purpose analytical tractability, we assume that $u_\mathrm{smooth}$ and $\epsilon$ are stationary stochastic processes and furthermore
+There is still a need to select $\lambda$, which described how rapidly we expect the smoothed signal to vary.  There are numerous methods for selecting $\lambda$.  For example, one could use maximum likelihood methods, a trade-off curve, or simply vary $\sigma$ until the smoothed signal looks appropriate when compared to the observations.  We note that smoothing is fundamentally a low-pass filter and so it is perhaps most useful to choose $\lambda$ based on its cut-off frequency.  We then consider the solution for $u_\mathrm{smooth}$ in the frequency domain.  
+
+For the purpose analytical tractability, we assume that that the observation noise is white and its covariance matrix is described by
 \begin{equation}
-\mathbf{C}_\mathrm{obs} = \sigma^2 \mathbf{I}
+\mathbf{C}_\mathrm{obs} = \sigma^2 \mathbf{I}.
 \end{equation}  
-and
-\begin{equation}
-\mathbf{C}_\mathrm{prior} = \lambda^2 (\mathbf{D}_N^T\mathbf{D}_N)^{-1}.
-\end{equation}
+
 The solution for $u_\mathrm{smooth}$ in the frequency domain is
-\begin{equation}\label{eq:Fourier1}
+\begin{equation}\label{eq:FourierSoln1}
 \hat{u}_\mathrm{smooth}(\omega) = \frac{\left(\frac{1}{\sigma}\right)^2}
                                   {\left(\frac{1}{\sigma}\right)^2 + \left(\frac{(2\pi\omega)^N}{\lambda}\right)^2}
                                   \hat{u}_\mathrm{obs}(\omega).
@@ -56,12 +55,20 @@ We make the change of variables
 \begin{equation}\label{eq:VariableChange}
 \lambda = (2\pi\omega_c)^N\sigma
 \end{equation}
-where $\omega_c$ is now our free parameter. This simplifies eq. \ref{eq:Fourier1} to
-\begin{equation}\label{eq:Fourier2}
+where $\omega_c$ is now our free parameter. This simplifies eq. \ref{eq:FourierSoln1} to
+\begin{equation}\label{eq:FourierSoln2}
 \hat{u}_\mathrm{smooth}(\omega) = \frac{1}
                                   {1 + \left(\frac{\omega}{\omega_c}\right)^{2N}}
-                                  \hat{u}_\mathrm{obs}(\omega).
+                                  \hat{u}_\mathrm{obs}(\omega)                                  
 \end{equation}
-We can recognize eq. \ref{eq:Fourier2} as a N'th order Butterworth filter, and $\omega_c$ is the cut-off frequency.  Thus selecting the hyperparameter, $\lambda$, can be translated through eq. \ref{eq:VariableChange} into a more tangible question of identifying an upper bound on the frequency content of the underlying signal. In the limit as $N\to \infty$ eq. \ref{eq:Fourier2} becomes an ideal low-pass filter which removes all frequencies above $\omega_c$ and leaves lower frequencies unaltered.  Of course, an ideal low-pass filter is often undesirable in practice because it will tend to produce ringing artifacts in the smoothed solutions.  When modeling $u_\mathrm{prior}$ as a Brownian motion or integrated Brownian motion, where $N=1$ and $N=2$ respectively, the transfer function is tapered across $\omega_c$, which ameliorates ringing in the smoothed solution.  
+and the solution in the time domain becomes
+\begin{equation}\label{eq:TimeSoln}
+u_\mathrm{smooth} = \left(\mathbf{I} + 
+                          \left(\frac{1}{2\pi\omega_c}\right)^{2N}
+                          \mathbf{D}_N^T\mathbf{D}_N\right)^{-1} u_\mathrm{obs}.
+\end{equation}
+We can recognize eq. \ref{eq:FourierSoln2} as a N'th order Butterworth filter, and $\omega_c$ is the cut-off frequency.  Thus selecting the hyperparameter, $\lambda$, can be translated through eq. \ref{eq:VariableChange} into a more tangible question of identifying an upper bound on the frequency content of the underlying signal. In the limit as $N\to \infty$ eq. \ref{eq:FourierSoln2} becomes an ideal low-pass filter which removes all frequencies above $\omega_c$ and leaves lower frequencies unaltered.  Of course, an ideal low-pass filter is often undesirable in practice because it will tend to produce ringing artifacts in the smoothed solutions.  When modeling $u_\mathrm{prior}$ as Brownian motion or integrated Brownian motion, where $N=1$ and $N=2$ respectively, the transfer function is tapered across $\omega_c$, which ameliorates ringing in the smoothed solution.
+
+It is worth pointing out that the solution for $u_\mathrm{smooth}$ in eq. \ref{eq:TimeSoln} is identical to the solution that would be obtained through Kalman filtering followed by smoothing. Kalman filtering and smoothing are recursive algorithms that operate along the time dimension.  It is thus difficult to envision how a Kalman filter can be extended to smoothing data in higher dimensions.  In contrast, extending eq. \ref{eq:TimeSoln} to higher dimensions comes simply and naturally as we describe in the next section.     
 
 \end{document}
