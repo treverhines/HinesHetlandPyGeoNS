@@ -63,12 +63,48 @@ where $\omega_c$ is now our free parameter. This simplifies eq. \ref{eq:FourierS
 \end{equation}
 and the solution in the time domain becomes
 \begin{equation}\label{eq:TimeSoln}
-u_\mathrm{smooth} = \left(\mathbf{I} + 
+u_\mathrm{smooth}(t) = \left(\mathbf{I} + 
                           \left(\frac{1}{2\pi\omega_c}\right)^{2N}
-                          \mathbf{D}_N^T\mathbf{D}_N\right)^{-1} u_\mathrm{obs}.
+                          \mathbf{D}_N^T\mathbf{D}_N\right)^{-1} u_\mathrm{obs}(t).
 \end{equation}
 We can recognize eq. \ref{eq:FourierSoln2} as a N'th order Butterworth filter, and $\omega_c$ is the cut-off frequency.  Thus selecting the hyperparameter, $\lambda$, can be translated through eq. \ref{eq:VariableChange} into a more tangible question of identifying an upper bound on the frequency content of the underlying signal. In the limit as $N\to \infty$ eq. \ref{eq:FourierSoln2} becomes an ideal low-pass filter which removes all frequencies above $\omega_c$ and leaves lower frequencies unaltered.  Of course, an ideal low-pass filter is often undesirable in practice because it will tend to produce ringing artifacts in the smoothed solutions.  When modeling $u_\mathrm{prior}$ as Brownian motion or integrated Brownian motion, where $N=1$ and $N=2$ respectively, the transfer function is tapered across $\omega_c$, which ameliorates ringing in the smoothed solution.
 
 It is worth pointing out that the solution for $u_\mathrm{smooth}$ in eq. \ref{eq:TimeSoln} is identical to the solution that would be obtained through Kalman filtering followed by smoothing. Kalman filtering and smoothing are recursive algorithms that operate along the time dimension.  It is thus difficult to envision how a Kalman filter can be extended to smoothing data in higher dimensions.  In contrast, extending eq. \ref{eq:TimeSoln} to higher dimensions comes simply and naturally as we describe in the next section.     
 
+\section*{Smoothing in higher dimensions} 
+We expand our discussion from one-dimensional smoothing to smoothing in two-dimensional space.  While the remainder of this paper discusses smoothing in two-dimensions, the extension to smoothing in higher dimensions will prove to be trivial.  We now allow $u_\mathrm{prior}$ to have non-zero covariance along multiple dimensions.  In other words, we now treat $u_\mathrm{prior}$ as a random field rather than a stochastic process.  The smoothed solution that we seek is still given by eq. \ref{eq:GeneralSolution} and our task is once again to find an appropriate choice of $\mathbf{C}_\mathrm{prior}$.  Below we consider the case where the $M$'th order Laplacian of $u_\mathrm{prior}$ is white noise.  That is to say
+\begin{equation}
+  \mathbf{\Delta}_M u_\mathrm{prior}(x_1,x_2) = q, \ \ \ q \sim \mathcal{N}(0,\lambda^2)
+\end{equation}  
+where 
+\begin{equation}\label{Laplacian}
+\mathbf{\Delta}_M = \frac{\partial^{2M}}{\partial x_1^{2M}} +
+           \frac{\partial^{2M}}{\partial x_2^{2M}}.
+\end{equation} 
+The corresponding covariance matrix is then
+\begin{equation}\label{Covariance2D}
+\mathbf{C}_\mathrm{prior} = \lambda^2\left(\mathbf{\Delta}_M^T\mathbf{\Delta}_M\right)^{-1}. 
+\end{equation}           
+We again assume that the observation noise is uncorrelated with constant variance $\sigma^2$.  Using the change of variables
+\begin{equation}
+\lambda = (2\pi\omega_c)^{2M}\sigma
+\end{equation}
+we obtain the solution
+\begin{equation}\label{eq:TimeSoln2d}
+u_\mathrm{smooth}(x_1,x_2) = \left(\mathbf{I} + 
+                          \left(\frac{1}{2\pi\omega_c}\right)^{4M}
+                          \mathbf{\Delta}_M^T\mathbf{\Delta}_M\right)^{-1}
+                          u_\mathrm{obs}(x_1,x_2),
+\end{equation}
+which in the two-dimensional frequency domain is
+\begin{equation}\label{eq:FourierSoln2d}
+\hat{u}_\mathrm{smooth}(\omega_1,\omega_2) = \frac{1}{1 + \left(\frac{\omega_1^{2M} + \omega_2^{2M}}
+                                                  {\omega_c^{2M}}\right)^2}
+                                             \hat{u}_\mathrm{obs}(\omega_1,\omega_2).
+\end{equation}
+The transfer function in eq. (\ref{eq:FourierSoln2d}) can once again be recognized as a low-pass filter.  Namely, in the limit as $M \to \infty$ all the frequency pairs, $(\omega_1,\omega_2)$, where $|\omega_1| > \omega_c$ or $|\omega_2| > \omega_c$ are removed.  That is, the transfer function becomes a two-dimensional box centered at $(0,0)$ with width $2\omega_c$.  It is apparent from the transfer function why our prior model must be defined in terms of even order derivatives.  If eq. (\ref{Laplacian}) contained odd order derivatives, then all frequency pairs where $\omega_1=-\omega_2$ would be unattenuated, leaving undesirable artifacts in the smoothed solution.
+
+We have demonstrated with eq. (\ref{eq:TimeSoln} and \ref{eq:TimeSoln2d}) that eq. \ref{eq:GeneralSolution} can effectively act as a low pass filter with a judicious choice of $\mathbf{C}_\mathrm{prior}$.  One may then wonder why eq. (\ref{eq:TimeSoln} and \ref{eq:TimeSoln2d}) would ever be used to smooth data when it is far more efficient to perform the equivalent operation through the Fast Fourier Transform domain.  The power in eq. (\ref{eq:TimeSoln} and \ref{eq:TimeSoln2d}) resides in the fact that they makes no assumption about when or where the observations have been made.  In order to filter data through the Fast Fourier Transform, the observations must be evenly spaced on a regular grid, which is often not the case for geophysical data.  Indeed,  the focus of this paper is to smooth data which has been observed at scattered locations.  We can use eq. (\ref{eq:TimeSoln} and \ref{eq:TimeSoln2d}) regardless of where the observations were made provided that we are able to create the differentiation matrix.  We use the recently developed Radial Basis Function Finite-Difference method to form the differentiation matrices and we describe the procedure in the follow section.  
+
+ 
 \end{document}
