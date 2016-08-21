@@ -6,68 +6,123 @@
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \begin{document}
 
-In the most general sense, we seek to estimate a smoothed signal, $u_\mathrm{smooth}$, from observed data, $u_\mathrm{obs}$, by incorporating prior knowledge of the signals statistical properties.  In this paper, we describe the smoothed and observed signal as 
-\begin{equation}\label{eq:Data}
-  u_\mathrm{smooth} = u_\mathrm{obs} + \epsilon,\ \ \ \epsilon \sim \mathcal{N}(0,\mathbf{C}_\mathrm{obs})
-\end{equation}
-\begin{equation}\label{eq:Prior}
-  u_\mathrm{smooth} = u_\mathrm{prior}, \ \ \ u_\mathrm{prior} \sim \mathcal{N}(0,\mathbf{C}_\mathrm{prior}).
-\end{equation}
+We discuss a method to filter observed data, $u_\mathrm{obs}$, in a Bayesian framework, where $u_\mathrm{obs}$ can be spatial and/or temporal data and there is also no requirement that the observations be made over a regular grid. Our filtered estimate, $u_\mathrm{post}$, incorporates $u_\mathrm{obs}$ and prior knowledge of the statistical properties of the underlying signal.  In this sense, this work is closely tied to Kriging, Kalman filtering, and, more generally, Gaussian process regression (e.g. Rasmussen et al 2006).  We constrain $u_\mathrm{post}$ with the observation equation
 
-We find $u_\mathrm{smooth}$ that simulataneously satisfies eq. (\ref{eq:Data}) and eq. (\ref{eq:Prior}) in a least-squares sense by minimization the objection function
-\begin{equation}\label{eq:Objective}
-F(u_\mathrm{smooth}) = ||u_\mathrm{smooth} - u_\mathrm{obs}||_{\mathbf{C}_\mathrm{obs}}^2 + 
-                       ||u_\mathrm{smooth}||_{\mathbf{C}_\mathrm{prior}}^2 .
-\end{equation} 
-The solution that minimizes eq. \ref{eq:Objective} is simply
+\begin{equation}\label{eq:Data}
+  u_\mathrm{post} = u_\mathrm{obs} + \epsilon,\ \ \ \epsilon \sim \mathcal{N}(0,\mathbf{C}_\mathrm{obs}),
+\end{equation}
+and the prior model
+\begin{equation}\label{eq:Prior}
+  u_\mathrm{prior} \sim \mathcal{N}(0,\mathbf{C}_\mathrm{prior}),
+\end{equation}
+where $\epsilon$ and $u_\mathrm{prior}$ are considered to be Gaussian processes with zero mean and covariances $\mathbf{C}_\mathrm{obs}$ and $\mathbf{C}_\mathrm{prior}$ respectively.  The filtered solution is itself a Gaussian process which has a distribution described by
+\begin{equation}
+  u_\mathrm{post} \sim \mathcal{N}(\bar{u}_\mathrm{post},\mathbf{C}_\mathrm{post}).
+\end{equation}
+We use $\bar{u}_\mathrm{post}$ and $\mathbf{C}_\mathrm{post}$ to denote the mean and covariance of $u_\mathrm{post}$ respectively.  Using Bayesian linear regression (e.g. Tarantola 2005) these values are found to be  
 \begin{equation}\label{eq:GeneralSolution}
-u_\mathrm{smooth} = (\mathbf{C}_\mathrm{obs}^{-1} + 
-                     \mathbf{C}_\mathrm{prior}^{-1})^{-1}
-                     \mathbf{C}_\mathrm{obs}^{-1} u_\mathrm{obs} .
-\end{equation} 
-The challenge is in choosing an appropriate $\mathbf{C}_\mathrm{prior}$.  Below we discuss selection of $\mathbf{C}_\mathrm{prior}$ is one-dimensional problems, which then naturally leads to an extension to selection of $\mathbf{C}_\mathrm{prior}$ for higher dimensions.
+\begin{split}
+  \bar{u}_\mathrm{post} &= (\mathbf{C}_\mathrm{obs}^{-1} + 
+                            \mathbf{C}_\mathrm{prior}^{-1})^{-1}
+                            \mathbf{C}_\mathrm{obs}^{-1} u_\mathrm{obs}
+\\
+\mathbf{C}_\mathrm{post} &= (\mathbf{C}_\mathrm{obs}^{-1} + 
+                             \mathbf{C}_\mathrm{prior}^{-1})^{-1}.                          
+\end{split}
+\end{equation}
+ 
+$\mathbf{C}_\mathrm{obs}$ is presumably well known, while $\mathbf{C}_\mathrm{prior}$ needs to be chosen based on an understanding of the underlying signal which we are trying to estimate.  Below we discuss how a judicious choice of $\mathbf{C}_\mathrm{prior}$ can turn eq. (\ref{eq:GeneralSolution}) into a low-pass or high-pass filter.  This is first demonstrated for filtering one-dimensional data.  The extension to N-dimensions follows naturally.  
 
 \section*{One-dimensional smoothing}
-When the signal is only assumed to covary in time, $u_\mathrm{prior}$ is commonly treated as Brownian motion (eg. Me Segall, McQuire, Murray, etc.).  We treat a $u_\mathrm{prior}$ as Brownian motion by assuming that its velocity is white noise with constant variance $\lambda^2$. That is to say
+When the signal is only assumed to covary in time, $u_\mathrm{prior}$ is commonly treated as Brownian motion (eg. Me Segall, McQuire, Murray, etc.).  We can treat $u_\mathrm{prior}$ as Brownian motion by assuming that its velocity is white noise with constant variance $\lambda^2$. That is to say
+
 \begin{equation}
-  \mathbf{D}_1 u_\mathrm{prior} = q, \ \ \ q \sim \mathcal{N}(0,\lambda^2).
+  \mathbf{D}_1 u_\mathrm{prior} = q, \ \ \ q \sim \mathcal{N}(0,\lambda^2),
 \end{equation}     
-where $\mathbf{D}_N$ is a differentiation matrix which estimates an $N$'th order derivative. It is also common to treat $u_\mathrm{prior}$ as integrated Brownian motion, In such case, we would just replace $\mathbf{D}_1$ with $\mathbf{D}_2$. In either case, the appropriate choice of the $\mathbf{C}_\mathrm{prior}$ is   
+where $\mathbf{D}_N$ is a differentiation matrix which estimates an $N$'th order derivative. It is also common to treat $u_\mathrm{prior}$ as integrated Brownian motion. In that case, we would just replace $\mathbf{D}_1$ with $\mathbf{D}_2$. In either case, the appropriate choice of the $\mathbf{C}_\mathrm{prior}$ is   
+
 \begin{equation}\label{eq:BrownianPrior}
 \mathbf{C_\mathrm{prior}} = \lambda^2(\mathbf{D}_N^T\mathbf{D}_N)^{-1}.
 \end{equation}
-It should be noted that $\mathbf{D}_N^T\mathbf{D}_N$ is generally not invertible and we write it as such for the sake for clarity.  This is no problem because the inverse of $\mathbf{D}_N^T\mathbf{D}_N$ does not need to be taken when applying eq. \ref{eq:BrownianPrior} to eq. \ref{eq:GeneralSolution}.       
+The filtered solution is then described by
 
-There is still a need to select $\lambda$, which described how rapidly we expect the smoothed signal to vary.  There are numerous methods for selecting $\lambda$.  For example, one could use maximum likelihood methods, a trade-off curve, or simply vary $\sigma$ until the smoothed signal looks appropriate when compared to the observations.  We note that smoothing is fundamentally a low-pass filter and so it is perhaps most useful to choose $\lambda$ based on its cut-off frequency.  We then consider the solution for $u_\mathrm{smooth}$ in the frequency domain.  
+\begin{equation}\label{eq:1DSolution}
+\begin{split}
+\bar{u}_\mathrm{post} &= (\mathbf{C}_\mathrm{obs}^{-1} +   
+                   \frac{1}{\lambda^2}\mathbf{D}_N^T\mathbf{D}_N)^{-1}\mathbf{C}_\mathrm{obs}^{-1}
+                   u_\mathrm{obs}
+\\
+\mathbf{C}_\mathrm{post} &= (\mathbf{C}_\mathrm{obs}^{-1} +   
+                            \frac{1}{\lambda^2}\mathbf{D}_N^T\mathbf{D}_N)^{-1}.
+\end{split}
+\end{equation}
 
-For the purpose analytical tractability, we assume that that the observation noise is white and its covariance matrix is described by
-\begin{equation}
-\mathbf{C}_\mathrm{obs} = \sigma^2 \mathbf{I}.
-\end{equation}  
+To gain an intuitive understanding of how eq. (\ref{eq:BrownianPrior}) controls the filtered solution, we transform $\bar{u}_\mathrm{post}$ in eq. (\ref{eq:1DSolution}) to the frequency domain.  In order to transform to the frequency domain, $u_\mathrm{obs}$ must have a constant sampling rate and $\epsilon$ and $u_\mathrm{prior}$ must be stationary stochastic processes.  We then consider the simplifying case where $\epsilon$ is white noise with constant variance $\sigma^2$ (i.e. $\mathbf{C}_\mathrm{obs} = \sigma^2\mathbf{I}$), and $\mathbf{D}_N$ is the circulant spectral differentiation matrix (e.g. Trefethen).  Under a discrete Fourier transform, $\mathbf{D}_N$ has the properties
 
-The solution for $u_\mathrm{smooth}$ in the frequency domain is
-\begin{equation}\label{eq:FourierSoln1}
-\hat{u}_\mathrm{smooth}(\omega) = \frac{\left(\frac{1}{\sigma}\right)^2}
-                                  {\left(\frac{1}{\sigma}\right)^2 + \left(\frac{(2\pi\omega)^N}{\lambda}\right)^2}
+\begin{equation}\label{eq:Property1}
+  \mathcal{F}[\mathbf{D}_Nf] = (2\pi i\omega)^N \hat{f}
+\end{equation}
+and
+
+\begin{equation}\label{eq:Property2}
+  \mathcal{F}[\mathbf{D}^T_Nf] = (-2\pi i\omega)^N \hat{f},
+\end{equation}
+where $\omega$ is the frequency domain variable, $f$ is an arbitrary vector and $\hat{f}$ is its discrete Fourier transform.  The discrete Fourier transform of $\bar{u}_\mathrm{post}$ is then
+
+\begin{equation}\label{eq:1DFourierSoln1}
+\hat{u}_\mathrm{post}(\omega) = \frac{\frac{1}{\sigma^2}}
+                                  {\frac{1}{\sigma^2} +                  
+                                  \frac{(2\pi\omega)^{2N}}{\lambda^2}}
                                   \hat{u}_\mathrm{obs}(\omega).
 \end{equation}
-We make the change of variables
+In practice, $\lambda$ is a hyperparameter that must be chosen by the user and there are numerous ways that this could be accomplished.  For example, one could use maximum likelihood methods, a trade-off curve, or simply vary $\lambda$ until the filtered signal looks appropriate when compared to the observations.  We make the change of variables 
 \begin{equation}\label{eq:VariableChange}
-\lambda = (2\pi\omega_c)^N\sigma
+\lambda^2 = (2\pi\omega_c)^{2N}\sigma^2
 \end{equation}
-where $\omega_c$ is now our free parameter. This simplifies eq. \ref{eq:FourierSoln1} to
-\begin{equation}\label{eq:FourierSoln2}
-\hat{u}_\mathrm{smooth}(\omega) = \frac{1}
+which changes the hyperparameter from $\lambda$ to $\omega_c$.  The reason for this change of variables becomes apparent when we simplify eq. (\ref{eq:1DFourierSoln1}) to
+\begin{equation}\label{eq:1DFourierSoln2}
+\hat{u}_\mathrm{post}(\omega) = \frac{1}
                                   {1 + \left(\frac{\omega}{\omega_c}\right)^{2N}}
-                                  \hat{u}_\mathrm{obs}(\omega)                                  
+                                  \hat{u}_\mathrm{obs}(\omega).        
 \end{equation}
-and the solution in the time domain becomes
-\begin{equation}\label{eq:TimeSoln}
-u_\mathrm{smooth}(t) = \left(\mathbf{I} + 
-                          \left(\frac{1}{2\pi\omega_c}\right)^{2N}
-                          \mathbf{D}_N^T\mathbf{D}_N\right)^{-1} u_\mathrm{obs}(t).
+We can recognize eq. (\ref{eq:1DFourierSoln2}) as an N'th order low-pass Butterworth filter with cut-off frequency $\omega_c$.  Our free parameter $\omega_c$ now has a far more tangible meaning and can be chosen objectively based on a prior understanding of the characteristic wavelength of the underlying signal.  
+
+In the limit as $N\to \infty$ eq. (\ref{eq:1DFourierSoln2}) becomes an ideal low-pass filter which removes all frequencies above $\omega_c$ and leaves lower frequencies unaltered.  Of course, an ideal low-pass filter is often undesirable because it will tend to produce ringing artifacts in the filtered solutions.  When modeling $u_\mathrm{prior}$ as Brownian motion or integrated Brownian motion, where $N=1$ and $N=2$ respectively, the frequency response is tapered across $\omega_c$, which ameliorates ringing in the filtered solution.
+
+We have demonstrated that under certain conditions eq. (\ref{eq:1DSolution}) can be made equivalent to a low-pass filter.  Of course, one could also filter the observed data through the Fast Fourier Transform to obtain an equivalent result but in a fraction of the time.  In order to make use of the Fast Fourier Transform, the observations must be made at a constant sampling rate and the observation noise must be  white with constant variance.  In contrast, these conditions do not need to be met in order to evaluate eq. (\ref{eq:1DSolution}).  The question is then whether eq. (\ref{eq:1DSolution}) still effectively acts as a low-pass filter when the idealized conditions are not met.  
+
+We answer this question with two demonstration.  In the first demonstration we generate XXX samples of $u_\mathrm{obs}(t)$ with a constant sampling rate over the interval $0<t<1$.  Our samples of $u_\mathrm{obs}(t)$ are white noise where the variances for each observation are randomly selected from a uniform distribution ranging from 0.1 to 10.  In our second demonstration we generate XXX samples of $u_\mathrm{obs}(t)$ at values of t which have a uniform random distribution ranging from 0 to 1. the values for $u_\mathrm{obs}(t)$ are again white noise but we use a constant variance of 1.  In both demonstrations, $u_\mathrm{prior}$ is treated as integrated Brownian motion (i.e. $N=2$).  We compute $\mathbf{D}_2$ with a first-order accurate finite difference scheme. We then compute $\bar{u}_\mathrm{post}$ and $\mathbf{C}_\mathrm{post}$ from eq. (\ref{eq:1DSolution}) and select $\lambda^2$ to be consistent with a cut-off frequency of XXX.  For the first demonstration, where the variance is not constant, we modify eq. \ref{eq:VariableChange} so that $\lambda^2$ is in terms of a characteristic variance, $\bar{\sigma}^2$, so that
+\begin{equation}
+\lambda^2 = (2\pi\omega_c)^{2N}\bar{\sigma}^2
 \end{equation}
-We can recognize eq. \ref{eq:FourierSoln2} as a N'th order Butterworth filter, and $\omega_c$ is the cut-off frequency.  Thus selecting the hyperparameter, $\lambda$, can be translated through eq. \ref{eq:VariableChange} into a more tangible question of identifying an upper bound on the frequency content of the underlying signal. In the limit as $N\to \infty$ eq. \ref{eq:FourierSoln2} becomes an ideal low-pass filter which removes all frequencies above $\omega_c$ and leaves lower frequencies unaltered.  Of course, an ideal low-pass filter is often undesirable in practice because it will tend to produce ringing artifacts in the smoothed solutions.  When modeling $u_\mathrm{prior}$ as Brownian motion or integrated Brownian motion, where $N=1$ and $N=2$ respectively, the transfer function is tapered across $\omega_c$, which ameliorates ringing in the smoothed solution.
+where
+\begin{equation}
+\frac{1}{\bar{\sigma^2}} = \frac{1}{P} \mathrm{tr}\left(\mathbf{C}_\mathrm{obs}^{-1}\right)
+\end{equation}
+and $P$ is the number of observations.  We show the filtered time series and covariances at select positions in figures X.  In order to assess whether the filtered solution is acting as a low-pass filter we make use of the Wiener-Khinchin theorem, which states that the power spectral density and autocovariance of a stationary random process are Fourier transform pairs. We would then expect each row of the covariance matrix to resemble 
+\begin{equation}
+c(t) = \mathcal{F}^{-1}\left[ \left|\frac{1}{1 + \left(\frac{\omega}{\omega_c}\right)^{2N}}\right|^2\right]
+\end{equation}
+after an appropriate time shift.
+
+then compare the inverse Fourier transform of the squared frequency response in eq. \ref{eq:1DFourierSoln2} to the covariances for our demonstrations.  If the two covariance functions resemble eachother then we can conclude that eq. 
+    
+We assess whether eq. \ref{eq:1DSolution}    
+
+ $u_\mathrm{obs}(t)$  $\sim \mathcal{N}(0,1)$.  XXX samples of observations with uniform spacing from 0 to 1.  Each o      create XXX samples of white noise , each   observations made with a uniform random distribution over the time interval (0,1).  The variance of the observations are also randomly chosen from a uniform distribution over the interval (0.1,10).  We use integrated Brownian motion for our prior model (i.e. $N=1$), and $D_1$ is a first-order accurate finite difference operator (e.g. Fornberg).
+
+The value of eq. (\ref{eq:1DSolution}) is that it offers a way to perform a low-pass filter when the conditions required for a discrete Fourier transform are not met.  In the preceding Fourier analysis, we needed to make assumptions which are generally not true for real world applications.  Namely, we assume  This raises the question of whether eq. \ref{eq:1DSolution} will still effectively act as a low-pass filter when the idealized conditions are not met.  In this example, we use  observations made with a uniform random distribution over the time interval (0,1).  The variance of the observations are also randomly chosen from a uniform distribution over the interval (0.1,10).  We use integrated Brownian motion for our prior model (i.e. $N=1$), and $D_1$ is a first-order accurate finite difference operator (e.g. Fornberg).
+
+  For example, if $u_\mathrm{obs}$ has an irregular sample rate or if the observation noise does not have a constant variance then we can no longer work in the frequency domain but we can still evaluate eq. (\ref{eq:1DSolution}).  We can also still use eq. (\ref{eq:VariableChange}) as an intuitive guide for choosing $\lambda$.  If the  observation noise does not have a constant variance then $\sigma$ in eq. (\ref{eq:VariableChange}) needs to be replaced with a characteristic variance, $\bar{\sigma^2}$, which we choose to be
+\begin{equation}\label{eq:CharacteristicVariance}
+\frac{1}{\bar{\sigma^2}} = \frac{1}{P} \mathrm{tr}\left(\mathbf{C}_\mathrm{obs}^{-1}\right),
+\end{equation}
+where $P$ is the number of observations.  We provide an example to demonstrate that eq. (\ref{eq:1DSolution}) effectively acts as a low-pass filter when the data is aperiodically sampled and the observation noise does not have a constant variance.    We compare each row in the correlation matrix for this example, determined from eq. \ref{eq:1DSolution}, to the autocorrelation predicted function       
+
+illustrate filtering irregularly sampled data time non-constant variance.    
+
+  We find that an appropiaret which we choose to be $\bar{\sigma} = 1/(1/\sigma)_{rms}$. 
+  
 
 It is worth pointing out that the solution for $u_\mathrm{smooth}$ in eq. \ref{eq:TimeSoln} is identical to the solution that would be obtained through Kalman filtering followed by smoothing. Kalman filtering and smoothing are recursive algorithms that operate along the time dimension.  It is thus difficult to envision how a Kalman filter can be extended to smoothing data in higher dimensions.  In contrast, extending eq. \ref{eq:TimeSoln} to higher dimensions comes simply and naturally as we describe in the next section.     
 
