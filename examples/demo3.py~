@@ -49,30 +49,40 @@ def spectral_diff_matrix(N,dt,diff):
 
 
 N = 2
-P = 100
-cutoff = 2.0
-signal_freq = 1.0
+P = 1000
+cutoff_low = 20.0
+cutoff_high= 1.0
+signal_freq = 0.01
 min_time = 0.0
 max_time = 5.0
 var = 1.0*np.ones(P)
-var[20:40] = 10.0
-var_bar = 1.0/np.mean(1.0/var)
-lamb_square = (2*np.pi*cutoff)**(2*N)*var_bar
+#var = np.random.uniform(0.5,10.0,P)
+var[20:40] = 2.0
+ivar_bar = 1.0/np.mean(1.0/var)
+var_bar = np.mean(var)
+lamb1_square = var_bar/(2*np.pi*cutoff_high)**(2*N)
+lamb2_square = ivar_bar*(2*np.pi*cutoff_low)**(2*N)
 
 time = np.linspace(min_time,max_time,P)
 
 
-signal = 1*np.sin(2*np.pi*time*signal_freq)
-data = signal + 1*np.random.normal(0.0,np.sqrt(var))
+signal = 1*np.sin(2*np.pi*time*10*signal_freq) 
+data = signal + 1*np.sin(2*np.pi*time*signal_freq) + 10 + time
+data += 1*np.random.normal(0.0,np.sqrt(var))
 
 # compute differentiation matrix
-D = spectral_diff_matrix(P,time[1]-time[0],N)
+#D = spectral_diff_matrix(P,time[1]-time[0],N)
+D = rbf.fd.poly_diff_matrix(time[:,None],(N,)).toarray()
 
 # perform inversion
 Cobs_inv = np.diag(1.0/var)
-Cprior_inv = 1.0/lamb_square*D.T.dot(D)
-Cpost = np.linalg.inv(Cobs_inv + Cprior_inv)
+#Cprior_inv = 1.0/lamb_square*D.T.dot(D)
+#Cpost = np.linalg.inv(D.dot(D.T).dot(Cobs_inv) + (1.0/lamb_square)*np.eye(P)).dot(D).dot(D.T)
+Cpost = np.linalg.inv(Cobs_inv + (1.0/lamb2_square)*D.T.dot(D))
 upost = Cpost.dot(Cobs_inv).dot(data)
+Cpost = np.linalg.inv(D.dot(D.T).dot(Cobs_inv) + (1.0/lamb1_square)*np.eye(P)).dot(D).dot(D.T)
+upost = Cpost.dot(Cobs_inv).dot(upost)
+
 stdpost = np.sqrt(np.diag(Cpost))
 
 # plot one of the data and filter realizations 
@@ -90,7 +100,7 @@ fig1.tight_layout()
 
 # plot freqency content
 def true_filter(freq):
-  return 1.0/(1.0 + (freq/cutoff)**(2*N))
+  return (freq/cutoff_high)**(2*N)/(1.0 + (freq/cutoff_high)**(2*N))
 
 fig2,ax2 = plt.subplots(figsize=(6,5))
 ax2.set_xlabel(r'frequency [1/yr]')
@@ -102,8 +112,8 @@ ax2.loglog(freq,pow,'k',lw=2,label=r'$u_\mathrm{obs}$',zorder=2)
 freq,pow = psd(upost,time)
 ax2.loglog(freq,pow,'b',lw=2,label=r'$u_\mathrm{post}$',zorder=3)
 ax2.loglog(freq,true_filter(freq)**2,'k--',lw=2)
-ax2.set_xlim((10**(-0.8),10**(1.1)))
-ax2.set_ylim((10**(-9.0),10**(3.5)))
+#ax2.set_xlim((10**(-0.8),10**(1.1)))
+#ax2.set_ylim((10**(-9.0),10**(3.5)))
 ax2.vlines(signal_freq,10**-9,10**3.5,color='r',label=r'$u_\mathrm{true}$',lw=2,zorder=1)
 ax2.legend(frameon=False)
 ax2.grid()
