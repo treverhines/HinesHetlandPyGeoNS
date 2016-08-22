@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.3.10)  21 AUG 2016 12:36
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.3.10)  21 AUG 2016 16:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -406,19 +406,20 @@ LaTeX Warning: Reference `eq:TimeSoln' on page 3 undefined on input line 127.
 
 LaTeX Warning: Reference `eq:TimeSoln' on page 3 undefined on input line 127.
 
+[3]
 
-LaTeX Warning: Reference `eq:TimeSoln' on page 3 undefined on input line 162.
-
-
-LaTeX Warning: Reference `eq:TimeSoln' on page 3 undefined on input line 162.
+LaTeX Warning: Reference `eq:TimeSoln' on page 4 undefined on input line 162.
 
 
-LaTeX Warning: Reference `eq:TimeSoln' on page 3 undefined on input line 162.
+LaTeX Warning: Reference `eq:TimeSoln' on page 4 undefined on input line 162.
 
 
-LaTeX Warning: Reference `eq:TimeSoln' on page 3 undefined on input line 162.
+LaTeX Warning: Reference `eq:TimeSoln' on page 4 undefined on input line 162.
 
-[3] [4] (./HinesHetlandPyGeoNS.aux)
+
+LaTeX Warning: Reference `eq:TimeSoln' on page 4 undefined on input line 162.
+
+[4] (./HinesHetlandPyGeoNS.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -442,7 +443,7 @@ public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
 y7.pfb>
-Output written on HinesHetlandPyGeoNS.pdf (4 pages, 129054 bytes).
+Output written on HinesHetlandPyGeoNS.pdf (4 pages, 129358 bytes).
 PDF statistics:
  61 PDF objects out of 1000 (max. 8388607)
  43 compressed objects within 1 object stream

@@ -4,22 +4,15 @@ import matplotlib.pyplot as plt
 import rbf.fd
 import sympy
 import scipy.linalg
+import scipy.signal
 np.random.seed(4)
 
-def psd(signals,times):
-  signals = np.asarray(signals)
-  times = np.asarray(times)
-  Nt = times.shape[0]
+def psd(signal,times):
   dt = times[1] - times[0]
-  freq = np.fft.fftfreq(Nt,dt)
-  # normalize the coefficients by 1/sqrt(Nt)
-  coeff = np.array([np.fft.fft(i) for i in signals])
-  # get the complex modulus
-  pow = coeff*coeff.conj()/Nt
-  # get the expected value
-  pow = np.mean(pow,axis=0)
-  return freq,pow
-                        
+  fs = 1.0/dt
+  freq,pow = scipy.signal.periodogram(signal,fs,detrend='constant',scaling='density',return_onesided=True)
+  return freq[1:],pow[1:]
+
 
 def spectral_diff_matrix(N,dt,diff):
   ''' 
@@ -57,55 +50,63 @@ def spectral_diff_matrix(N,dt,diff):
 
 N = 2
 P = 100
-cutoff = 1.0
-signal_freq = 0.5*cutoff
+cutoff = 2.0
+signal_freq = 1.0
 min_time = 0.0
-max_time = 10/cutoff
-var = 1.0
-
-time = np.linspace(min_time,max_time,P)
-var = var*np.ones(P)
+max_time = 5.0
+var = 1.0*np.ones(P)
 var[20:40] = 10.0
 var_bar = 1.0/np.mean(1.0/var)
-std = np.sqrt(var)
-signal = np.sin(2*np.pi*time*signal_freq)
-data = signal[None,:] + np.random.normal(0.0,std[None,:].repeat(10000,axis=0)) 
-
-D = spectral_diff_matrix(P,time[1]-time[0],N)
-#D = rbf.fd.poly_diff_matrix(time[:,None],(N,)).toarray()
-Cobs_inv = np.diag(1.0/var)
 lamb_square = (2*np.pi*cutoff)**(2*N)*var_bar
 
-Cpost = np.linalg.inv(Cobs_inv + (1.0/lamb_square)*D.T.dot(D))
-upost = Cpost.dot(Cobs_inv).dot(data.T).T
+time = np.linspace(min_time,max_time,P)
+
+
+signal = 1*np.sin(2*np.pi*time*signal_freq)
+data = signal + 1*np.random.normal(0.0,np.sqrt(var))
+
+# compute differentiation matrix
+D = spectral_diff_matrix(P,time[1]-time[0],N)
+
+# perform inversion
+Cobs_inv = np.diag(1.0/var)
+Cprior_inv = 1.0/lamb_square*D.T.dot(D)
+Cpost = np.linalg.inv(Cobs_inv + Cprior_inv)
+upost = Cpost.dot(Cobs_inv).dot(data)
 stdpost = np.sqrt(np.diag(Cpost))
 
 # plot one of the data and filter realizations 
-fig,ax = plt.subplots(figsize=(6,5))
-ax.set_xlabel(r'time [ $1/\omega_c$ ]')
-ax.plot(time*cutoff,signal,'r-')
-ax.plot(time*cutoff,upost[0],'b-',label=r'$u_\mathrm{post}$')
-ax.errorbar(time*cutoff,data[0],std,fmt='k.',label=r'$u_\mathrm{obs}$',capsize=0)
-ax.set_ylim((-13,13))
-ax.grid()
-ax.legend(frameon=False)
-ax.fill_between(time*cutoff,upost[0]+stdpost,upost[0]-stdpost,color='b',alpha=0.2,edgecolor='none')
-fig.tight_layout()
+fig1,ax1 = plt.subplots(figsize=(6,5))
+ax1.set_xlabel(r'time [yr]')
+ax1.set_ylabel(r'displacement [mm]')
+ax1.errorbar(time,data,np.sqrt(var),fmt='k.',label=r'$u_\mathrm{obs}$',capsize=0)
+ax1.plot(time,upost,'b-',lw=2,label=r'$u_\mathrm{post}$')
+ax1.plot(time,signal,'r-',lw=2,label=r'$u_\mathrm{true}$')
+ax1.set_ylim((-13,13))
+ax1.grid()
+ax1.legend(frameon=False)
+ax1.fill_between(time,upost+stdpost,upost-stdpost,color='b',alpha=0.3,edgecolor='none')
+fig1.tight_layout()
 
 # plot freqency content
 def true_filter(freq):
   return 1.0/(1.0 + (freq/cutoff)**(2*N))
 
-fig,ax = plt.subplots(figsize=(6,5))
-ax.set_xlabel(r'frequency [ $\omega_c$ ]')
+fig2,ax2 = plt.subplots(figsize=(6,5))
+ax2.set_xlabel(r'frequency [1/yr]')
+ax2.set_ylabel(r'power spectral density [mm**2 yr]')
+# plot frequency content of observation
+freq,pow = psd(data,time)
+ax2.loglog(freq,pow,'k',lw=2,label=r'$u_\mathrm{obs}$')
+# plot frequency content of posterior
 freq,pow = psd(upost,time)
-ax.loglog(freq/cutoff,pow,'b',label=r'$\mathbf{E}\left[|\hat{u}_\mathrm{post}|^2\right]$')
-ax.loglog(freq/cutoff,true_filter(freq)**2,'k',label=r'$\left|\frac{1}{1 + \left(\frac{\omega}{\omega_c}\right)^4}\right|^2$')
-ax.set_xlim(10**(-1.1),10**(0.75))
-ax.legend(frameon=False)
-ax.grid()
-fig.tight_layout()
+ax2.loglog(freq,pow,'b',lw=2,label=r'$u_\mathrm{post}$')
+ax2.loglog(freq,true_filter(freq)**2,'k--',lw=2)
+ax2.set_xlim((10**(-0.8),10**(1.1)))
+ax2.set_ylim((10**(-9.0),10**(3.5)))
+ax2.vlines(signal_freq,10**-9,10**3.5,color='r',label=r'$u_\mathrm{true}$',lw=2)
+ax2.legend(frameon=False)
+ax2.grid()
+fig2.tight_layout()
 plt.show()
-
-
-
+quit()
