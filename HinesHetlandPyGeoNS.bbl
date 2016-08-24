@@ -1,0 +1,19 @@
+\begin{thebibliography}{}
+
+\bibitem[Rasmussen and Williams, 2006]{Rasmussen2006}
+Rasmussen, C.~E. and Williams, C. K.~I. (2006).
+\newblock {\em {Gaussian processes for machine learning}}.
+\newblock The MIT Press.
+
+\bibitem[Segall and Mathews, 1997]{Segall1997}
+Segall, P. and Mathews, M. (1997).
+\newblock {Time dependent inversion of geodetic data}.
+\newblock {\em Journal of Geophysical Research}, 102(B10):22391--22409.
+
+\bibitem[Tarantola, 2005]{Tarantola2005}
+Tarantola, A. (2005).
+\newblock {\em {Inverse problem theory and methods for model parameter
+  estimation}}.
+\newblock SIAM.
+
+\end{thebibliography}

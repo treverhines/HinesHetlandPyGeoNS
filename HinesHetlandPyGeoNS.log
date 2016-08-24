@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.3.10)  21 AUG 2016 16:10
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.3.9)  23 AUG 2016 00:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -308,6 +308,13 @@ LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
 )
+(/usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip46
+\bibsep=\skip47
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count99
+)
 (/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2010/09/12 v5.6 Page Geometry
 
@@ -326,9 +333,9 @@ Package ifvtex Info: VTeX not detected.
 (/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
-\Gm@cnth=\count99
-\Gm@cntv=\count100
-\c@Gm@tempcnt=\count101
+\Gm@cnth=\count100
+\Gm@cntv=\count101
+\c@Gm@tempcnt=\count102
 \Gm@bindingoffset=\dimen112
 \Gm@wd@mp=\dimen113
 \Gm@odd@mp=\dimen114
@@ -342,18 +349,18 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 (./HinesHetlandPyGeoNS.aux)
 \openout1 = `HinesHetlandPyGeoNS.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -389,35 +396,43 @@ LaTeX Font Info:    ... okay on input line 7.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 9.
+LaTeX Font Info:    Try loading font information for U+msa on input line 10.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 9.
+LaTeX Font Info:    Try loading font information for U+msb on input line 10.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1
+)
+
+Package natbib Warning: Citation `(' on page 1 undefined on input line 40.
+
+[1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
 
-LaTeX Warning: Reference `eq:TimeSoln' on page 3 undefined on input line 127.
+LaTeX Warning: Reference `eq:TimeSoln' on page 3 undefined on input line 130.
 
 
-LaTeX Warning: Reference `eq:TimeSoln' on page 3 undefined on input line 127.
+LaTeX Warning: Reference `eq:TimeSoln' on page 3 undefined on input line 130.
 
 [3]
 
-LaTeX Warning: Reference `eq:TimeSoln' on page 4 undefined on input line 162.
+LaTeX Warning: Reference `eq:TimeSoln' on page 4 undefined on input line 165.
 
 
-LaTeX Warning: Reference `eq:TimeSoln' on page 4 undefined on input line 162.
+LaTeX Warning: Reference `eq:TimeSoln' on page 4 undefined on input line 165.
 
 
-LaTeX Warning: Reference `eq:TimeSoln' on page 4 undefined on input line 162.
+LaTeX Warning: Reference `eq:TimeSoln' on page 4 undefined on input line 165.
 
 
-LaTeX Warning: Reference `eq:TimeSoln' on page 4 undefined on input line 162.
+LaTeX Warning: Reference `eq:TimeSoln' on page 4 undefined on input line 165.
+
+(./HinesHetlandPyGeoNS.bbl)
+
+Package natbib Warning: There were undefined citations.
 
 [4] (./HinesHetlandPyGeoNS.aux)
 
@@ -425,11 +440,11 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 1846 strings out of 494985
- 22185 string characters out of 6180356
- 85036 words of memory out of 5000000
- 5073 multiletter control sequences out of 15000+600000
- 6871 words of font info for 27 fonts, out of 8000000 for 9000
+ 2196 strings out of 494985
+ 26412 string characters out of 6180357
+ 90781 words of memory out of 5000000
+ 5415 multiletter control sequences out of 15000+600000
+ 7217 words of font info for 28 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  27i,16n,24p,1240b,163s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
@@ -442,11 +457,12 @@ t/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts
 public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
-y7.pfb>
-Output written on HinesHetlandPyGeoNS.pdf (4 pages, 129358 bytes).
+y7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb
+>
+Output written on HinesHetlandPyGeoNS.pdf (4 pages, 144305 bytes).
 PDF statistics:
- 61 PDF objects out of 1000 (max. 8388607)
- 43 compressed objects within 1 object stream
+ 65 PDF objects out of 1000 (max. 8388607)
+ 46 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

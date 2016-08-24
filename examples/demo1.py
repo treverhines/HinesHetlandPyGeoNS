@@ -47,6 +47,21 @@ def spectral_diff_matrix(N,dt,diff):
   D = scipy.linalg.circulant(val)/scale**diff
   return D
 
+# XXXXXXXXXXXX
+R = 100
+w = np.random.normal(0.0,2.0,R)
+t = np.linspace(0.0,100.0,R)
+dt = t[1] - t[0]
+b = np.cumsum(w)*dt
+D1 = spectral_diff_matrix(R,dt,1)
+print(np.linalg.inv(D1))
+print(D1)
+D2 = rbf.fd.diff_matrix_1d(t[:,None],(1,)).toarray()
+bdiff = D2.dot(b)
+print(np.std(bdiff))
+plt.plot(t,bdiff)
+plt.show()
+# XXXXXXXXXXXX
 
 N = 2
 P = 100

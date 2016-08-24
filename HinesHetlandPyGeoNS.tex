@@ -3,10 +3,11 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+\usepackage{natbib}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \begin{document}
 
-We discuss a method to filter observed data, $u_\mathrm{obs}$, in a Bayesian framework, where $u_\mathrm{obs}$ can be spatial and/or temporal data and there is also no requirement that the observations be made over a regular grid. Our filtered estimate, $u_\mathrm{post}$, incorporates $u_\mathrm{obs}$ and prior knowledge of the statistical properties of the underlying signal.  In this sense, this work is closely tied to Kriging, Kalman filtering, and, more generally, Gaussian process regression (e.g. Rasmussen et al 2006).  We constrain $u_\mathrm{post}$ with the observation equation
+We discuss a method to filter observed data, $u_\mathrm{obs}$, in a Bayesian framework, where $u_\mathrm{obs}$ can be spatial and/or temporal data and there is also no requirement that the observations be made over a regular grid. Our filtered estimate, $u_\mathrm{post}$, incorporates $u_\mathrm{obs}$ and prior knowledge of the statistical properties of the underlying signal.  In this sense, this work is closely related to Kriging, Kalman filtering, and, more generally, Gaussian process regression \citep[e.g][]{Rasmussen2006} .  We constrain $u_\mathrm{post}$ with the observation equation
 
 \begin{equation}\label{eq:Data}
   u_\mathrm{post} = u_\mathrm{obs} + \epsilon,\ \ \ \epsilon \sim \mathcal{N}(0,\mathbf{C}_\mathrm{obs}),
@@ -19,7 +20,7 @@ where $\epsilon$ and $u_\mathrm{prior}$ are considered to be Gaussian processes 
 \begin{equation}
   u_\mathrm{post} \sim \mathcal{N}(\bar{u}_\mathrm{post},\mathbf{C}_\mathrm{post}).
 \end{equation}
-We use $\bar{u}_\mathrm{post}$ and $\mathbf{C}_\mathrm{post}$ to denote the mean and covariance of $u_\mathrm{post}$ respectively.  Using Bayesian linear regression (e.g. Tarantola 2005) these values are found to be  
+We use $\bar{u}_\mathrm{post}$ and $\mathbf{C}_\mathrm{post}$ to denote the mean and covariance of $u_\mathrm{post}$ respectively.  Using Bayesian linear regression \citep[e.g.][]{Tarantola2005} these values are found to be  
 \begin{equation}\label{eq:GeneralSolution}
 \begin{split}
   \bar{u}_\mathrm{post} &= (\mathbf{C}_\mathrm{obs}^{-1} + 
@@ -34,14 +35,17 @@ We use $\bar{u}_\mathrm{post}$ and $\mathbf{C}_\mathrm{post}$ to denote the mean
 $\mathbf{C}_\mathrm{obs}$ is presumably well known, while $\mathbf{C}_\mathrm{prior}$ needs to be chosen based on an understanding of the underlying signal which we are trying to estimate.  Below we discuss how a judicious choice of $\mathbf{C}_\mathrm{prior}$ can turn eq. (\ref{eq:GeneralSolution}) into a low-pass or high-pass filter.  This is first demonstrated for filtering one-dimensional data.  The extension to N-dimensions follows naturally.  
 
 \section*{One-dimensional smoothing}
-When the signal is only assumed to covary in time, $u_\mathrm{prior}$ is commonly treated as Brownian motion (eg. Me Segall, McQuire, Murray, etc.).  We can treat $u_\mathrm{prior}$ as Brownian motion by assuming that its velocity is white noise with constant variance $\lambda^2$. That is to say
-
-\begin{equation}
-  \mathbf{D}_1 u_\mathrm{prior} = q, \ \ \ q \sim \mathcal{N}(0,\lambda^2),
-\end{equation}     
-where $\mathbf{D}_N$ is a differentiation matrix which estimates an $N$'th order derivative. It is also common to treat $u_\mathrm{prior}$ as integrated Brownian motion. In that case, we would just replace $\mathbf{D}_1$ with $\mathbf{D}_2$. In either case, the appropriate choice of the $\mathbf{C}_\mathrm{prior}$ is   
+When the underlying signal is only assumed to covary in time, one way to recover that signal is to model it as Brownian motion or integrated Brownian motion \citep[e.g.][]{Segall1997}.  This is commonly done in tracking This is commonly approached through the Kalman filter formali
+      
+ a   a time series in time a common approach 
+$u_\mathrm{prior}$ is commonly treated as Brownian motion \citep(eg. Me Segall, McQuire, Murray, etc.).  We can treat $u_\mathrm{prior}$ as Brownian motion by assuming that its velocity is white noise with constant variance $\lambda^2$.  That is to say
 
 \begin{equation}\label{eq:BrownianPrior}
+  \mathbf{D}_1 u_\mathrm{prior} = q, \ \ \ q \sim \mathcal{N}(0,\lambda^2),
+\end{equation}     
+where $\mathbf{D}_N$ is a differentiation matrix which estimates an $N$'th order derivative.  It is also common to treat $u_\mathrm{prior}$ as integrated Brownian motion. In that case, we would just replace $\mathbf{D}_1$ with $\mathbf{D}_2$. In either case, the appropriate choice of the $\mathbf{C}_\mathrm{prior}$ is   
+
+\begin{equation}\label{eq:BrownianCov}
 \mathbf{C_\mathrm{prior}} = \lambda^2(\mathbf{D}_N^T\mathbf{D}_N)^{-1}.
 \end{equation}
 The filtered solution is then described by
@@ -57,7 +61,7 @@ The filtered solution is then described by
 \end{split}
 \end{equation}
 
-To gain an intuitive understanding of how eq. (\ref{eq:BrownianPrior}) controls the filtered solution, we transform $\bar{u}_\mathrm{post}$ in eq. (\ref{eq:1DSolution}) to the frequency domain.  In order to transform to the frequency domain, $u_\mathrm{obs}$ must have a constant sampling rate. We also require that $\epsilon$ and $u_\mathrm{prior}$ be stationary stochastic processes (i.e. their statistical properties are invariant to time shifts).  We require them to be stationary so that matrix multiplication by $\mathbf{C}_\mathrm{obs}$ and $\mathbf{C}_\mathrm{prior}$ can be viewed as convolution in the time domain and thus multiplication in the frequency domain.  We then consider the simplifying case where $\epsilon$ is white noise with constant variance $\sigma^2$ (i.e. $\mathbf{C}_\mathrm{obs} = \sigma^2\mathbf{I}$), and $\mathbf{D}_N$ is the circulant spectral differentiation matrix (e.g. Trefethen).  Under a discrete Fourier transform, $\mathbf{D}_N$ has the properties
+To gain an intuitive understanding of how eq. (\ref{eq:BrownianPrior}) controls the filtered solution, we transform $\bar{u}_\mathrm{post}$ in eq. (\ref{eq:1DSolution}) to the frequency domain.  In order to transform to the frequency domain, $u_\mathrm{obs}$ must have a constant sampling rate. We also require that $\epsilon$ and $u_\mathrm{prior}$ be stationary stochastic processes (i.e. their statistical properties are invariant to time shifts).  We require them to be stationary so that matrix multiplication by $\mathbf{C}_\mathrm{obs}$ and $\mathbf{C}_\mathrm{prior}$ can be viewed as convolution in the time domain and thus multiplication in the frequency domain.  We then consider the simplifying case where $\epsilon$ is white noise with constant variance $\sigma^2$ (i.e. $\mathbf{C}_\mathrm{obs} = \sigma^2\mathbf{I}$), and $\mathbf{D}_N$ is the periodic spectral differentiation matrix (e.g. Trefethen).  Under a discrete Fourier transform, $\mathbf{D}_N$ has the properties
 
 \begin{equation}\label{eq:Property1}
   \mathcal{F}[\mathbf{D}_Nf] = (2\pi i\omega)^N \hat{f}
@@ -159,7 +163,10 @@ which in the two-dimensional frequency domain is
 \end{equation}
 The transfer function in eq. (\ref{eq:FourierSoln2d}) can once again be recognized as a low-pass filter.  Namely, in the limit as $M \to \infty$ all the frequency pairs, $(\omega_1,\omega_2)$, where $|\omega_1| > \omega_c$ or $|\omega_2| > \omega_c$ are removed.  That is, the transfer function becomes a two-dimensional box centered at $(0,0)$ with width $2\omega_c$.  It is apparent from the transfer function why our prior model must be defined in terms of even order derivatives.  If eq. (\ref{Laplacian}) contained odd order derivatives, then all frequency pairs where $\omega_1=-\omega_2$ would be unattenuated, leaving undesirable artifacts in the smoothed solution.
 
-We have demonstrated with eq. (\ref{eq:TimeSoln} and \ref{eq:TimeSoln2d}) that eq. \ref{eq:GeneralSolution} can effectively act as a low pass filter with a judicious choice of $\mathbf{C}_\mathrm{prior}$.  One may then wonder why eq. (\ref{eq:TimeSoln} and \ref{eq:TimeSoln2d}) would ever be used to smooth data when it is far more efficient to perform the equivalent operation through the Fast Fourier Transform domain.  The power in eq. (\ref{eq:TimeSoln} and \ref{eq:TimeSoln2d}) resides in the fact that they makes no assumption about when or where the observations have been made.  In order to filter data through the Fast Fourier Transform, the observations must be evenly spaced on a regular grid, which is often not the case for geophysical data.  Indeed,  the focus of this paper is to smooth data which has been observed at scattered locations.  We can use eq. (\ref{eq:TimeSoln} and \ref{eq:TimeSoln2d}) regardless of where the observations were made provided that we are able to create the differentiation matrix.  We use the recently developed Radial Basis Function Finite-Difference method to form the differentiation matrices and we describe the procedure in the follow section.  
+We have demonstrated with eq. (\ref{eq:TimeSoln} and \ref{eq:TimeSoln2d}) that eq. \ref{eq:GeneralSolution} can effectively act as a low pass filter with a judicious choice of $\mathbf{C}_\mathrm{prior}$.  One may then wonder why eq. (\ref{eq:TimeSoln} and \ref{eq:TimeSoln2d}) would ever be used to smooth data when it is far more efficient to perform the equivalent operation through the Fast Fourier Transform domain.  The power in eq. (\ref{eq:TimeSoln} and \ref{eq:TimeSoln2d}) resides in the fact that they makes no assumption about when or where the observations have been made.  In order to filter data through the Fast Fourier Transform, the observations must be evenly spaced on a regular grid, which is often not the case for geophysical data.  Indeed,  the focus of this paper is to smooth data which has been observed at scattered locations.  We can use eq. (\ref{eq:TimeSoln} and \ref{eq:TimeSoln2d}) regardless of where the observations were made provided that we are able to create the differentiation matrix.  We use the recently developed Radial Basis Function Finite-Difference method to form the differentiation matrices and we describe the procedure in the follow section. 
+
+\bibliographystyle{apalike}
+\bibliography{mybib}  
 
  
 \end{document}
