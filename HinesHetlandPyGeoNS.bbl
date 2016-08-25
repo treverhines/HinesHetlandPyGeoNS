@@ -1,5 +1,16 @@
 \begin{thebibliography}{}
 
+\bibitem[{De Boor}, 1978]{DeBoor1978}
+{De Boor}, C. (1978).
+\newblock {\em {A practical guide to splines}}, volume~27.
+\newblock Springer-Verlag, New York.
+
+\bibitem[Kimeldorf and Wahba, 1970]{Kimeldorf1970}
+Kimeldorf, G.~S. and Wahba, G. (1970).
+\newblock {A Correspondence Between Bayesian Estimation on Stochastic Processes
+  and Smoothing by Splines}.
+\newblock {\em The Annals of Mathematical Statistics}, 41(2):495--502.
+
 \bibitem[Rasmussen and Williams, 2006]{Rasmussen2006}
 Rasmussen, C.~E. and Williams, C. K.~I. (2006).
 \newblock {\em {Gaussian processes for machine learning}}.
@@ -14,6 +25,11 @@ Segall, P. and Mathews, M. (1997).
 Tarantola, A. (2005).
 \newblock {\em {Inverse problem theory and methods for model parameter
   estimation}}.
+\newblock SIAM.
+
+\bibitem[Trefethen, 2000]{Trefethen2000}
+Trefethen, L.~N. (2000).
+\newblock {\em {Spectral Methods in Matlab}}.
 \newblock SIAM.
 
 \end{thebibliography}
