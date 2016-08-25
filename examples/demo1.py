@@ -5,7 +5,7 @@ import rbf.fd
 import sympy
 import scipy.linalg
 import scipy.signal
-np.random.seed(4)
+np.random.seed(3)
 
 def psd(signal,times):
   dt = times[1] - times[0]
@@ -47,21 +47,6 @@ def spectral_diff_matrix(N,dt,diff):
   D = scipy.linalg.circulant(val)/scale**diff
   return D
 
-# XXXXXXXXXXXX
-R = 100
-w = np.random.normal(0.0,2.0,R)
-t = np.linspace(0.0,100.0,R)
-dt = t[1] - t[0]
-b = np.cumsum(w)*dt
-D1 = spectral_diff_matrix(R,dt,1)
-print(np.linalg.inv(D1))
-print(D1)
-D2 = rbf.fd.diff_matrix_1d(t[:,None],(1,)).toarray()
-bdiff = D2.dot(b)
-print(np.std(bdiff))
-plt.plot(t,bdiff)
-plt.show()
-# XXXXXXXXXXXX
 
 N = 2
 P = 100
@@ -70,7 +55,8 @@ signal_freq = 1.0
 min_time = 0.0
 max_time = 5.0
 var = 1.0*np.ones(P)
-var[20:40] = 10.0
+var = np.random.uniform(0.5,2.0,P)
+var[20:40] = 250000.0
 var_bar = 1.0/np.mean(1.0/var)
 lamb_square = (2*np.pi*cutoff)**(2*N)*var_bar
 
@@ -91,37 +77,38 @@ upost = Cpost.dot(Cobs_inv).dot(data)
 stdpost = np.sqrt(np.diag(Cpost))
 
 # plot one of the data and filter realizations 
-fig1,ax1 = plt.subplots(figsize=(6,5))
+fig,ax = plt.subplots(1,2,figsize=(9,4))
+ax1 = ax[0]
+ax2 = ax[1]
+#fig1,ax1 = plt.subplots(figsize=(6,5))
 ax1.set_xlabel(r'time [yr]')
 ax1.set_ylabel(r'displacement [mm]')
 ax1.errorbar(time,data,np.sqrt(var),fmt='k.',label=r'$u_\mathrm{obs}$',capsize=0,zorder=2)
-ax1.plot(time,upost,'b-',lw=2,label=r'$u_\mathrm{post}$',zorder=3)
-ax1.plot(time,signal,'r-',lw=2,label=r'$u_\mathrm{true}$',zorder=1)
+ax1.plot(time,upost,'b-',lw=1,label=r'$u_\mathrm{post}$',zorder=3)
+ax1.plot(time,signal,'r-',lw=1,label=r'$u_\mathrm{true}$',zorder=1)
 ax1.set_ylim((-13,13))
 ax1.grid()
 ax1.legend(frameon=False)
 ax1.fill_between(time,upost+stdpost,upost-stdpost,color='b',alpha=0.3,edgecolor='none')
-fig1.tight_layout()
 
 # plot freqency content
 def true_filter(freq):
   return 1.0/(1.0 + (freq/cutoff)**(2*N))
 
-fig2,ax2 = plt.subplots(figsize=(6,5))
 ax2.set_xlabel(r'frequency [1/yr]')
 ax2.set_ylabel(r'power spectral density [mm**2 yr]')
 # plot frequency content of observation
 freq,pow = psd(data,time)
-ax2.loglog(freq,pow,'k',lw=2,label=r'$u_\mathrm{obs}$',zorder=2)
+ax2.loglog(freq,pow,'k',lw=1,label=r'$u_\mathrm{obs}$',zorder=2)
 # plot frequency content of posterior
 freq,pow = psd(upost,time)
-ax2.loglog(freq,pow,'b',lw=2,label=r'$u_\mathrm{post}$',zorder=3)
-ax2.loglog(freq,true_filter(freq)**2,'k--',lw=2)
+ax2.loglog(freq,pow,'b',lw=1,label=r'$u_\mathrm{post}$',zorder=3)
+ax2.loglog(freq,true_filter(freq)**2,'k--',lw=1)
 ax2.set_xlim((10**(-0.8),10**(1.1)))
-ax2.set_ylim((10**(-9.0),10**(3.5)))
-ax2.vlines(signal_freq,10**-9,10**3.5,color='r',label=r'$u_\mathrm{true}$',lw=2,zorder=1)
+ax2.set_ylim((10**(-9.0),10**(4.5)))
+ax2.vlines(signal_freq,10**-9,10**4.5,color='r',label=r'$u_\mathrm{true}$',lw=1,zorder=1)
 ax2.legend(frameon=False)
 ax2.grid()
-fig2.tight_layout()
+fig.tight_layout()
 plt.show()
 quit()
