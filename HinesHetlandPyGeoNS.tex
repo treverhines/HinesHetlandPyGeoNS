@@ -8,7 +8,7 @@
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \begin{document}
 
-We discuss a method to smooth observed data, $u_\mathrm{obs}$, which can be spatial, temporal, or higher dimensional data, and the observations are generally irregularly spaced.  Methods which handle this task generally fall in at least one of two catagories.  One approach is to fit a set of basis functions to the observations using least-squares or regularized least-squares \citep[e.g.][]{Fasshauer2007}.  Of course the solution will be largely dependent on the subjective choice of basis functions.  Common choices of basis functions include polynomials and radial basis functions (RBF's).  The second catagory of smoothing methods is Gaussian process regression where a stochastic prior model is assumed for the underlying signal \citep[e.g.][]{Rasmussen2006}.  Kriging is among the better known examples of Gaussian process regression.  This distinction is not always clear.   These two     This distinction is not always   This distinction is   Our method is an example of Gaussian process regression where our smoothed solution, $u_\mathrm{post}$, incorporates $u_\mathrm{obs}$ and a stochastic prior model for the underlying signal which we are trying to recover.  We constrain $u_\mathrm{post}$ with the observation equation
+We discuss a method to smooth observed data, $u_\mathrm{obs}$, which can be spatial, temporal, or higher dimensional data, and the observations are generally irregularly spaced.  Methods which handle this task often fall in at least one of two catagories.  One approach is to fit a set of basis functions to the observations using least-squares or regularized least-squares \citep[e.g.][]{Fasshauer2007}.  Smoothing splines can be viewed in this context where the basis functions being fit to the observation are polyharmonic splines.  The second catagory is Gaussian process regression, which is a Bayesian technique where a stochastic prior model is assumed for the underlying signal \citep[e.g.][]{Rasmussen2006}.  Kriging is among the better known examples of Gaussian process regression.  The two approaches are not always distinct.  For example, \citet{Kimeldorf1970} showed that smoothing splines can be cast as a Bayesian estimation problem with the appropriate stochastic prior model.  Our method is an example of Gaussian process regression where our smoothed solution, $u_\mathrm{post}$, incorporates $u_\mathrm{obs}$ and a stochastic prior model for the underlying signal which we are trying to recover.  We constrain $u_\mathrm{post}$ with the observation equation
 
 \begin{equation}\label{eq:Data}
   u_\mathrm{post} = u_\mathrm{obs} + \epsilon,\ \ \ \epsilon \sim \mathcal{N}(0,\mathbf{C}_\mathrm{obs}),
@@ -50,7 +50,7 @@ For one-dimensional data we consider a prior which can be stated implicitly as
 \begin{equation}\label{eq:ImplicitPrior1D}
   \mathbf{D}_{n} u_\mathrm{prior} = q, \ \ \ q \sim \mathcal{N}(0,\lambda^2),
 \end{equation}  
-where $\mathbf{D}_n$ is an $n$'th order differentiation matrix, and $q$ is white noise with constant variance $\lambda^2$.  If we momentarily ignore the fact that $D_n$ is not invertible then we can explicitly write our prior covariance as
+where $\mathbf{D}_n$ is an $n$'th order differentiation matrix, and $q$ is white noise with constant variance $\lambda^2$.  If we momentarily ignore the fact that $\mathbf{D}_n$ is not invertible then we can explicitly write our prior covariance as
 
 \begin{equation}\label{eq:ExplicitPrior1D}
 \mathbf{C_\mathrm{prior}} = \lambda^2(\mathbf{D}_n^T\mathbf{D}_n)^{-1},
@@ -84,12 +84,12 @@ Whether we use a smoothing spline or eq. (\ref{eq:1DSolution}) to filter $u_\mat
 We wish to transform $\bar{u}_\mathrm{post}$ in eq. (\ref{eq:1DSolution}) to the frequency domain and in order to do so we assume that $u_\mathrm{obs}$ has a constant sampling rate. We also require that $\epsilon$ and $u_\mathrm{prior}$ are stationary stochastic processes (i.e. their statistical properties are invariant to time shifts).  We require them to be stationary so that matrix multiplication by $\mathbf{C}_\mathrm{obs}$ and $\mathbf{C}_\mathrm{prior}$ can be viewed as convolution in the time domain and thus multiplication in the frequency domain.  We then consider the simplifying case where $\epsilon$ is white noise with constant variance $\sigma^2$ (i.e. $\mathbf{C}_\mathrm{obs} = \sigma^2\mathbf{I}$), and $\mathbf{D}_n$ is the periodic spectral differentiation matrix \citep[e.g.][]{Trefethen2000}.  Under a discrete Fourier transform, $\mathbf{D}_n$ has the properties
 
 \begin{equation}\label{eq:Property1}
-  \mathcal{F}[\mathbf{D}_nf] = (2\pi i\omega)^n \hat{g}
+  \mathcal{F}[\mathbf{D}_ng] = (2\pi i\omega)^n \hat{g}
 \end{equation}
 and
 
 \begin{equation}\label{eq:Property2}
-  \mathcal{F}[\mathbf{D}^T_nf] = (-2\pi i\omega)^n \hat{g},
+  \mathcal{F}[\mathbf{D}^T_ng] = (-2\pi i\omega)^n \hat{g},
 \end{equation}
 where $\omega$ is the frequency domain variable, $g$ is an arbitrary vector and $\hat{g}$ is its discrete Fourier transform.  The discrete Fourier transform of $\bar{u}_\mathrm{post}$ is then
 
@@ -120,7 +120,7 @@ We address this question here with two numerical demonstrations.  In this first 
 \frac{1}{\bar{\sigma^2}} = \frac{1}{P} \mathrm{tr}\left(\mathbf{C}_\mathrm{obs}^{-1}\right),
 \end{equation}
 where $P$ is the number of observations, and we relate $\lambda$ to $\omega_c$ by
-\begin{equation}
+\begin{equation}\label{eq:VariableChange2}
 \lambda^2 = (2\pi\omega_c)^{2n}\bar{\sigma}^2.  
 \end{equation}
 In this demonstration $D_n$ is still the spectral differentiation matrix and we use $n=2$. Our cutoff frequency is chosen to be $\omega_c=2$ yr$^{-1}$.  The filtered solution and its frequency content are plotted Figure \ref{fig:Demo1}. Based on panel B, eq. (\ref{eq:1DSolution}) is indeed acting as a low-pass filter with the specified cut-off frequency even though the variances are not constant.  However, the frequency content of subsections of $\bar{u}_\mathrm{post}$ appears to change depending on the variance of $u_\mathrm{obs}$. For example, Over the interval $1<t<2$, where the variance of $u_\mathrm{obs}$ is higher, $u_\mathrm{post}$ lacks the higher frequency oscillations that can be seen in the remainder of the time series. This is desirable behavior because we do not want $u_\mathrm{post}$ contorting to fit dubious data.  It is also worth pointing out that $u_\mathrm{post}$ asymptotically approaches a solution that is not significantly different from that shown in Figure \ref{fig:Demo1} when the variance for $u_\mathrm{obs}$ increases to infinity over the interval $1<t<2$.  This too is desirable behaviour because one could then surmise that an appropriate way to handle missing data with eq. (\ref{eq:1DSolution}) is to assign $u_\mathrm{obs}$ an infinite variance for the missing time period.  With this insight, we can then extend the application of eq. (\ref{eq:1DSolution}) from data smoothing to data interpolation and extrapolation.   
@@ -141,43 +141,42 @@ We present a similar demonstration to show that eq. (\ref{eq:1DSolution}) effect
 \end{figure}
 
 \section*{Smoothing in higher dimensions} 
-We expand our discussion to smoothing data which is observed in two-dimensional space.  The filtered solution is still given by eq. (\ref{eq:GeneralSolution}), and we consider the prior model
+We expand our discussion to smoothing data which is observed in $d$-dimensional space.  The filtered solution is still given by eq. (\ref{eq:GeneralSolution}), and we consider the prior model
+
 \begin{equation}
-  \mathbf{L}_m u_\mathrm{prior}(x_1,x_2) = q, \ \ \ q \sim \mathcal{N}(0,\lambda^2)
+  \mathbf{L}_n u_\mathrm{prior} = q, \ \ \ q \sim \mathcal{N}(0,\lambda^2)
 \end{equation}  
-where $\mathbf{L}_m$ is a differentiation matrix which approximates the operation 
-\begin{equation}\label{Laplacian}
-  \frac{\partial^{2m}}{\partial x_1^{2m}} +
-  \frac{\partial^{2m}}{\partial x_2^{2m}}.
-\end{equation} 
-The corresponding covariance matrix is then
-\begin{equation}\label{Covariance2D}
-\mathbf{C}_\mathrm{prior} = \lambda^2\left(\mathbf{L}_m^T\mathbf{L}_m\right)^{-1}. 
-\end{equation}           
-We again assume that the observation noise is uncorrelated with constant variance $\sigma^2$.  Using the change of variables
+where $\mathbf{L}_n$ is a differentiation matrix which approximates the operation 
+
 \begin{equation}
-\lambda = (2\pi\omega_c)^{2M}\sigma
-\end{equation}
-we obtain the solution
-\begin{equation}\label{eq:TimeSoln2d}
-u_\mathrm{smooth}(x_1,x_2) = \left(\mathbf{I} + 
-                          \left(\frac{1}{2\pi\omega_c}\right)^{4M}
-                          \mathbf{\Delta}_M^T\mathbf{\Delta}_M\right)^{-1}
-                          u_\mathrm{obs}(x_1,x_2),
-\end{equation}
-which in the two-dimensional frequency domain is
-\begin{equation}\label{eq:FourierSoln2d}
-\hat{u}_\mathrm{smooth}(\omega_1,\omega_2) = \frac{1}{1 + \left(\frac{\omega_1^{2M} + \omega_2^{2M}}
-                                                  {\omega_c^{2M}}\right)^2}
-                                             \hat{u}_\mathrm{obs}(\omega_1,\omega_2).
-\end{equation}
-The transfer function in eq. (\ref{eq:FourierSoln2d}) can once again be recognized as a low-pass filter.  Namely, in the limit as $M \to \infty$ all the frequency pairs, $(\omega_1,\omega_2)$, where $|\omega_1| > \omega_c$ or $|\omega_2| > \omega_c$ are removed.  That is, the transfer function becomes a two-dimensional box centered at $(0,0)$ with width $2\omega_c$.  It is apparent from the transfer function why our prior model must be defined in terms of even order derivatives.  If eq. (\ref{Laplacian}) contained odd order derivatives, then all frequency pairs where $\omega_1=-\omega_2$ would be unattenuated, leaving undesirable artifacts in the smoothed solution.
+  \sum_{i=1}^d\frac{\partial^n}{\partial x_i^n} 
+\end{equation} 
+and $n$ is an even integer. The corresponding covariance matrix is then
 
-We have demonstrated with eq. (\ref{eq:TimeSoln} and \ref{eq:TimeSoln2d}) that eq. \ref{eq:GeneralSolution} can effectively act as a low pass filter with a judicious choice of $\mathbf{C}_\mathrm{prior}$.  One may then wonder why eq. (\ref{eq:TimeSoln} and \ref{eq:TimeSoln2d}) would ever be used to smooth data when it is far more efficient to perform the equivalent operation through the Fast Fourier Transform domain.  The power in eq. (\ref{eq:TimeSoln} and \ref{eq:TimeSoln2d}) resides in the fact that they makes no assumption about when or where the observations have been made.  In order to filter data through the Fast Fourier Transform, the observations must be evenly spaced on a regular grid, which is often not the case for geophysical data.  Indeed,  the focus of this paper is to smooth data which has been observed at scattered locations.  We can use eq. (\ref{eq:TimeSoln} and \ref{eq:TimeSoln2d}) regardless of where the observations were made provided that we are able to create the differentiation matrix.  We use the recently developed Radial Basis Function Finite-Difference method to form the differentiation matrices and we describe the procedure in the follow section. 
+\begin{equation}\label{eq:NDCovariance}
+\mathbf{C}_\mathrm{prior} = \lambda^2\left(\mathbf{L}_n^T\mathbf{L}_n\right)^{-1}. 
+\end{equation}           
+Using the change of variables from eq. (\ref{eq:VariableChange2}), the solution in the time domain is
 
+\begin{equation}\label{eq:NDSolution}
+\begin{split}
+\bar{u}_\mathrm{post} &= (\mathbf{C}_\mathrm{obs}^{-1} +   
+                   \frac{1}{(2\pi\omega_c)^{2n}\bar{\sigma}^2}\mathbf{L}_n^T\mathbf{L}_n)^{-1}\mathbf{C}_\mathrm{obs}^{-1}
+                   u_\mathrm{obs}
+\\
+\mathbf{C}_\mathrm{post} &= (\mathbf{C}_\mathrm{obs}^{-1} +   
+                            \frac{1}{(2\pi\omega_c)^{2n}\bar{\sigma}^2}\mathbf{L}_n^T\mathbf{L}_n)^{-1}.
+\end{split}
+\end{equation}
+If we again assume that the observation have constant variance and $L_n$ is the corresponding spectral differentiation matrix, then the d-dimensional discrete Fourier transform of $\bar{u}_\mathrm{post}$ is 
+
+\begin{equation}\label{eq:NDFourierSoln}
+  \hat{u}_\mathrm{post}(\omega_1, \dots, \omega_d) = 
+  \frac{1}{1 + \left(\sum_{i=1}^d \left(\frac{\omega_i}{\omega_c}\right)^n\right)^2} \hat{u}_\mathrm{obs}.
+\end{equation}
+The transfer function in eq. (\ref{eq:NDFourierSoln}) can once again be recognized as a low-pass filter.  Namely, in the limit as $n \to \infty$, the transfer function becomes a $d$-dimensional box which is zero for all the frequency tuples, $(\omega_1,\dots,\omega_n)$, which have a component greater than $\omega_c$. 
 
 \bibliographystyle{apalike}
 \bibliography{mybib}  
-
  
 \end{document}

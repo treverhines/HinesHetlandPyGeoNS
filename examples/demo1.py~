@@ -42,7 +42,50 @@ def spectral_diff_matrix(N,dt,diff):
   D = scipy.linalg.circulant(val)/scale**diff
   return D
 
+# XXXXXXXXXXXXXXXXXXXXXXXXXXX
+N = 50
+diff = 1
+t = np.linspace(0.0,4*np.pi,N+1)[:-1]
+dt = t[1] - t[0]
+freq = np.fft.fftfreq(N,dt)
 
+D = spectral_diff_matrix(N,dt,diff)
+
+u1 = np.sin(t)
+u2 = np.cos(t)
+uhat1 = np.fft.fft(u1)
+uhat2 = np.fft.fft(u2)
+plt.figure(1)
+plt.plot(freq,((2*np.pi*1j)**diff*freq*uhat1).real,'r')
+plt.plot(freq,((2*np.pi*1j)**diff*freq*uhat1).imag,'b')
+plt.figure(2)
+plt.plot(freq,np.fft.fft(D.dot(u1)).real,'r')
+plt.plot(freq,np.fft.fft(D.dot(u1)).imag,'b')
+plt.show()
+quit()
+uhat_diff = (2*np.pi*1j*freq)**diff*uhat
+udiff = np.fft.ifft(uhat_diff)
+udiff2 = D.dot(u)
+plt.plot(t,u)
+#plt.plot(t,udiff)
+plt.plot(t,udiff2)
+plt.show()
+uhat = np.fft.fft(u)
+print((2*np.pi*1j*freq)**diff*uhat)
+print(np.fft.fft(D.dot(u))*N)
+quit()
+
+
+
+
+
+
+
+
+
+
+
+# XXXXXXXXXXXXXXXXXXXXXXXXXXX
 N = 2
 P = 100
 cutoff = 2.0
