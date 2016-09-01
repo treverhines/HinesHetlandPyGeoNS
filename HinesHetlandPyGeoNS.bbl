@@ -1,25 +1,25 @@
 \begin{thebibliography}{}
 
-\bibitem[{De Boor}, 1978]{DeBoor1978}
-{De Boor}, C. (1978).
-\newblock {\em {A practical guide to splines}}, volume~27.
-\newblock Springer-Verlag, New York.
+\bibitem[Craven and Wahba, 1979]{Craven1979}
+Craven, P. and Wahba, G. (1979).
+\newblock {Smoothing noisy data with spline functions: estimating the correct
+  degree of smoothing by the method of generalized cross-validation}.
+\newblock {\em Numerische Mathematik}, 403:377--403.
 
-\bibitem[Kimeldorf and Wahba, 1970]{Kimeldorf1970}
-Kimeldorf, G.~S. and Wahba, G. (1970).
-\newblock {A Correspondence Between Bayesian Estimation on Stochastic Processes
-  and Smoothing by Splines}.
-\newblock {\em The Annals of Mathematical Statistics}, 41(2):495--502.
+\bibitem[Fasshauer, 2007]{Fasshauer2007}
+Fasshauer, G.~E. (2007).
+\newblock {\em {Meshfree Approximation Method with Matlab}}.
+\newblock World Scientific Publishing Co., Singapore.
+
+\bibitem[Fornberg, 1996]{Fornberg1996}
+Fornberg, B. (1996).
+\newblock {\em {A practical guide to pseudospectral methods}}.
+\newblock Cambridge University Press.
 
 \bibitem[Rasmussen and Williams, 2006]{Rasmussen2006}
 Rasmussen, C.~E. and Williams, C. K.~I. (2006).
 \newblock {\em {Gaussian processes for machine learning}}.
 \newblock The MIT Press.
-
-\bibitem[Segall and Mathews, 1997]{Segall1997}
-Segall, P. and Mathews, M. (1997).
-\newblock {Time dependent inversion of geodetic data}.
-\newblock {\em Journal of Geophysical Research}, 102(B10):22391--22409.
 
 \bibitem[Tarantola, 2005]{Tarantola2005}
 Tarantola, A. (2005).

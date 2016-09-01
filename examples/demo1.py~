@@ -5,13 +5,8 @@ import rbf.fd
 import sympy
 import scipy.linalg
 import scipy.signal
+from modules.ndft import psd
 np.random.seed(3)
-
-def psd(signal,times):
-  dt = times[1] - times[0]
-  fs = 1.0/dt
-  freq,pow = scipy.signal.periodogram(signal,fs,detrend='constant',scaling='density',return_onesided=True)
-  return freq[1:],pow[1:]
 
 
 def spectral_diff_matrix(N,dt,diff):
@@ -56,7 +51,7 @@ min_time = 0.0
 max_time = 5.0
 var = 1.0*np.ones(P)
 var = np.random.uniform(0.5,2.0,P)
-var[20:40] = 25000.0
+var[20:40] = 25.0
 var_bar = 1.0/np.mean(1.0/var)
 lamb_square = (2*np.pi*cutoff)**(2*N)*var_bar
 
@@ -67,7 +62,8 @@ signal = 1*np.sin(2*np.pi*time*signal_freq)
 data = signal + 1*np.random.normal(0.0,np.sqrt(var))
 
 # compute differentiation matrix
-D = spectral_diff_matrix(P,time[1]-time[0],N)
+#D = spectral_diff_matrix(P,time[1]-time[0],N)
+D = rbf.fd.diff_matrix_1d(time[:,None],(N,)).toarray()
 
 # perform inversion
 Cobs_inv = np.diag(1.0/var)
@@ -83,14 +79,14 @@ ax2 = ax[1]
 #fig1,ax1 = plt.subplots(figsize=(6,5))
 ax1.set_xlabel(r'time [yr]')
 ax1.set_ylabel(r'displacement [mm]')
-ax1.errorbar(time,data,np.sqrt(var),fmt='k.',label=r'$u_\mathrm{obs}$',capsize=0,zorder=2)
+ax1.errorbar(time,data,np.sqrt(var),fmt='k.',label=r'$u_\mathrm{obs}$',capsize=0,zorder=0)
 ax1.plot(time,upost,'b-',lw=1,label=r'$u_\mathrm{post}$',zorder=3)
 ax1.plot(time,signal,'r-',lw=1,label=r'$u_\mathrm{true}$',zorder=1)
 ax1.set_ylim((-13,13))
 ax1.grid()
 ax1.legend(frameon=False)
 ax1.fill_between(time,upost+stdpost,upost-stdpost,color='b',alpha=0.3,edgecolor='none')
-
+ax1.text(0.05,0.9,'A',transform=ax1.transAxes,fontsize=16)
 # plot freqency content
 def true_filter(freq):
   return 1.0/(1.0 + (freq/cutoff)**(2*N))
@@ -109,6 +105,7 @@ ax2.set_ylim((10**(-9.0),10**(4.5)))
 ax2.vlines(signal_freq,10**-9,10**4.5,color='r',label=r'$u_\mathrm{true}$',lw=1,zorder=1)
 ax2.legend(frameon=False)
 ax2.grid()
+ax2.text(0.05,0.9,'B',transform=ax2.transAxes,fontsize=16)
 fig.tight_layout()
 plt.show()
 quit()

@@ -8,7 +8,7 @@
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \begin{document}
 
-We discuss a method to filter observed data, $u_\mathrm{obs}$, in a Bayesian framework, where $u_\mathrm{obs}$ can be spatial, temporal, or higher dimensional data.  We are also not limited to cases where $u_\mathrm{obs}$ is observed over a regular grid. Our filtered estimate, $u_\mathrm{post}$, incorporates $u_\mathrm{obs}$ and prior knowledge of the statistical properties of the underlying signal.  In this sense, this work is closely related to Kriging and, more generally, Gaussian process regression \citep[e.g][]{Rasmussen2006} .  We constrain $u_\mathrm{post}$ with the observation equation
+We discuss a method to smooth observed data, $u_\mathrm{obs}$, which can be spatial, temporal, or higher dimensional data, and the observations are generally irregularly spaced.  There are two well established catagories of methods for solving this task.  The first catagory is regularized least squares fitting of radial basis functions (RBF's) to the observation \citep[e.g.][]{Fasshauer2007}. Smoothing splines are a notable member of this catagory.  The second catagory is Gaussian process regression \citep[e.g.][]{Rasmussen2006}, which encompasses Kriging.  Our method is an example of Gaussian process regression where our smoothed solution, $u_\mathrm{post}$, incorporates $u_\mathrm{obs}$ and a stochastic prior model for the underlying signal which we are trying to recover.  We constrain $u_\mathrm{post}$ with the observation equation
 
 \begin{equation}\label{eq:Data}
   u_\mathrm{post} = u_\mathrm{obs} + \epsilon,\ \ \ \epsilon \sim \mathcal{N}(0,\mathbf{C}_\mathrm{obs}),
@@ -50,7 +50,7 @@ For one-dimensional data we consider a prior which can be stated implicitly as
 \begin{equation}\label{eq:ImplicitPrior1D}
   \mathbf{D}_{n} u_\mathrm{prior} = q, \ \ \ q \sim \mathcal{N}(0,\lambda^2),
 \end{equation}  
-where $D_n$ is an $n^{th}$ order differentiation matrix, and $q$ is white noise with constant variance $\lambda^2$.  If we momentarily ignore the fact that $D_n$ is not invertible then we can explicitly write our prior covariance as
+where $\mathbf{D}_n$ is an $n$'th order differentiation matrix, and $q$ is white noise with constant variance $\lambda^2$.  If we momentarily ignore the fact that $D_n$ is not invertible then we can explicitly write our prior covariance as
 
 \begin{equation}\label{eq:ExplicitPrior1D}
 \mathbf{C_\mathrm{prior}} = \lambda^2(\mathbf{D}_n^T\mathbf{D}_n)^{-1},
@@ -66,27 +66,32 @@ and the filtered mean and covariance are described by
                             \frac{1}{\lambda^2}\mathbf{D}_n^T\mathbf{D}_n)^{-1}.
 \end{split}
 \end{equation}
+This filtered solution is closely tied to several well established methods of smoothing.  For example, one can immediately recognize eq. (\ref{eq:1DSolution}) as an example of Tikhonov regularization. We also note a similarity between eq. (\ref{eq:1DSolution}) and smoothing splines.  To see this similarity, we first recall that in one-dimension, a smoothing spline is defined as the function, $f(t)$, which minimizes,
 
-This filtered solution is closely tied to several well established methods of smoothing.  For example, \citet{Kimeldorf1970} pointed out that eq. (\ref{eq:1DSolution}) is equivalent to a smoothing spline.  This can be seen by ignoring data uncertainty (i.e. $\mathbf{C}_\mathrm{obs}=\mathbf{I}$) and noting from eq. (\ref{eq:Objective}) that $\bar{u}_\mathrm{prior}$ minimizes 
-
-\begin{equation}
-||u_\mathrm{obs} - \bar{u}_\mathrm{prior}||_2^2 + ||D_n\bar{u}_\mathrm{prior}||_2^2,
+\begin{equation}\label{eq:SmoothingSpline}
+\sum_{i=1}^P (u_\mathrm{obs}^i - f(t_i))^2 + \alpha \int_{t_1}^{t_P} f^{(n)}(t) dt,
 \end{equation}
-which is a discretized form of the definition of a smoothing spline \citep[e.g][]{DeBoor1978}.  As another example, we can loosely interpret our prior model in eq. (\ref{eq:ImplicitPrior1D}) as Brownian motion or integrated Brownian motion when $n=1$ and $n=2$, respectively.  From this perspective, it is possible to see the connection between eq. (\ref{eq:1DSolution}) and Kalman filters, where these stochastic models are commonly used to describe time-dependent signals \citep[e.g.][]{Segall1997}.
+where $u_\mathrm{obs}^i$ is an observation at time $t_i$, $P$ is the number of observations, $\alpha$ is a smoothing parameter, and $f^{(n)}$ denotes the $n$'th time derivative of $f$.
+If we ignore data uncertainties (i.e. $\mathbf{C}_\mathrm{obs}=\mathbf{I}$), we can see from eq. (\ref{eq:Objective}) that $\bar{u}_\mathrm{post}$ is the discrete function which minimizes  
 
-One challenge that is common to each of these smoothing methods is selecting the hyperparameter $\lambda$.  There are numerous ways that this could be accomplished.  For example, one could use cross-validation, a trade-off curve, or simply vary $\lambda$ until $\bar{u}_\mathrm{post}$ looks appropriate when compared to $u_\mathrm{obs}$.  There is merit to using an entirely objective approach such as cross-validation, and this would be approriate if there is no prior knowledge of the signal's characteristic wavelength.  Otherwise, it may be better to chose $\lambda$ such that eq. (\ref{eq:1DSolution}) damps out all the high frequency oscillations which are known to be noise.  We elaborate on this point by demonstrating that eq. (\ref{eq:1DSolution}) can also be viewed as a low-pass filter with a cutoff frequency determined by $\lambda$.  
+\begin{equation}\label{eq:1DObjective}
+||u_\mathrm{obs} - \bar{u}_\mathrm{post}||_2^2 + \frac{1}{\lambda^2}||D_n\bar{u}_\mathrm{post}||_2^2.
+\end{equation} 
+If $u_\mathrm{obs}$ is sampled at evenly spaced increments then, with the appropriate choice of smoothing parameters, eq. (\ref{eq:1DObjective}) can be recognized as a discretized form of (\ref{eq:SmoothingSpline}) and we would thus expect $f(t)$ and $\bar{u}_\mathrm{post}$ to be effectively the same. The similarities break down when dealing with non-uniformly spaced observations.  
+
+Whether we use a smoothing spline or eq. (\ref{eq:1DSolution}) to filter $u_\mathrm{obs}$, we must choose the appropriate penalty parameter.  One common method for choosing an appropriate penalty parameter is generalized cross-validation \citep{Craven1979}, which yields a filtered solution with the maximum predictive power.  There is merit to using an entirely objective approach such as cross-validation, and this would be approriate if there is no prior knowledge of the signal's characteristic wavelength.  Otherwise, it may be better to chose a penalty parameter that damps out all the high frequency oscillations which are known to be noise.  We elaborate on this point by demonstrating that eq. (\ref{eq:1DSolution}) can also be viewed as a low-pass filter with a cutoff frequency determined by $\lambda$.  
 
 We wish to transform $\bar{u}_\mathrm{post}$ in eq. (\ref{eq:1DSolution}) to the frequency domain and in order to do so we assume that $u_\mathrm{obs}$ has a constant sampling rate. We also require that $\epsilon$ and $u_\mathrm{prior}$ are stationary stochastic processes (i.e. their statistical properties are invariant to time shifts).  We require them to be stationary so that matrix multiplication by $\mathbf{C}_\mathrm{obs}$ and $\mathbf{C}_\mathrm{prior}$ can be viewed as convolution in the time domain and thus multiplication in the frequency domain.  We then consider the simplifying case where $\epsilon$ is white noise with constant variance $\sigma^2$ (i.e. $\mathbf{C}_\mathrm{obs} = \sigma^2\mathbf{I}$), and $\mathbf{D}_n$ is the periodic spectral differentiation matrix \citep[e.g.][]{Trefethen2000}.  Under a discrete Fourier transform, $\mathbf{D}_n$ has the properties
 
 \begin{equation}\label{eq:Property1}
-  \mathcal{F}[\mathbf{D}_nf] = (2\pi i\omega)^n \hat{f}
+  \mathcal{F}[\mathbf{D}_nf] = (2\pi i\omega)^n \hat{g}
 \end{equation}
 and
 
 \begin{equation}\label{eq:Property2}
-  \mathcal{F}[\mathbf{D}^T_nf] = (-2\pi i\omega)^n \hat{f},
+  \mathcal{F}[\mathbf{D}^T_nf] = (-2\pi i\omega)^n \hat{g},
 \end{equation}
-where $\omega$ is the frequency domain variable, $f$ is an arbitrary vector and $\hat{f}$ is its discrete Fourier transform.  The discrete Fourier transform of $\bar{u}_\mathrm{post}$ is then
+where $\omega$ is the frequency domain variable, $g$ is an arbitrary vector and $\hat{g}$ is its discrete Fourier transform.  The discrete Fourier transform of $\bar{u}_\mathrm{post}$ is then
 
 \begin{equation}\label{eq:1DFourierSoln1}
 \hat{u}_\mathrm{post}(\omega) = \frac{\frac{1}{\sigma^2}}
@@ -97,7 +102,7 @@ where $\omega$ is the frequency domain variable, $f$ is an arbitrary vector and 
 We make the change of variables 
 
 \begin{equation}\label{eq:VariableChange}
-\lambda^2 = (2\pi\omega_c)^{2N}\sigma^2
+\lambda^2 = (2\pi\omega_c)^{2n}\sigma^2
 \end{equation}
 which changes the hyperparameter from $\lambda$ to $\omega_c$.  The reason for this change of variables becomes apparent when we simplify eq. (\ref{eq:1DFourierSoln1}) to
 
@@ -106,11 +111,11 @@ which changes the hyperparameter from $\lambda$ to $\omega_c$.  The reason for t
                                   {1 + \left(\frac{\omega}{\omega_c}\right)^{2n}}
                                   \hat{u}_\mathrm{obs}(\omega).        
 \end{equation}
-We can recognize eq. (\ref{eq:1DFourierSoln2}) as an n'th order low-pass Butterworth filter with cut-off frequency $\omega_c$.  In the limit as $N\to \infty$ eq. (\ref{eq:1DFourierSoln2}) becomes an ideal low-pass filter which removes all frequencies above $\omega_c$ and leaves lower frequencies unaltered.  Of course, an ideal low-pass filter is often undesirable because it will tend to produce ringing artifacts in the filtered solutions.  When modeling $u_\mathrm{prior}$ as Brownian motion or integrated Brownian motion, where $n=1$ and $n=2$ respectively, the transfer function is tapered across $\omega_c$, which ameliorates ringing in the filtered solution.
+We can recognize eq. (\ref{eq:1DFourierSoln2}) as an $n$'th order low-pass Butterworth filter with cut-off frequency $\omega_c$.  In the limit as $n\to \infty$ eq. (\ref{eq:1DFourierSoln2}) becomes an ideal low-pass filter which removes all frequencies above $\omega_c$ and leaves lower frequencies unaltered.  Of course, an ideal low-pass filter is often undesirable because it will tend to produce ringing artifacts in the filtered solutions.  When modeling $u_\mathrm{prior}$ as Brownian motion or integrated Brownian motion, where $n=1$ and $n=2$ respectively, the transfer function is tapered across $\omega_c$, which ameliorates ringing in the filtered solution.
 
 By demonstrating that eq. (\ref{eq:1DSolution}) can be made equivalent to a low-pass filter, it may not be clear why we would ever use eq. (\ref{eq:1DSolution}) when it is far more efficient to filter in the frequency domain through the Fast Fourier Transform.  In order to make use of the Fast Fourier Transform, the observations must be made at a constant sampling rate and the observation noise must be  white with constant variance.  In contrast, these conditions do not need to be met in order to evaluate eq. (\ref{eq:1DSolution}).  The question is then whether eq. (\ref{eq:1DSolution}) still effectively acts as a low-pass filter when the idealized conditions are not met.  
 
-We answer this question with a demonstration.  In this demonstration we generate 100 samples of synthetic data over the time interval $0<t<1$ yr.  The true signal in the syntethic data is a sine wave with a frequency of 1 yr$^{-1}$ and 1 mm amplitude.  We obscure the synthetic data with white noise that does not have a constant variance.  We randomly pick a variance for each datum from a uniform random distribution ranging from 0.5 to 2 mm$^2$.  For the period from 1 to 2 years, we assign a variance of 25 mm$^2$ to the data, effectively making the data uniformitive for the filtered solution.  The synthetic data and its estimated power spectral density are plotted in Figure \ref{fig:Demo}.  Our goal is to use eq. (\ref{eq:1DSolution}) as a low-pass filter which damps out frequencies that are higher than our signal.  Since our data does not have constant variance, we cannot choose a cutoff frequency from eq. (\ref{eq:VariableChange}).  Instead we define a characteristic data variance as
+We address this question here with two numerical demonstrations.  In this first demonstration we generate 100 samples of synthetic data over the time interval $0<t<1$ yr.  The true signal in the syntethic data is a sine wave with a frequency of 1 yr$^{-1}$ and 1 mm amplitude.  We obscure the synthetic data with white noise that does not have a constant variance.  We randomly pick a variance for each datum from a uniform random distribution ranging from 0.5 to 2 mm$^2$.  For the period from 1 to 2 years, we assign a variance of 25 mm$^2$ to the data, effectively making the data uniformitive for the filtered solution.  The synthetic data and its estimated power spectral density are plotted in Figure \ref{fig:Demo1}.  Our goal is to use eq. (\ref{eq:1DSolution}) as a low-pass filter which damps out frequencies that are higher than our signal.  Since our data does not have constant variance, we cannot choose a cutoff frequency from eq. (\ref{eq:VariableChange}).  Instead we define a characteristic data variance as
 \begin{equation}
 \frac{1}{\bar{\sigma^2}} = \frac{1}{P} \mathrm{tr}\left(\mathbf{C}_\mathrm{obs}^{-1}\right),
 \end{equation}
@@ -118,27 +123,36 @@ where $P$ is the number of observations, and we relate $\lambda$ to $\omega_c$ b
 \begin{equation}
 \lambda^2 = (2\pi\omega_c)^{2n}\bar{\sigma}^2.  
 \end{equation}
-In this demonstration $D_n$ is still the spectral differentiation matrix and we use $n=2$. Our cutoff frequency is chosen to be $\omega_c=2$ yr$^{-1}$.  The filtered solution and its frequency content are plotted Figure \ref{fig:Demo}, where it is apparent that eq. (\ref{eq:1DSolution}) is indeed acting as a low-pass filter with the specified cut-off frequency even though the variances are not constant. It is worth noting that the frequency content of $u_\mathrm{post}$ appears to change depending on the variance of $u_\mathrm{obs}$. For example, Over the interval $1<t<2$, where the variance of $u_\mathrm{obs}$ is higher, $u_\mathrm{post}$ lacks the higher frequency oscillations that can be seen in the remainder of the time series. This is desirable behavior because we do not want $u_\mathrm{post}$ contorting to fit dubious data.  It is also worth pointing out that $u_\mathrm{post}$ asymptotically approaches a solution that is not significantly different from that shown in Figure \ref{fig:Demo} when the variance for $u_\mathrm{obs}$ increases to infinity over the interval $1<t<2$.  This too is desirable behaviour because one could then surmise that an appropriate way to handle missing data with eq. (\ref{eq:1DSolution}) is to assign $u_\mathrm{obs}$ an infinite variance for the missing time period.  With this insight, we can then extend the application of eq. (\ref{eq:1DSolution}) from data smoothing to data interpolation and extrapolation.   
+In this demonstration $D_n$ is still the spectral differentiation matrix and we use $n=2$. Our cutoff frequency is chosen to be $\omega_c=2$ yr$^{-1}$.  The filtered solution and its frequency content are plotted Figure \ref{fig:Demo1}. Based on panel B, eq. (\ref{eq:1DSolution}) is indeed acting as a low-pass filter with the specified cut-off frequency even though the variances are not constant.  However, the frequency content of subsections of $\bar{u}_\mathrm{post}$ appears to change depending on the variance of $u_\mathrm{obs}$. For example, Over the interval $1<t<2$, where the variance of $u_\mathrm{obs}$ is higher, $u_\mathrm{post}$ lacks the higher frequency oscillations that can be seen in the remainder of the time series. This is desirable behavior because we do not want $u_\mathrm{post}$ contorting to fit dubious data.  It is also worth pointing out that $u_\mathrm{post}$ asymptotically approaches a solution that is not significantly different from that shown in Figure \ref{fig:Demo1} when the variance for $u_\mathrm{obs}$ increases to infinity over the interval $1<t<2$.  This too is desirable behaviour because one could then surmise that an appropriate way to handle missing data with eq. (\ref{eq:1DSolution}) is to assign $u_\mathrm{obs}$ an infinite variance for the missing time period.  With this insight, we can then extend the application of eq. (\ref{eq:1DSolution}) from data smoothing to data interpolation and extrapolation.   
 
 \begin{figure}
 \includegraphics[scale=0.75]{figures/fig1}
-\caption{Left panel shows observed data (black scatter points), filtered data (blue line), and the true signal which we are trying to recover (red line).  The lines on each scatter point and the light blue region show the one standard deviation uncertainty for the observations and filtered solution respectively.  The right panel shows the estimated power spectral density for the observed, filtered, and true signal.  The black dashed line is the squared transfer function in eq. (\ref{eq:1DFourierSoln2}) with $\omega_c=2$ yr$^{-1}$, which roughly indicates how eq. (\ref{eq:1DSolution}) scales the frequency content of $u_\mathrm{obs}$.  If the data variances were constant then the frequency content of $u_\mathrm{obs}$ and $u_\mathrm{post}$ would be exactly related by the black dashed line.}   
-\label{fig:Demo}
+\caption{Panel A shows $u_\mathrm{obs}$ (black scatter points), $u_\mathrm{post}$ (blue line), and the true signal which we are trying to recover (red line).  The lines on each scatter point and the light blue region show the one standard deviation uncertainty for the observations and filtered solution respectively. Panel B shows the estimated power spectral density for the observed, filtered, and true signal.  The black dashed line is the squared transfer function in eq. (\ref{eq:1DFourierSoln2}) with $\omega_c=2$ yr$^{-1}$, which roughly indicates how eq. (\ref{eq:1DSolution}) scales the frequency content of $u_\mathrm{obs}$.  If the data variances were constant then the frequency content of $u_\mathrm{obs}$ and $\bar{u}_\mathrm{post}$ would be exactly related by the black dashed line.}   
+\label{fig:Demo1}
+\end{figure}
+
+We present a similar demonstration to show that eq. (\ref{eq:1DSolution}) effectively acts as a low-pass filter even when the observations are not uniformly spaced.  We take samples over the time interval $(0,10)$ yr, where the sampling rate is $0.05$ yr$^{-1}$ for the first 5 years and $0.0125$ yr$^{-1}$ for the last 5 years.  We use the same underlying signal from the previous demonstration and we add noise with a constant variance of $1$ mm$^2$.  We keep $n=2$ but since we are dealing with non-uniformly spaced data, we can no longer use the periodic spectral differentiation matrix, and $\mathbf{D}_n$ is instead a first-order accurate finite difference matrix for arbitrarily spaced data \citep{Fornberg1996}.  Once again, our cutoff frequency is $\omega_c = 2$ yr$^{-1}$.  The synthetic data and filtered solution are shown in panel A of Figure \ref{fig:Demo2}.  The power spectral density for the time intervals $(0,5)$ and $(5,10)$ yr are shown in panel B and C, respectively.  In both panels B and C, the spectral density of the filtered solution diverges from the spectral density of the synthetic observations at the expected cutoff frequency of $\omega_c$.  For frequencies above ${\sim}5$ yr$^{-1}$, the rate that the spectral content decays is slower than what is predicted by the transfer function in eq. (\ref{eq:1DFourierSoln2}). This is most pronounced in panel C, and we attribute the discrepancy to our lower order differentiation matrix. Barring the high frequencies which have negligable power in $\bar{u}_\mathrm{post}$, the power spectral density of $\bar{u}_\mathrm{post}$ relative to $u_\mathrm{obs}$ is accurately described by the transfer function in eq. (\ref{eq:1DFourierSoln2}), despite our use of non-uniform spacing.
+
+
+\begin{figure}
+\includegraphics[scale=0.7]{figures/fig2}
+\caption{Panel A shows $u_\mathrm{obs}$ (black scatter points), $u_\mathrm{post}$ (blue line), and the true signal which we are trying to recover (red line).  The light blue region show the one standard deviation uncertainty for $u_\mathrm{post}$. The uncertainties for the observations are all 1 mm and are not shown for the sake of clarity.  Panel B shows the estimated power spectral density for the observed, filtered, and true signal over the time interval (0,5) yr. Panel C is the same as panel B except for the time interval (5,10) yr.  In both panel B and C the black dashed line is the squared transfer function in eq. (\ref{eq:1DFourierSoln2}) with $\omega_c=2$ yr$^{-1}$.}   
+\label{fig:Demo2}
 \end{figure}
 
 \section*{Smoothing in higher dimensions} 
-We expand our discussion from one-dimensional smoothing to smoothing in two-dimensional space.  While the remainder of this paper discusses smoothing in two-dimensions, the extension to smoothing in higher dimensions will prove to be trivial.  We now allow $u_\mathrm{prior}$ to have non-zero covariance along multiple dimensions.  In other words, we now treat $u_\mathrm{prior}$ as a random field rather than a stochastic process.  The smoothed solution that we seek is still given by eq. \ref{eq:GeneralSolution} and our task is once again to find an appropriate choice of $\mathbf{C}_\mathrm{prior}$.  Below we consider the case where the $M$'th order Laplacian of $u_\mathrm{prior}$ is white noise.  That is to say
+We expand our discussion to smoothing data which is observed in two-dimensional space.  The filtered solution is still given by eq. (\ref{eq:GeneralSolution}), and we consider the prior model
 \begin{equation}
-  \mathbf{\Delta}_M u_\mathrm{prior}(x_1,x_2) = q, \ \ \ q \sim \mathcal{N}(0,\lambda^2)
+  \mathbf{L}_m u_\mathrm{prior}(x_1,x_2) = q, \ \ \ q \sim \mathcal{N}(0,\lambda^2)
 \end{equation}  
-where 
+where $\mathbf{L}_m$ is a differentiation matrix which approximates the operation 
 \begin{equation}\label{Laplacian}
-\mathbf{\Delta}_M = \frac{\partial^{2M}}{\partial x_1^{2M}} +
-           \frac{\partial^{2M}}{\partial x_2^{2M}}.
+  \frac{\partial^{2m}}{\partial x_1^{2m}} +
+  \frac{\partial^{2m}}{\partial x_2^{2m}}.
 \end{equation} 
 The corresponding covariance matrix is then
 \begin{equation}\label{Covariance2D}
-\mathbf{C}_\mathrm{prior} = \lambda^2\left(\mathbf{\Delta}_M^T\mathbf{\Delta}_M\right)^{-1}. 
+\mathbf{C}_\mathrm{prior} = \lambda^2\left(\mathbf{L}_m^T\mathbf{L}_m\right)^{-1}. 
 \end{equation}           
 We again assume that the observation noise is uncorrelated with constant variance $\sigma^2$.  Using the change of variables
 \begin{equation}
@@ -160,6 +174,7 @@ which in the two-dimensional frequency domain is
 The transfer function in eq. (\ref{eq:FourierSoln2d}) can once again be recognized as a low-pass filter.  Namely, in the limit as $M \to \infty$ all the frequency pairs, $(\omega_1,\omega_2)$, where $|\omega_1| > \omega_c$ or $|\omega_2| > \omega_c$ are removed.  That is, the transfer function becomes a two-dimensional box centered at $(0,0)$ with width $2\omega_c$.  It is apparent from the transfer function why our prior model must be defined in terms of even order derivatives.  If eq. (\ref{Laplacian}) contained odd order derivatives, then all frequency pairs where $\omega_1=-\omega_2$ would be unattenuated, leaving undesirable artifacts in the smoothed solution.
 
 We have demonstrated with eq. (\ref{eq:TimeSoln} and \ref{eq:TimeSoln2d}) that eq. \ref{eq:GeneralSolution} can effectively act as a low pass filter with a judicious choice of $\mathbf{C}_\mathrm{prior}$.  One may then wonder why eq. (\ref{eq:TimeSoln} and \ref{eq:TimeSoln2d}) would ever be used to smooth data when it is far more efficient to perform the equivalent operation through the Fast Fourier Transform domain.  The power in eq. (\ref{eq:TimeSoln} and \ref{eq:TimeSoln2d}) resides in the fact that they makes no assumption about when or where the observations have been made.  In order to filter data through the Fast Fourier Transform, the observations must be evenly spaced on a regular grid, which is often not the case for geophysical data.  Indeed,  the focus of this paper is to smooth data which has been observed at scattered locations.  We can use eq. (\ref{eq:TimeSoln} and \ref{eq:TimeSoln2d}) regardless of where the observations were made provided that we are able to create the differentiation matrix.  We use the recently developed Radial Basis Function Finite-Difference method to form the differentiation matrices and we describe the procedure in the follow section. 
+
 
 \bibliographystyle{apalike}
 \bibliography{mybib}  
