@@ -6,6 +6,7 @@ import rbf.fd
 import rbf.nodes
 import rbf.domain
 import scipy.sparse
+import matplotlib.cm as cm
 np.random.seed(4)
 
 # setup axes
@@ -30,14 +31,14 @@ ax3.set_ylim((-11,11))
 ax4.set_ylim((-11,11))
 
 # make nodes
-P = 10000
+P = 500
 diff = 2
 vert,smp = rbf.domain.circle(5)
 vert *= 10.0
 
 fix_nodes = np.array([[0.0,0.0],
                       [-10.0,0.0]])
-nodes,sid = rbf.nodes.make_nodes(P-2,vert,smp,itr=100,delta=0.1,neighbors=10,
+nodes,sid = rbf.nodes.make_nodes(P-2,vert,smp,itr=1000,delta=0.01,neighbors=5,
                                  fix_nodes=fix_nodes)
 nodes = np.vstack((fix_nodes,nodes))
 
@@ -57,35 +58,34 @@ cov = np.linalg.inv((I + (1.0/penalty)*D.T.dot(D)).toarray())
 sigma = np.sqrt(np.diag(cov))
 corr = (cov/sigma[None,:])/sigma[:,None]
 
-print(np.min(us))
-print(np.max(us))
-p = ax1.tripcolor(nodes[:,0],nodes[:,1],us,cmap='seismic',shading='gouraud',vmin=-0.1,vmax=0.1)
+p = ax1.scatter(nodes[:,0],nodes[:,1],s=40,c=u,cmap='viridis',edgecolor='k',vmin=-2.0,vmax=2.0,zorder=1)
 plt.colorbar(p,ax=ax1)
 for s in smp:
-  ax1.plot(vert[s,0],vert[s,1],'k-')
+  ax1.plot(vert[s,0],vert[s,1],'k-',zorder=0)
 
-print(np.min(sigma))
-print(np.max(sigma))
-p = ax2.tripcolor(nodes[:,0],nodes[:,1],sigma,cmap='viridis',shading='gouraud',vmin=0.0,vmax=0.1)
+p = ax2.scatter(nodes[:,0],nodes[:,1],s=40,c=us,cmap='viridis',edgecolor='k',zorder=2)
+p = ax2.tripcolor(nodes[:,0],nodes[:,1],us,cmap='viridis',shading='gouraud',
+                  vmin=p.get_clim()[0],vmax=p.get_clim()[1],zorder=0)
 plt.colorbar(p,ax=ax2)
 for s in smp:
-  ax2.plot(vert[s,0],vert[s,1],'k-')
+  ax2.plot(vert[s,0],vert[s,1],'k-',zorder=1)
 
 # plot corr
-p = ax3.tripcolor(nodes[:,0],nodes[:,1],corr[0,:],
-                  cmap='seismic',shading='gouraud',vmin=-1.0,vmax=1.0)
-ax3.plot(nodes[0,0],nodes[0,1],'ko')
-plt.colorbar(p,ax=ax3)
+p = ax3.scatter(nodes[:,0],nodes[:,1],s=40,c=sigma,cmap='viridis',edgecolor='k',zorder=2)
+p = ax3.tripcolor(nodes[:,0],nodes[:,1],sigma,cmap='viridis',shading='gouraud',
+                  vmin=p.get_clim()[0],vmax=p.get_clim()[1],zorder=0)
+cbar = plt.colorbar(p,ax=ax3)
 for s in smp:
-  ax3.plot(vert[s,0],vert[s,1],'k-')
+  ax3.plot(vert[s,0],vert[s,1],'k-',zorder=1)
 
 # plot corr
-p = ax4.tripcolor(nodes[:,0],nodes[:,1],corr[1,:],
-                  cmap='seismic',shading='gouraud',vmin=-1.0,vmax=1.0)
-ax4.plot(nodes[1,0],nodes[1,1],'ko')
-plt.colorbar(p,ax=ax4)
+p = ax4.scatter(nodes[:,0],nodes[:,1],s=40,c=corr[0,:],cmap='seismic',edgecolor='k',vmin=-1.0,vmax=1.0,zorder=2)
+p = ax4.tripcolor(nodes[:,0],nodes[:,1],corr[0,:],cmap='seismic',shading='gouraud',
+                  vmin=-1.0,vmax=1.0,zorder=0)
+cbar = plt.colorbar(p,ax=ax4)
 for s in smp:
-  ax4.plot(vert[s,0],vert[s,1],'k-')
+  ax4.plot(vert[s,0],vert[s,1],'k-',zorder=1)
+
 
 ax1.grid()
 ax2.grid()

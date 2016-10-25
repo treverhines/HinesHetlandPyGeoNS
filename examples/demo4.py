@@ -58,21 +58,21 @@ cov = np.linalg.inv((I + (1.0/penalty)*D.T.dot(D)).toarray())
 sigma = np.sqrt(np.diag(cov))
 corr = (cov/sigma[None,:])/sigma[:,None]
 
-p = ax1.scatter(nodes[:,0],nodes[:,1],s=40,c=u,cmap='viridis',edgecolor='k',vmin=-2.0,vmax=2.0,zorder=1)
+p = ax1.scatter(nodes[:,0],nodes[:,1],s=40,c=u,edgecolor='k',vmin=-2.0,vmax=2.0,zorder=1)
 plt.colorbar(p,ax=ax1)
 for s in smp:
   ax1.plot(vert[s,0],vert[s,1],'k-',zorder=0)
 
-p = ax2.scatter(nodes[:,0],nodes[:,1],s=40,c=us,cmap='viridis',edgecolor='k',zorder=2)
-p = ax2.tripcolor(nodes[:,0],nodes[:,1],us,cmap='viridis',shading='gouraud',
+p = ax2.scatter(nodes[:,0],nodes[:,1],s=40,c=us,edgecolor='k',zorder=2)
+p = ax2.tripcolor(nodes[:,0],nodes[:,1],us,shading='gouraud',
                   vmin=p.get_clim()[0],vmax=p.get_clim()[1],zorder=0)
 plt.colorbar(p,ax=ax2)
 for s in smp:
   ax2.plot(vert[s,0],vert[s,1],'k-',zorder=1)
 
 # plot corr
-p = ax3.scatter(nodes[:,0],nodes[:,1],s=40,c=sigma,cmap='viridis',edgecolor='k',zorder=2)
-p = ax3.tripcolor(nodes[:,0],nodes[:,1],sigma,cmap='viridis',shading='gouraud',
+p = ax3.scatter(nodes[:,0],nodes[:,1],s=40,c=sigma,edgecolor='k',zorder=2)
+p = ax3.tripcolor(nodes[:,0],nodes[:,1],sigma,shading='gouraud',
                   vmin=p.get_clim()[0],vmax=p.get_clim()[1],zorder=0)
 cbar = plt.colorbar(p,ax=ax3)
 for s in smp:

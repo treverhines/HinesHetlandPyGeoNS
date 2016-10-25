@@ -8,6 +8,43 @@
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \begin{document}
 
+\section{Introduction}
+; however, there are two fundemental difficulties to overcome: 1) one must devise a strategy for differentiating velocities observed at scattered locations in two-dimensional space and 2) The velocity field is noisy and must be smoothed prior to differentiation.  
+%Why is strain and time dependent strain important
+
+Crustal strain rates are fundementally important quantities for assessing seismic hazard. This is because the locations where strain is rapidly accumulating are the locations where we can expect that strain to be released seismically.  Maps of strain rate can be derived from geodetic data, which measure ground displacements or velocities.  The strain rate is merely the spatial derivatives of the velocity field; however, computing the spatial derivative is complicated by 1) the irregular spacing of geodetic observations and 2) the velocity estimates tend to be noisey and some degree of spatial smoothing or regularization is necessary.  calculating  spatial derivative has   however, there are difficulties in doing so.  Calculating strain is essentially, 
+
+energy, which may be released seismically, is building up an    
+
+  One can derive a map of strain rates from geodetically observed ground deformation; however, one must devise a strat Past studies which used triangulation surveys estimated strain by finding the best strain field which is uniform in space and constant in time for each triangulation network \citep[e.g.][]{Prescott1976,Savage1991,Murray2000}.  The assumption of Modern studies using GPS data have used a This approach produces  strain studies studies would estimate strain rates by finding the best method is to find the best fitting uniform strain rate tensor for smaller  of the data \citep[e.g][]{Savage1991,Murray2000}.  of the eeis to assume a uniform strain field 
+
+These challenges can be overcome by assuming that Numerous procedures have been used to overcome these challenges and most of them have been used to calculate long-term strain rates from time averaged velocities \citep[e.g.][]{Frank1966,Savage1991,Shen1996,Shen2015}.  A more difficult task is to calculate time dependent strain rates from time dependent velocities, which are even noisier and require a more sophisticated smoothing approach, such as the Network Strain Filter introduced by (cite).Despite its difficulty, there is great motivation for calculating time dependent strain rates.  
+
+    
+
+from   Most often, the displacements 
+
+some smoothing  and must must be smoothed out in order to is generally noisy and .    data must be smoothed so as not to different and there have been numerous procedures have been proposed to used for t have been proposed to do so.
+
+however, the process is not straight forward because  There are two challenges with  process of estimating strain is not entirely straight forward because there are two challenges that   
+
+however, the process for deriving strain rates is not necessarily straight he  , Maps of strain  Unfortunately,   measuring strain accumulation on  is     
+
+ because it can be used to assess the energy being accumulated that could be released seismically. 
+
+on the Surface strain rates on the Crustal strain rates are a fundementally important quantity is a fundemental quantity which 
+is fundemental  
+
+
+%review of every way to compute strain and their limitations
+
+%introduce the radial basis function finite difference method
+
+%what is this paper is about
+
+\section{Method}
+
+\subsection{Smoothing}
 We discuss a method to smooth observed data, $u_\mathrm{obs}$, which can be spatial, temporal, or higher dimensional data, and the observations are generally irregularly spaced.  Methods which handle this task often fall in at least one of two catagories.  One approach is to fit a set of basis functions to the observations using least-squares or regularized least-squares \citep[e.g.][]{Fasshauer2007}.  Smoothing splines can be viewed in this context where the basis functions being fit to the observation are polyharmonic splines.  The second catagory is Gaussian process regression, which is a Bayesian technique where a stochastic prior model is assumed for the underlying signal \citep[e.g.][]{Rasmussen2006}.  Kriging is among the better known examples of Gaussian process regression.  The two approaches are not always distinct.  For example, \citet{Kimeldorf1970} showed that smoothing splines can be cast as a Bayesian estimation problem with the appropriate stochastic prior model.  Our method is an example of Gaussian process regression where our smoothed solution, $u_\mathrm{post}$, incorporates $u_\mathrm{obs}$ and a stochastic prior model for the underlying signal which we are trying to recover.  We constrain $u_\mathrm{post}$ with the observation equation
 
 \begin{equation}\label{eq:Data}
@@ -44,7 +81,7 @@ We use $\bar{u}_\mathrm{post}$ and $\mathbf{C}_\mathrm{post}$ to denote the mean
  
 $\mathbf{C}_\mathrm{obs}$ is presumably well known, while $\mathbf{C}_\mathrm{prior}$ needs to be chosen based on an understanding of the underlying signal which we are trying to estimate.  With a judicious choice of $\mathbf{C}_\mathrm{prior}$,  eq. (\ref{eq:GeneralSolution}) can be made equivalent to several well established smoothing methods.  In particular, we demonstrate how eq. (\ref{eq:GeneralSolution}) can be viewed as a low-pass filter with a well defined cutoff frequency. This is first demonstrated for filtering one-dimensional data, and the extension to higher dimensions follows naturally.  
 
-\section*{One-dimensional smoothing}
+\subsubsection{One-dimensional smoothing}
 For one-dimensional data we consider a prior which can be stated implicitly as
 
 \begin{equation}\label{eq:ImplicitPrior1D}
@@ -140,7 +177,7 @@ We present a similar demonstration to show that eq. (\ref{eq:1DSolution}) effect
 \label{fig:Demo2}
 \end{figure}
 
-\section*{Smoothing in higher dimensions} 
+\subsubsection{Smoothing in Higher Dimensions} 
 We expand our discussion to smoothing data which is observed in $d$-dimensional space.  The filtered solution is still given by eq. (\ref{eq:GeneralSolution}), and we consider the prior model
 
 \begin{equation}
@@ -175,6 +212,17 @@ If we again assume that the observation have constant variance and $L_n$ is the 
   \frac{1}{1 + \left(\sum_{i=1}^d \left(\frac{\omega_i}{\omega_c}\right)^n\right)^2} \hat{u}_\mathrm{obs}.
 \end{equation}
 The transfer function in eq. (\ref{eq:NDFourierSoln}) can once again be recognized as a low-pass filter.  Namely, in the limit as $n \to \infty$, the transfer function becomes a $d$-dimensional box which is zero for all the frequency tuples, $(\omega_1,\dots,\omega_n)$, which have a component greater than $\omega_c$. 
+
+\subsection{Differentiating Scattered Data}
+
+\section{Applications}
+
+\subsection{Strain Rate in Southern California}
+
+\subsection{Time Depenent Strain Rate in Cascadia}
+
+\section{Discussion and Conclusion}
+% discuss potential applications for slip models
 
 \bibliographystyle{apalike}
 \bibliography{mybib}  
