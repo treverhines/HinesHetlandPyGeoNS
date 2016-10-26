@@ -3,44 +3,44 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: HinesHetlandPyGeoNS.aux
 The style file: apalike.bst
 Database file #1: mybib.bib
-You've used 13 entries,
+You've used 19 entries,
             1935 wiz_defined-function locations,
-            565 strings with 5646 characters,
-and the built_in function-call counts, 4827 in all, are:
-= -- 477
-> -- 158
-< -- 10
-+ -- 50
-- -- 50
-* -- 405
-:= -- 843
-add.period$ -- 39
-call.type$ -- 13
-change.case$ -- 85
-chr.to.int$ -- 13
-cite$ -- 13
-duplicate$ -- 182
-empty$ -- 367
-format.name$ -- 71
-if$ -- 938
+            612 strings with 6796 characters,
+and the built_in function-call counts, 7480 in all, are:
+= -- 743
+> -- 271
+< -- 12
++ -- 88
+- -- 88
+* -- 659
+:= -- 1297
+add.period$ -- 57
+call.type$ -- 19
+change.case$ -- 134
+chr.to.int$ -- 19
+cite$ -- 19
+duplicate$ -- 266
+empty$ -- 551
+format.name$ -- 119
+if$ -- 1447
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 18
-newline$ -- 68
-num.names$ -- 39
-pop$ -- 78
+missing$ -- 24
+newline$ -- 98
+num.names$ -- 57
+pop$ -- 113
 preamble$ -- 1
-purify$ -- 90
+purify$ -- 139
 quote$ -- 0
-skip$ -- 136
+skip$ -- 198
 stack$ -- 0
-substring$ -- 392
-swap$ -- 13
+substring$ -- 626
+swap$ -- 19
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 68
+type$ -- 104
 warning$ -- 0
-while$ -- 42
+while$ -- 66
 width$ -- 0
-write$ -- 167
+write$ -- 245

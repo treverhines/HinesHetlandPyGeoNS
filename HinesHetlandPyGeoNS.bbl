@@ -1,5 +1,11 @@
 \begin{thebibliography}{}
 
+\bibitem[Beavan and Haines, 2001]{Beavan2001}
+Beavan, J. and Haines, J. (2001).
+\newblock {Contemporary horizontal velocity and strain rate fields of the
+  Pacific-Australian plate boundary zone through New Zealand}.
+\newblock {\em Journal of Geophysical Research}, 106(B1):741--770.
+
 \bibitem[Craven and Wahba, 1979]{Craven1979}
 Craven, P. and Wahba, G. (1979).
 \newblock {Smoothing noisy data with spline functions: estimating the correct
@@ -10,6 +16,12 @@ Craven, P. and Wahba, G. (1979).
 Fasshauer, G.~E. (2007).
 \newblock {\em {Meshfree Approximation Method with Matlab}}.
 \newblock World Scientific Publishing Co., Singapore.
+
+\bibitem[Feigl et~al., 1993]{Feigl1993}
+Feigl, K.~L., Agnew, D.~C., Bock, Y., and Dong, D. (1993).
+\newblock {Space Geodetic Measurement of Crustal Deformation in Central and
+  Southern California, 1984–1992}.
+\newblock {\em Journal of Geophysical Research}, 98(B12):21 677--21 712.
 
 \bibitem[Fornberg, 1996]{Fornberg1996}
 Fornberg, B. (1996).
@@ -33,6 +45,12 @@ Murray, M.~H. and Lisowski, M. (2000).
   Washington}.
 \newblock {\em Geophysical Research Letters}, 27(22):3631--3634.
 
+\bibitem[Ohtani et~al., 2010]{Ohtani2010}
+Ohtani, R., McGuire, J.~J., and Segall, P. (2010).
+\newblock {Network strain filter: A new tool for monitoring and detecting
+  transient deformation signals in GPS arrays}.
+\newblock {\em Journal of Geophysical Research: Solid Earth}, 115(12):1--17.
+
 \bibitem[Prescott, 1976]{Prescott1976}
 Prescott, W.~H. (1976).
 \newblock {An extension of Frank's method for obtaining crustal shear strains
@@ -50,6 +68,11 @@ Savage, J.~C., Lisowski, M., and Prescott, W.~H. (1991).
 \newblock {Strain Accumulation in Western United-States}.
 \newblock {\em Journal of Geophysical Research}, 96(B9):14493--14507.
 
+\bibitem[Savage et~al., 1986]{Savage1986}
+Savage, J.~C., Prescott, W.~H., and Gu, G. (1986).
+\newblock {Strain accumulation in southern California, 1973–1984}.
+\newblock {\em Journal of Geophysical Research}, 91(B7):7455--7473.
+
 \bibitem[Shen et~al., 2015]{Shen2015}
 Shen, Z., Wang, M., Zeng, Y., and Wang, F. (2015).
 \newblock {Optimal Interpolation of Spatially Discretized Geodetic Data}.
@@ -62,6 +85,11 @@ Shen, Z.~K., Jackson, D.~D., Ge, B.~X., and Bob, X.~G. (1996).
   geodetic measurements}.
 \newblock {\em Journal of Geophysical Research}, 101(B12):27927--27957.
 
+\bibitem[Tape et~al., 2009]{Tape2009}
+Tape, C., Mus{\'{e}}, P., Simons, M., Dong, D., and Webb, F. (2009).
+\newblock {Multiscale estimation of GPS velocity fields}.
+\newblock {\em Geophysical Journal International}, 179(2):945--971.
+
 \bibitem[Tarantola, 2005]{Tarantola2005}
 Tarantola, A. (2005).
 \newblock {\em {Inverse problem theory and methods for model parameter
@@ -72,5 +100,11 @@ Tarantola, A. (2005).
 Trefethen, L.~N. (2000).
 \newblock {\em {Spectral Methods in Matlab}}.
 \newblock SIAM.
+
+\bibitem[Wright and Fornberg, 2006]{Wright2006}
+Wright, G.~B. and Fornberg, B. (2006).
+\newblock {Scattered node compact finite difference-type formulas generated
+  from radial basis functions}.
+\newblock {\em Journal of Computational Physics}, 212(1):99--123.
 
 \end{thebibliography}

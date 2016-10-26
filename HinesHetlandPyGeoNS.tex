@@ -9,10 +9,17 @@
 \begin{document}
 
 \section{Introduction}
-; however, there are two fundemental difficulties to overcome: 1) one must devise a strategy for differentiating velocities observed at scattered locations in two-dimensional space and 2) The velocity field is noisy and must be smoothed prior to differentiation.  
-%Why is strain and time dependent strain important
 
-Crustal strain rates are fundementally important quantities for assessing seismic hazard. This is because the locations where strain is rapidly accumulating are the locations where we can expect that strain to be released seismically.  Maps of strain rate can be derived from geodetic data, which measure ground displacements or velocities.  The strain rate is merely the spatial derivatives of the velocity field; however, computing the spatial derivative is complicated by 1) the irregular spacing of geodetic observations and 2) the velocity estimates tend to be noisey and some degree of spatial smoothing or regularization is necessary.  calculating  spatial derivative has   however, there are difficulties in doing so.  Calculating strain is essentially, 
+Crustal strain rates are fundementally important quantities for assessing seismic hazard. This is because the locations where strain is rapidly accumulating are the locations where we can expect strain energy to be released seismically. Maps of strain rate can be derived from geodetic measurements of ground displacements, and there are numerous methods for doing so.  The classic and simplest way is to assume that the strain rate is constant in time and spatially uniform within subnetworks of the geodetic data.  Linear least squares is then used to find the components of the strain rate tensor for each subnetwork \citep[e.g][]{Frank1966,Prescott1976,Savage1986,Feigl1993,Murray2000}. Several algorithms have been developed to improve upon this procedure for calculating strain. \citet{Shen1996} and \citet{Shen2015} discuss an algorithm where, instead of using the immediately adjacent stations to calculate strain at a position, the strain is computed with a weighted average over the entire network where the weighting is smaller for more distant stations.  Another strategy is to fit a set of interpolating basis functions to the velocity field and then compute the strain from the analytical derivative of the interpolant \citep[e.g.][]{Beavan2001,Tape2009}.  The aforementioned studies have all been concerned with estimating long term strain rates.  Time dependent strain would be useful for studying geophysical processes which occur over timescales of days to years such as slow slip events, postseismic relaxation, or volcanic deformation.  \citet{Ohtani2010} describes a Kalman filter based method for computing time dependent strain by fitting a set of basis functions to a time dependent displacement field and enforcing temporal smoothness in the basis function coefficients.   
+
+In essence, estimating strain rates is a matter of numerically calculating the spatial derivative of the geodetically observed velocity field.  Calculating the spatial derivative is complicated by the fact that the velocity estimates tend to be noisy, and differentiation will only amplify the noise. Furthermore, the velocities are not observed on a regular grid, preventing the use of standard finite difference methods for computing derivatives. In this paper we demonstrate that both of these complications can be elegantly handled with the recently popularized Radial Basis Function-Finite Difference (RBF-FD) method \citep{Wright2006}.  Our method is computationally efficient and stable (there is no inversion of an ill conditioned matrix). It also does not require tuning an intangible penalty parameter, and instead just requires the user to specify a minimum spatial wavelength for the underlying geophysical signal.  Because of the simplicity of out method, it can easily be extended to time dependent estimates of strain by independently estimating strain for velocity fields for different time epochs. Additionally, our method can be easily extending to account for known discontinuities in the displacement field from, for example, a creeping fault.  
+
+ and rather than tuning an there is no need to tune penalty parameters or hyper parameters.  Due to the ease of   Our procedure also can be   For Due to the speed and reliability of recovering a final strain  Our method is entirely   For these    it does not require tuning hyper tuning, and compuOur we do not claim  
+
+
+ The aforementioned studies do not describe the      Thi     This procedure for calculating strain has been imrpoved upon by One algorithm which improves u underlying assumptions are  with this procedure is that The underlying assumptions for this procedure are generally Several algorithms have been developed to mprove      to find be constant and uniform over a region and then find the   
+
+The strain rate is merely the spatial derivatives of the velocity field; however, computing the spatial derivative is complicated by 1) the irregular spacing of geodetic observations and 2) the velocity estimates tend to be noisey and some degree of spatial smoothing or regularization is necessary.  calculating  spatial derivative has   however, there are difficulties in doing so.  Calculating strain is essentially, 
 
 energy, which may be released seismically, is building up an    
 
@@ -223,6 +230,8 @@ The transfer function in eq. (\ref{eq:NDFourierSoln}) can once again be recogniz
 
 \section{Discussion and Conclusion}
 % discuss potential applications for slip models
+
+% discuss how we remove errors like reference frame and seasonals
 
 \bibliographystyle{apalike}
 \bibliography{mybib}  
