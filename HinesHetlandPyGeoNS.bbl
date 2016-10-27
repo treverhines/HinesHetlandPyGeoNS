@@ -38,10 +38,22 @@ Fornberg, B. (1996).
 \newblock {\em {A practical guide to pseudospectral methods}}.
 \newblock Cambridge University Press.
 
+\bibitem[Fornberg and Flyer, 2015]{Fornberg2015}
+Fornberg, B. and Flyer, N. (2015).
+\newblock {\em {A Primer on Radial Basis Functions with Applications to the
+  Geosciences}}.
+\newblock Society for Industrial and Applied Mathematics, Philadelphia.
+
 \bibitem[Frank, 1966]{Frank1966}
 Frank, C.~F. (1966).
 \newblock {Deduction of earth strains from survey data}.
 \newblock {\em Bulletin of the Seismological Society of America}, 56(1):35--42.
+
+\bibitem[Howell et~al., 2016]{Howell2016}
+Howell, S., Smith-Konter, B., Frazer, N., Tong, X., and Sandwell, D. (2016).
+\newblock {The vertical fingerprint of earthquake cycle loading in southern
+  California}.
+\newblock {\em Nature Geoscience}, (June).
 
 \bibitem[Kimeldorf and Wahba, 1970]{Kimeldorf1970}
 Kimeldorf, G.~S. and Wahba, G. (1970).
@@ -73,11 +85,6 @@ Rasmussen, C.~E. and Williams, C. K.~I. (2006).
 \newblock {\em {Gaussian processes for machine learning}}.
 \newblock The MIT Press.
 
-\bibitem[Savage et~al., 1991]{Savage1991}
-Savage, J.~C., Lisowski, M., and Prescott, W.~H. (1991).
-\newblock {Strain Accumulation in Western United-States}.
-\newblock {\em Journal of Geophysical Research}, 96(B9):14493--14507.
-
 \bibitem[Savage et~al., 1986]{Savage1986}
 Savage, J.~C., Prescott, W.~H., and Gu, G. (1986).
 \newblock {Strain accumulation in southern California, 1973–1984}.
@@ -94,6 +101,13 @@ Shen, Z.~K., Jackson, D.~D., Ge, B.~X., and Bob, X.~G. (1996).
 \newblock {Crustal deformation across and beyond the Los Angeles basin from
   geodetic measurements}.
 \newblock {\em Journal of Geophysical Research}, 101(B12):27927--27957.
+
+\bibitem[Shen et~al., 2011]{Shen2011}
+Shen, Z.~K., King, R.~W., Agnew, D.~C., Wang, M., Herring, T.~A., Dong, D., and
+  Fang, P. (2011).
+\newblock {A unified analysis of crustal motion in Southern California,
+  1970-2004: The SCEC crustal motion map}.
+\newblock {\em Journal of Geophysical Research: Solid Earth}, 116(11):1--19.
 
 \bibitem[Tape et~al., 2009]{Tape2009}
 Tape, C., Mus{\'{e}}, P., Simons, M., Dong, D., and Webb, F. (2009).

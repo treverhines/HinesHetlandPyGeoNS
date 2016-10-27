@@ -14,52 +14,53 @@ Crustal strain rates are fundementally important quantities for assessing seismi
 
 Maps of strain rate can be derived from geodetic measurements of ground displacements, and there are numerous methods for doing so.  The classic and simplest way is to assume that the strain rate is constant in time and spatially uniform within subnetworks of the geodetic data.  Linear least squares is then used to find the components of the strain rate tensor for each subnetwork \citep[e.g][]{Frank1966,Prescott1976,Savage1986,Feigl1993,Murray2000}. Several algorithms have been developed to improve upon this procedure for calculating strain. \citet{Shen1996} and \citet{Shen2015} discuss an algorithm where, instead of using the immediately adjacent stations to calculate strain at a position, the strain is computed with a weighted average over the entire network where the weighting is smaller for more distant stations.  Another strategy is to fit a set of interpolating basis functions to the velocity field and then compute the strain from the analytical derivative of the interpolant \citep[e.g.][]{Beavan2001,Tape2009}.  The aforementioned studies have all been concerned with estimating long term strain rates.  Time dependent strain would be useful for studying geophysical processes which occur over timescales of days to years such as slow slip events, postseismic relaxation, or volcanic deformation.  \citet{Ohtani2010} describes a Kalman filter based method for computing time dependent strain by fitting a set of basis functions to a time dependent displacement field and enforcing temporal smoothness in the basis function coefficients.   
 
-In essence, estimating strain rates is a matter of numerically calculating the spatial derivative of a geodetically observed velocity field.  Any method proposed for calculating strain rates must be able to handle two complications 1) geodetic velocity estimates are noisy and differentiation will only amplify the noise and 2) velocities are not observed on a regular grid, which prevents the use of standard finite difference methods for computing derivatives.  In this paper we demonstrate that both of these complications can be elegantly handled with the recently popularized Radial Basis Function-Finite Difference (RBF-FD) method \citep{Wright2006}.  
+In essence, estimating strain rates is a matter of numerically calculating the spatial derivative of a geodetically observed velocity field.  Any method proposed for calculating strain rates must be able to handle two complications; 1) geodetic velocity estimates are noisy and differentiation will only amplify the noise and 2) velocities are not observed on a regular grid, which prevents the use of standard finite difference methods for computing derivatives.  In this paper we demonstrate that both of these complications can be elegantly handled with the recently popularized Radial Basis Function-Finite Difference (RBF-FD) method \citep{Wright2006}.  
 
-The RBF-FD method was introduced as an efficient way to solve partial differential equations over arbitrarily shaped multi-dimensional problem domains. When compared to alternative strategies such as the finite element method, the RBF-FD method has demonstrated superior accuracy while also being substantially easier to implement.  
+The RBF-FD method was introduced as an computationally efficient way to solve large scale partial differential equations over irregular, multi-dimensional domains.  The RBF-FD method can be thought of as a generalization of the traditional finite difference method, where the node layout is no longer restricted to regular grids. Indeed, the RBF-FD method can be used to estimate derivates of discrete data located at arbitrary scattered positions in multi-dimensional space.  The RBF-FD method is particularly appealing because it is algorithmically simple, regardless of the domain shape or node layout, and also because the method has performed well in numerous benchmark tests \citep[and references therein]{Fornberg2015}.
 
-In this paper we demonstrate using the RBF-FD method to calculate strain rates from geodetic data in a two step process. First we demonstate using the RBF-FD method to spatially smooth the velocity field. Our smoothing strategy can be viewed  as low-pass filter for scattered data where the degree of smoothness is controlled by a user specifies cutoff frequency.  In the second step we use the RBF-FD method to differentiate the smoothed velocity field.  We also demonstrate that this process can be used to estimate a time dependent strain rates.  In that case, we temporally smooth and differentiate GPS time series to get a time dependent velocity field.  We then spatially smooth and differentiate the resulting velocity field to get a time dependent strain map. Our method is computationally efficient and stable (there is no inversion of an ill conditioned matrix). It also does not require tuning an intangible penalty parameter, and instead just requires the user to specify a minimum spatial wavelength for the underlying geophysical signal.  Because of the simplicity of out method, it can easily be extended to time dependent estimates of strain by independently estimating strain for velocity fields for different time epochs. Additionally, our method can be easily extending to account for known discontinuities in the displacement field from, for example, a creeping fault.  
+In this paper, we do not use the RBF-FD method to solve a partial differential equation, but rather we use it to spatially smooth and differentiate GPS derived velocity data.  Our smoothing strategy can be viewed  as a low-pass filter for scattered data where the degree of smoothness is controlled by a user specifies cutoff frequency.  This can be contrasted with interpolation based smoothing strategies \citep[e.g.][]{Howell2016} where the resulting interpolant can be largely and unpredictably controlled by the choice of basis function.  After spatially smoothing the velocity field we differentiate it with the RBF-FD method to get a strain rate map.  We also demonstrate that this procedure can be used to estimate time dependent strain rates.  In that case, we first temporally smooth and differentiate GPS displacement time series to get time dependent velocities.  We then spatially smooth and differentiate the resulting velocities for each time epoch.  
 
-mention the touted accuracy of RBFs and where they came from
-mention how we smooth then diff
-mention Howell2016
+The method proposed in this paper has numerous advantages which set it apart from other methods for computing strain rates. The method is computationally efficient and stable (there is no inversion of an ill-conditioned matrix).  There are no hyper parameters or penalty parameters that need to be tuned for each application.  As opposed to interpolation strategies such as \citet{Beavan2001}, \citet{Tape2009}, or \citet{Ohtani2010}, our method assumes that velocities are locally rather than globally continuous, which allows us to easily handle discontinuities resulting from, for example, a creeping fault. 
 
- and rather than tuning an there is no need to tune penalty parameters or hyper parameters.  Due to the ease of   Our procedure also can be   For Due to the speed and reliability of recovering a final strain  Our method is entirely   For these    it does not require tuning hyper tuning, and compuOur we do not claim  
-
-
- The aforementioned studies do not describe the      Thi     This procedure for calculating strain has been imrpoved upon by One algorithm which improves u underlying assumptions are  with this procedure is that The underlying assumptions for this procedure are generally Several algorithms have been developed to mprove      to find be constant and uniform over a region and then find the   
-
-The strain rate is merely the spatial derivatives of the velocity field; however, computing the spatial derivative is complicated by 1) the irregular spacing of geodetic observations and 2) the velocity estimates tend to be noisey and some degree of spatial smoothing or regularization is necessary.  calculating  spatial derivative has   however, there are difficulties in doing so.  Calculating strain is essentially, 
-
-energy, which may be released seismically, is building up an    
-
-  One can derive a map of strain rates from geodetically observed ground deformation; however, one must devise a strat Past studies which used triangulation surveys estimated strain by finding the best strain field which is uniform in space and constant in time for each triangulation network \citep[e.g.][]{Prescott1976,Savage1991,Murray2000}.  The assumption of Modern studies using GPS data have used a This approach produces  strain studies studies would estimate strain rates by finding the best method is to find the best fitting uniform strain rate tensor for smaller  of the data \citep[e.g][]{Savage1991,Murray2000}.  of the eeis to assume a uniform strain field 
-
-These challenges can be overcome by assuming that Numerous procedures have been used to overcome these challenges and most of them have been used to calculate long-term strain rates from time averaged velocities \citep[e.g.][]{Frank1966,Savage1991,Shen1996,Shen2015}.  A more difficult task is to calculate time dependent strain rates from time dependent velocities, which are even noisier and require a more sophisticated smoothing approach, such as the Network Strain Filter introduced by (cite).Despite its difficulty, there is great motivation for calculating time dependent strain rates.  
-
-    
-
-from   Most often, the displacements 
-
-some smoothing  and must must be smoothed out in order to is generally noisy and .    data must be smoothed so as not to different and there have been numerous procedures have been proposed to used for t have been proposed to do so.
-
-however, the process is not straight forward because  There are two challenges with  process of estimating strain is not entirely straight forward because there are two challenges that   
-
-however, the process for deriving strain rates is not necessarily straight he  , Maps of strain  Unfortunately,   measuring strain accumulation on  is     
-
- because it can be used to assess the energy being accumulated that could be released seismically. 
-
-on the Surface strain rates on the Crustal strain rates are a fundementally important quantity is a fundemental quantity which 
-is fundemental  
-
-
-%review of every way to compute strain and their limitations
-
-%introduce the radial basis function finite difference method
-
-%what is this paper is about
+We begin this paper by summarizing the RBF-FD method and explaining how we construct differentiation matrices for scattered data. We then introduce the smoothing strategy, which is applied to the observed geodetic data prior to differentiation.  We then provide two real world demonstraitions of our method for calculating strain rates.  First we calculate the long term strain rates in Southern California from the CMM3 velocity data set \citep{Shen2011}, and we verify that our results are consistent with other studies. We then calculate time dependent strain rates in Cascadia from the GPS data provided by UNAVCO.  In Cascadia, we analyze strain resulting from slow slip events and compare it to the long term tectonic strain accumulation. Slow slip events are found to produce compression in the Olympic Peninsula, which is in addition to the compression resulting from tectonic loading.  Further south in Oregon, the slow slip events tend to release the compressional strain that is accumulated tectonically.  While similar conclusions have been drawn from fault slip inversions for slow slip events, it is important to recognize that slip inversion are the product of inverting an ill-conditioned matrix making it difficult to determine whether slip inferences are real or just an artifact of the inversion.  The strain rates presented in this paper are more direct observations and can be interpretted with a higher degree of confidence. 
 
 \section{Method}
+\subsection{Differentiating Scattered Data}
+
+We begin by briefly summarizing the RBF-FD method and we refer the reader to \citet{Wright2006} or \citet{Fornberg2015} for additional details. Consider a set of nodes $\mathbf{x} = \{x_1, ..., x_N\}$ in $\mathbb{R}^d$ and corresponding observations of a scalar valued functions $\mathbf{u} = \{u(x_1), ..., u(x_N)\}$.  We want to find a differentiation matrix $\mathbf{L}$, such that $\mathbf{Lu}$ approximates the linear differential operator $\mathcal{L}$ acting on $u$ at nodes $x_1, \dots, x_N$.  For each node $x_i$ we approximate $\mathcal{L}[u(x)]\big|_{x=x_i}$ as a weighted sum of $\{u(x_j): j \in \mathcal{S}_i\}$ where $\mathcal{S}_i$ consist of $i$ and the subscripts for the $n-1$ nearest neighboring nodes to $x_i$. This approximation can be written as
+
+\begin{equation}\label{eq.RBFFDApprox}
+\mathcal{L}[u(x)]\big|_{x=x_i} \approx \sum_{j \in \mathbf{s}_i} w_{i,j} u(x_j)
+\end{equation}
+ 
+where $w_{i,j}$ are the weights which need to be determined. Following \citet{Fornberg2015}, we find the weights by solving the linear system of equations
+\begin{equation}\label{eq:RBFFDWeights}
+\left[
+      \begin{array}{cc}
+      \mathbf{A} & \mathbf{P} \\
+      \mathbf{P}^{T} & \mathbf{0} \\
+      \end{array}
+\right]
+\left[
+  \begin{array}{c}
+  \mathbf{w} \\
+  \mathbf{0} \\
+  \end{array}
+\right]  
+=
+\left[
+  \begin{array}{c}
+  \mathcal{L}[\mathbf{a}] \\
+  \mathcal{L}[\mathbf{b}] \\
+  \end{array}
+\right]
+\end{equation}
+
+
+We refer to the nodes $x_1, \dots, x_n$ as the stencil for $x_1$ and denote it as $X_1$.  The set of nodes   These nodes consist     neighbors by finding the  findwe find the weights, $w_i$, which 
+
+
+For the readers convenience we briefly describe the procedure review the procedure 
 
 \subsection{Smoothing}
 We discuss a method to smooth observed data, $u_\mathrm{obs}$, which can be spatial, temporal, or higher dimensional data, and the observations are generally irregularly spaced.  Methods which handle this task often fall in at least one of two catagories.  One approach is to fit a set of basis functions to the observations using least-squares or regularized least-squares \citep[e.g.][]{Fasshauer2007}.  Smoothing splines can be viewed in this context where the basis functions being fit to the observation are polyharmonic splines.  The second catagory is Gaussian process regression, which is a Bayesian technique where a stochastic prior model is assumed for the underlying signal \citep[e.g.][]{Rasmussen2006}.  Kriging is among the better known examples of Gaussian process regression.  The two approaches are not always distinct.  For example, \citet{Kimeldorf1970} showed that smoothing splines can be cast as a Bayesian estimation problem with the appropriate stochastic prior model.  Our method is an example of Gaussian process regression where our smoothed solution, $u_\mathrm{post}$, incorporates $u_\mathrm{obs}$ and a stochastic prior model for the underlying signal which we are trying to recover.  We constrain $u_\mathrm{post}$ with the observation equation
@@ -229,8 +230,6 @@ If we again assume that the observation have constant variance and $L_n$ is the 
   \frac{1}{1 + \left(\sum_{i=1}^d \left(\frac{\omega_i}{\omega_c}\right)^n\right)^2} \hat{u}_\mathrm{obs}.
 \end{equation}
 The transfer function in eq. (\ref{eq:NDFourierSoln}) can once again be recognized as a low-pass filter.  Namely, in the limit as $n \to \infty$, the transfer function becomes a $d$-dimensional box which is zero for all the frequency tuples, $(\omega_1,\dots,\omega_n)$, which have a component greater than $\omega_c$. 
-
-\subsection{Differentiating Scattered Data}
 
 \section{Applications}
 
