@@ -33,6 +33,12 @@ Field, E.~H., Arrowsmith, R.~J., Biasi, G.~P., Bird, P., Dawson, T.~E., Felzer,
 \newblock {\em Bulletin of the Seismological Society of America},
   104(3):1122--1180.
 
+\bibitem[Flyer et~al., 2016]{Flyer2016}
+Flyer, N., Fornberg, B., Bayona, V., and Barnett, G.~A. (2016).
+\newblock {On the role of polynomials in RBF-FD approximations: I.
+  Interpolation and accuracy}.
+\newblock {\em Journal of Computational Physics}, 321:21--38.
+
 \bibitem[Fornberg, 1996]{Fornberg1996}
 Fornberg, B. (1996).
 \newblock {\em {A practical guide to pseudospectral methods}}.
@@ -60,6 +66,12 @@ Kimeldorf, G.~S. and Wahba, G. (1970).
 \newblock {A Correspondence Between Bayesian Estimation on Stochastic Processes
   and Smoothing by Splines}.
 \newblock {\em The Annals of Mathematical Statistics}, 41(2):495--502.
+
+\bibitem[Larsson and Fornberg, 2003]{Larsson2003}
+Larsson, E. and Fornberg, B. (2003).
+\newblock {A numerical study of some radial basis function based solution
+  methods for elliptic PDEs}.
+\newblock {\em Computers and Mathematics with Applications}, 46:891--902.
 
 \bibitem[Murray and Lisowski, 2000]{Murray2000}
 Murray, M.~H. and Lisowski, M. (2000).

@@ -4,45 +4,45 @@ The top-level auxiliary file: HinesHetlandPyGeoNS.aux
 The style file: apalike.bst
 Database file #1: mybib.bib
 Warning--there's a number but no volume in Howell2016
-You've used 22 entries,
+You've used 24 entries,
             1935 wiz_defined-function locations,
-            631 strings with 7819 characters,
-and the built_in function-call counts, 9213 in all, are:
-= -- 887
-> -- 430
-< -- 13
-+ -- 148
-- -- 148
-* -- 839
-:= -- 1621
-add.period$ -- 66
-call.type$ -- 22
-change.case$ -- 178
-chr.to.int$ -- 22
-cite$ -- 23
-duplicate$ -- 307
-empty$ -- 620
-format.name$ -- 184
-if$ -- 1756
+            645 strings with 8202 characters,
+and the built_in function-call counts, 10049 in all, are:
+= -- 972
+> -- 466
+< -- 14
++ -- 160
+- -- 160
+* -- 913
+:= -- 1767
+add.period$ -- 72
+call.type$ -- 24
+change.case$ -- 194
+chr.to.int$ -- 24
+cite$ -- 25
+duplicate$ -- 335
+empty$ -- 676
+format.name$ -- 200
+if$ -- 1916
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 28
-newline$ -- 113
-num.names$ -- 66
-pop$ -- 156
+missing$ -- 30
+newline$ -- 123
+num.names$ -- 72
+pop$ -- 167
 preamble$ -- 1
-purify$ -- 184
+purify$ -- 200
 quote$ -- 0
-skip$ -- 227
+skip$ -- 248
 stack$ -- 0
-substring$ -- 672
-swap$ -- 22
+substring$ -- 740
+swap$ -- 24
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 120
+type$ -- 132
 warning$ -- 1
-while$ -- 74
+while$ -- 82
 width$ -- 0
-write$ -- 284
+write$ -- 310
 (There was 1 warning)

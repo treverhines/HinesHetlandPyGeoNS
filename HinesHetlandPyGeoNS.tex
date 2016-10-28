@@ -6,6 +6,7 @@
 \usepackage{natbib}
 \usepackage{graphicx}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{arydshln}
 \begin{document}
 
 \section{Introduction}
@@ -27,40 +28,64 @@ We begin this paper by summarizing the RBF-FD method and explaining how we const
 \section{Method}
 \subsection{Differentiating Scattered Data}
 
-We begin by briefly summarizing the RBF-FD method and we refer the reader to \citet{Wright2006} or \citet{Fornberg2015} for additional details. Consider a set of nodes $\mathbf{x} = \{x_1, ..., x_N\}$ in $\mathbb{R}^d$ and corresponding observations of a scalar valued functions $\mathbf{u} = \{u(x_1), ..., u(x_N)\}$.  We want to find a differentiation matrix $\mathbf{L}$, such that $\mathbf{Lu}$ approximates the linear differential operator $\mathcal{L}$ acting on $u$ at nodes $x_1, \dots, x_N$.  For each node $x_i$ we approximate $\mathcal{L}[u(x)]\big|_{x=x_i}$ as a weighted sum of $\{u(x_j): j \in \mathcal{S}_i\}$ where $\mathcal{S}_i$ consist of $i$ and the subscripts for the $n-1$ nearest neighboring nodes to $x_i$. This approximation can be written as
+We begin by briefly summarizing the RBF-FD method and we refer the reader to \citet{Wright2006} or \citet{Fornberg2015} for additional details. Consider a set of $N$ nodes $\mathbf{x} = \{x_1, ..., x_N\}$ in $\mathbb{R}^d$ and corresponding observations of a scalar valued functions $\mathbf{u} = \{u(x_1), ..., u(x_N)\}$.  We want to find a differentiation matrix $\mathbf{L}$, such that $\mathbf{Lu}$ approximates the linear differential operator $\mathcal{L}$ acting on $u$ at nodes $x_1, \dots, x_N$.  For each node $x_i$ we approximate $\mathcal{L}[u(x)]\big|_{x=x_i}$ as a weighted sum of $\{u(x_j): j \in \mathcal{S}_i\}$ where $\mathcal{S}_i$ consist of $i$ and the subscripts for the $n-1$ nearest neighboring nodes to $x_i$.  The approximation can be written as
 
 \begin{equation}\label{eq.RBFFDApprox}
-\mathcal{L}[u(x)]\big|_{x=x_i} \approx \sum_{j \in \mathbf{s}_i} w_{i,j} u(x_j)
+\mathcal{L}[u(x)]\big|_{x=x_i} \approx \sum_{j \in \mathcal{S}_i} L_{ij} u(x_j)
 \end{equation}
- 
-where $w_{i,j}$ are the weights which need to be determined. Following \citet{Fornberg2015}, we find the weights by solving the linear system of equations
-\begin{equation}\label{eq:RBFFDWeights}
+where $L_{ij}$ are the weights making up the differentiation matrix $\mathbf{L}$.  We refer to $x_i$ and its $n-1$ nearest neighbors as the stencil for $x_i$, and it is denoted as $\mathbf{x}^i = \{x_j : j \in \mathcal{S}_i\} = \{x^i_1,..., x^i_n\}$. The corresponding weights for each node in $\mathbf{x}^i$ are denoted as $\mathbf{w}^i = \{L_{ij} : j \in \mathcal{S}_i\} = \{w^i_1,...w^i_n\}$.  We can then equivalently write eq. (\ref{eq.RBFFDApprox}) as 
+\begin{equation}\label{eq.RBFFDApproxAlt}
+\mathcal{L}[u(x)]\big|_{x=x_i} \approx \sum_{j=1}^n w^i_j u(x^i_j).
+\end{equation}
+Following \citet{Fornberg2015}, we find the components of $\mathbf{w}^i$, and thus also of $\mathbf{L}$, by solving the linear system of equations
+\begin{equation}\label{eq.RBFFDWeights}
 \left[
-      \begin{array}{cc}
-      \mathbf{A} & \mathbf{P} \\
-      \mathbf{P}^{T} & \mathbf{0} \\
+      \begin{array}{ccc:ccc}
+      \phi(||x^i_1 - x^i_1||) & \cdots & \phi(||x^i_n - x^i_1||) & \psi_1(x^i_1) & \cdots & \psi_m(x^i_1) \\
+      \vdots                  &        & \vdots                  & \vdots        &        & \vdots        \\   
+      \phi(||x^i_1 - x^i_n||) & \cdots & \phi(||x^i_n - x^i_n||) & \psi_1(x^i_n) & \cdots & \psi_m(x^i_n) \\  
+                              &        &                         &               &        &               \\ \hdashline 
+                              &        &                         &               &        &               \\
+      \psi_1(x^i_1)           & \cdots & \psi_1(x^i_n)           &  0            & \cdots & 0             \\
+      \vdots                  &        & \vdots                  &  \vdots       &        & \vdots        \\   
+      \psi_m(x^i_1)           & \cdots & \psi_m(x^i_n)           &  0            & \cdots & 0             \\       
       \end{array}
 \right]
 \left[
   \begin{array}{c}
-  \mathbf{w} \\
-  \mathbf{0} \\
+  w^i_1  \\
+  \vdots \\
+  w^i_n  \\
+         \\ \hdashline
+         \\
+  \lambda_1 \\
+  \vdots    \\
+  \lambda_m \\
   \end{array}
 \right]  
 =
 \left[
   \begin{array}{c}
-  \mathcal{L}[\mathbf{a}] \\
-  \mathcal{L}[\mathbf{b}] \\
+  \mathcal{L}\left[ \phi(||x - x^i_1||) \right] \big|_{x=x_i} \\
+  \vdots                                                      \\
+  \mathcal{L}\left[ \phi(||x - x^i_n||) \right] \big|_{x=x_i} \\
+                                                              \\ \hdashline
+                                                              \\  
+  \mathcal{L}\left[ \psi_1(x) \right] \big|_{x=x_i}           \\
+  \vdots                                                      \\
+  \mathcal{L}\left[ \psi_m(x) \right] \big|_{x=x_i}           \\
   \end{array}
 \right]
 \end{equation}
+for each stencil.  In eq. (\ref{eq.RBFFDWeights}), $\phi$ is a radial basis function (RBF) which we describe below, $||\bullet||$ indicates the $L_2$ norm, $\psi_i$ are monomial basis functions that span the space of all $d$-dimensional polynomials with a specified degree $p$ (e.g. $\{1, x, y\}$ for $d=2$ and $p=1$), and $\lambda_i$ are parameters that are estimated along with $w^i_j$ when eq. (\ref{eq.RBFFDWeights}) is inverted but they serve no purpose and can be discarded. 
 
+Throughout this paper we use a cubic RBF for $\phi$,
+\begin{equation}\label{eq.Cubic}
+\phi(r) = r^3.
+\end{equation}
+The cubic RBF is an odd degree polyharmonic spline which has the benefit of being scale invariant and thus there is no scaling parameter that needs to be optimized, unlike for many other common choices of RBFs \citep[e.g.][]{Larsson2003}.  We note that the results presented in this paper remain virtually unchanged when we use other polyharmonic splines for $\phi$, which is consistent with the findings of \citet{Flyer2016}. 
 
-We refer to the nodes $x_1, \dots, x_n$ as the stencil for $x_1$ and denote it as $X_1$.  The set of nodes   These nodes consist     neighbors by finding the  findwe find the weights, $w_i$, which 
-
-
-For the readers convenience we briefly describe the procedure review the procedure 
+We must also elaborate on the stencil size, $n$, and the polynomial order $m$.  We choose $m$ to be equal to the order of the derivative which we are approximating.  This choice is based on the analysis of \citet{Flyer2016} and it ensures that eq. (\ref{eq.RBFFDApprox}) will converge to the true derivative as the distance between nodes decreases.  The accuracy of eq. (\ref{eq.RBFFDApprox}) also generally increases with larger values of $n$, but at the expense of computation costs.  We then choose $n$ to be just large enough so that larger values in $n$ do not produce noticable changes in the derivative approximation. We find that $n=30$ is an appropriate choice for the demonstrations in this paper.  It is worth noting that it is not possible to invert eq. (\ref{eq.RBFFDWeights}) when the number of nodes is less than the number of monomial basis functions, and so $n$ must be greater than or equal to ${{p+d}\choose{d}}$.     
 
 \subsection{Smoothing}
 We discuss a method to smooth observed data, $u_\mathrm{obs}$, which can be spatial, temporal, or higher dimensional data, and the observations are generally irregularly spaced.  Methods which handle this task often fall in at least one of two catagories.  One approach is to fit a set of basis functions to the observations using least-squares or regularized least-squares \citep[e.g.][]{Fasshauer2007}.  Smoothing splines can be viewed in this context where the basis functions being fit to the observation are polyharmonic splines.  The second catagory is Gaussian process regression, which is a Bayesian technique where a stochastic prior model is assumed for the underlying signal \citep[e.g.][]{Rasmussen2006}.  Kriging is among the better known examples of Gaussian process regression.  The two approaches are not always distinct.  For example, \citet{Kimeldorf1970} showed that smoothing splines can be cast as a Bayesian estimation problem with the appropriate stochastic prior model.  Our method is an example of Gaussian process regression where our smoothed solution, $u_\mathrm{post}$, incorporates $u_\mathrm{obs}$ and a stochastic prior model for the underlying signal which we are trying to recover.  We constrain $u_\mathrm{post}$ with the observation equation

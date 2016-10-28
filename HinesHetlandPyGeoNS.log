@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.8.24)  27 OCT 2016 19:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.8.24)  28 OCT 2016 19:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -467,35 +467,58 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@layoutvoffset=\dimen121
 \Gm@dimlist=\toks22
 )
+(/usr/share/texlive/texmf-dist/tex/latex/arydshln/arydshln.sty
+Package: arydshln 2004/08/31 v1.71 
+\dashlinedash=\dimen122
+\dashlinegap=\dimen123
+\adl@box=\box28
+\adl@height=\dimen124
+\adl@heightsave=\dimen125
+\adl@depth=\dimen126
+\adl@depthsave=\dimen127
+\adl@finaldepth=\dimen128
+\adl@columns=\count104
+\adl@ncol=\count105
+\adl@currentcolumn=\count106
+\adl@currentcolumnsave=\count107
+\adl@totalheight=\count108
+\adl@totalheightsave=\count109
+\adl@dash=\count110
+\adl@gap=\count111
+\adl@cla=\count112
+\adl@clb=\count113
+\adl@everyvbox=\toks23
+\adl@LTpagetotal=\dimen129
+)
 (./HinesHetlandPyGeoNS.aux)
 \openout1 = `HinesHetlandPyGeoNS.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count104
-\scratchdimen=\dimen122
-\scratchbox=\box28
-\nofMPsegments=\count105
-\nofMParguments=\count106
-\everyMPshowfont=\toks23
-\MPscratchCnt=\count107
-\MPscratchDim=\dimen123
-\MPnumerator=\count108
-\makeMPintoPDFobject=\count109
-\everyMPtoPDFconversion=\toks24
+\scratchcounter=\count114
+\scratchdimen=\dimen130
+\scratchbox=\box29
+\nofMPsegments=\count115
+\nofMParguments=\count116
+\everyMPshowfont=\toks24
+\MPscratchCnt=\count117
+\MPscratchDim=\dimen131
+\MPnumerator=\count118
+\makeMPintoPDFobject=\count119
+\everyMPtoPDFconversion=\toks25
 ) (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
@@ -577,61 +600,68 @@ e
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for U+msa on input line 30.
+LaTeX Font Info:    Try loading font information for U+msa on input line 31.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 30.
+LaTeX Font Info:    Try loading font information for U+msb on input line 31.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [2] [3]
-<figures/fig1.pdf, id=25, 650.43pt x 289.08pt>
+)
+
+Package amsmath Warning: Foreign command \atopwithdelims;
+(amsmath)                \frac or \genfrac should be used instead
+(amsmath)                 on input line 88.
+
+[2] [3] [4] <figures/fig1.pdf, id=28, 650.43pt x 289.08pt>
 File: figures/fig1.pdf Graphic file (type pdf)
- <use figures/fig1.pdf>
-Package pdftex.def Info: figures/fig1.pdf used on input line 184.
+
+<use figures/fig1.pdf>
+Package pdftex.def Info: figures/fig1.pdf used on input line 209.
 (pdftex.def)             Requested size: 487.8213pt x 216.80946pt.
 
-Overfull \hbox (4.12444pt too wide) in paragraph at lines 184--185
+Overfull \hbox (4.12444pt too wide) in paragraph at lines 209--210
 [][] 
  []
 
-[4] <figures/fig2.pdf, id=29, 722.7pt x 578.16pt>
+[5 <./figures/fig1.pdf>] <figures/fig2.pdf, id=93, 722.7pt x 578.16pt>
 File: figures/fig2.pdf Graphic file (type pdf)
- <use figures/fig2.pdf>
-Package pdftex.def Info: figures/fig2.pdf used on input line 193.
+
+<use figures/fig2.pdf>
+Package pdftex.def Info: figures/fig2.pdf used on input line 218.
 (pdftex.def)             Requested size: 505.88655pt x 404.70924pt.
 
-Overfull \hbox (22.18968pt too wide) in paragraph at lines 193--194
+Overfull \hbox (22.18968pt too wide) in paragraph at lines 218--219
 [][] 
  []
 
-[5 <./figures/fig1.pdf>] [6 <./figures/fig2.pdf>] (./HinesHetlandPyGeoNS.bbl
-[7]) [8] (./HinesHetlandPyGeoNS.aux) ) 
+[6 <./figures/fig2.pdf>] (./HinesHetlandPyGeoNS.bbl [7]) [8]
+(./HinesHetlandPyGeoNS.aux) ) 
 Here is how much of TeX's memory you used:
- 3575 strings out of 494910
- 46303 string characters out of 6179836
- 119449 words of memory out of 5000000
- 6811 multiletter control sequences out of 15000+600000
+ 3784 strings out of 494910
+ 49135 string characters out of 6179836
+ 127134 words of memory out of 5000000
+ 7016 multiletter control sequences out of 15000+600000
  7822 words of font info for 30 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 38i,17n,24p,1800b,238s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmbx7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
-10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb>
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/symbols/msbm10.pfb>
-Output written on HinesHetlandPyGeoNS.pdf (8 pages, 256491 bytes).
+ 38i,17n,24p,1800b,226s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmbx7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
+usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/symbols/msbm10.pfb>
+Output written on HinesHetlandPyGeoNS.pdf (8 pages, 262582 bytes).
 PDF statistics:
  210 PDF objects out of 1000 (max. 8388607)
  90 compressed objects within 1 object stream

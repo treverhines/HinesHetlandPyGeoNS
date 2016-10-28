@@ -16,41 +16,44 @@
 \citation{Wright2006}
 \citation{Fornberg2015}
 \citation{Fornberg2015}
+\citation{Larsson2003}
+\citation{Flyer2016}
+\citation{Flyer2016}
 \citation{Fasshauer2007}
 \citation{Rasmussen2006}
 \citation{Kimeldorf1970}
-\citation{Tarantola2005}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Method}{2}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Differentiating Scattered Data}{2}}
 \newlabel{eq.RBFFDApprox}{{1}{2}}
-\newlabel{eq:RBFFDWeights}{{2}{2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Smoothing}{2}}
-\newlabel{eq:Data}{{3}{2}}
-\newlabel{eq:Prior}{{4}{2}}
-\newlabel{eq:Objective}{{5}{2}}
-\newlabel{eq:GeneralSolution}{{7}{2}}
+\newlabel{eq.RBFFDApproxAlt}{{2}{2}}
+\newlabel{eq.RBFFDWeights}{{3}{2}}
+\newlabel{eq.Cubic}{{4}{2}}
+\citation{Tarantola2005}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Smoothing}{3}}
+\newlabel{eq:Data}{{5}{3}}
+\newlabel{eq:Prior}{{6}{3}}
+\newlabel{eq:Objective}{{7}{3}}
+\newlabel{eq:GeneralSolution}{{9}{3}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.1}One-dimensional smoothing}{3}}
+\newlabel{eq:ImplicitPrior1D}{{10}{3}}
+\newlabel{eq:ExplicitPrior1D}{{11}{3}}
+\newlabel{eq:1DSolution}{{12}{3}}
 \citation{Craven1979}
 \citation{Trefethen2000}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.1}One-dimensional smoothing}{3}}
-\newlabel{eq:ImplicitPrior1D}{{8}{3}}
-\newlabel{eq:ExplicitPrior1D}{{9}{3}}
-\newlabel{eq:1DSolution}{{10}{3}}
-\newlabel{eq:SmoothingSpline}{{11}{3}}
-\newlabel{eq:1DObjective}{{12}{3}}
-\newlabel{eq:Property1}{{13}{3}}
-\newlabel{eq:Property2}{{14}{3}}
+\newlabel{eq:SmoothingSpline}{{13}{4}}
+\newlabel{eq:1DObjective}{{14}{4}}
+\newlabel{eq:Property1}{{15}{4}}
+\newlabel{eq:Property2}{{16}{4}}
+\newlabel{eq:1DFourierSoln1}{{17}{4}}
+\newlabel{eq:VariableChange}{{18}{4}}
+\newlabel{eq:1DFourierSoln2}{{19}{4}}
 \citation{Fornberg1996}
-\newlabel{eq:1DFourierSoln1}{{15}{4}}
-\newlabel{eq:VariableChange}{{16}{4}}
-\newlabel{eq:1DFourierSoln2}{{17}{4}}
-\newlabel{eq:VariableChange2}{{19}{4}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Panel A shows $u_\mathrm  {obs}$ (black scatter points), $u_\mathrm  {post}$ (blue line), and the true signal which we are trying to recover (red line). The lines on each scatter point and the light blue region show the one standard deviation uncertainty for the observations and filtered solution respectively. Panel B shows the estimated power spectral density for the observed, filtered, and true signal. The black dashed line is the squared transfer function in eq. (17\hbox {}) with $\omega _c=2$ yr$^{-1}$, which roughly indicates how eq. (10\hbox {}) scales the frequency content of $u_\mathrm  {obs}$. If the data variances were constant then the frequency content of $u_\mathrm  {obs}$ and $\mathaccentV {bar}016{u}_\mathrm  {post}$ would be exactly related by the black dashed line.}}{5}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Panel A shows $u_\mathrm  {obs}$ (black scatter points), $u_\mathrm  {post}$ (blue line), and the true signal which we are trying to recover (red line). The lines on each scatter point and the light blue region show the one standard deviation uncertainty for the observations and filtered solution respectively. Panel B shows the estimated power spectral density for the observed, filtered, and true signal. The black dashed line is the squared transfer function in eq. (19\hbox {}) with $\omega _c=2$ yr$^{-1}$, which roughly indicates how eq. (12\hbox {}) scales the frequency content of $u_\mathrm  {obs}$. If the data variances were constant then the frequency content of $u_\mathrm  {obs}$ and $\mathaccentV {bar}016{u}_\mathrm  {post}$ would be exactly related by the black dashed line.}}{5}}
 \newlabel{fig:Demo1}{{1}{5}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2}Smoothing in Higher Dimensions}{5}}
-\newlabel{eq:NDCovariance}{{22}{5}}
-\newlabel{eq:NDSolution}{{23}{5}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Panel A shows $u_\mathrm  {obs}$ (black scatter points), $u_\mathrm  {post}$ (blue line), and the true signal which we are trying to recover (red line). The light blue region show the one standard deviation uncertainty for $u_\mathrm  {post}$. The uncertainties for the observations are all 1 mm and are not shown for the sake of clarity. Panel B shows the estimated power spectral density for the observed, filtered, and true signal over the time interval (0,5) yr. Panel C is the same as panel B except for the time interval (5,10) yr. In both panel B and C the black dashed line is the squared transfer function in eq. (17\hbox {}) with $\omega _c=2$ yr$^{-1}$.}}{6}}
+\newlabel{eq:VariableChange2}{{21}{5}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Panel A shows $u_\mathrm  {obs}$ (black scatter points), $u_\mathrm  {post}$ (blue line), and the true signal which we are trying to recover (red line). The light blue region show the one standard deviation uncertainty for $u_\mathrm  {post}$. The uncertainties for the observations are all 1 mm and are not shown for the sake of clarity. Panel B shows the estimated power spectral density for the observed, filtered, and true signal over the time interval (0,5) yr. Panel C is the same as panel B except for the time interval (5,10) yr. In both panel B and C the black dashed line is the squared transfer function in eq. (19\hbox {}) with $\omega _c=2$ yr$^{-1}$.}}{6}}
 \newlabel{fig:Demo2}{{2}{6}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2}Smoothing in Higher Dimensions}{6}}
 \bibstyle{apalike}
 \bibdata{mybib}
 \bibcite{Beavan2001}{{1}{2001}{{Beavan and Haines}}{{}}}
@@ -58,25 +61,29 @@
 \bibcite{Fasshauer2007}{{3}{2007}{{Fasshauer}}{{}}}
 \bibcite{Feigl1993}{{4}{1993}{{Feigl et~al.}}{{}}}
 \bibcite{Field2014}{{5}{2014}{{Field et~al.}}{{}}}
-\bibcite{Fornberg1996}{{6}{1996}{{Fornberg}}{{}}}
-\bibcite{Fornberg2015}{{7}{2015}{{Fornberg and Flyer}}{{}}}
-\bibcite{Frank1966}{{8}{1966}{{Frank}}{{}}}
-\bibcite{Howell2016}{{9}{2016}{{Howell et~al.}}{{}}}
-\bibcite{Kimeldorf1970}{{10}{1970}{{Kimeldorf and Wahba}}{{}}}
-\bibcite{Murray2000}{{11}{2000}{{Murray and Lisowski}}{{}}}
-\bibcite{Ohtani2010}{{12}{2010}{{Ohtani et~al.}}{{}}}
-\bibcite{Prescott1976}{{13}{1976}{{Prescott}}{{}}}
-\bibcite{Rasmussen2006}{{14}{2006}{{Rasmussen and Williams}}{{}}}
-\bibcite{Savage1986}{{15}{1986}{{Savage et~al.}}{{}}}
-\bibcite{Shen2015}{{16}{2015}{{Shen et~al.}}{{}}}
-\bibcite{Shen1996}{{17}{1996}{{Shen et~al.}}{{}}}
-\newlabel{eq:NDFourierSoln}{{24}{7}}
+\bibcite{Flyer2016}{{6}{2016}{{Flyer et~al.}}{{}}}
+\bibcite{Fornberg1996}{{7}{1996}{{Fornberg}}{{}}}
+\bibcite{Fornberg2015}{{8}{2015}{{Fornberg and Flyer}}{{}}}
+\bibcite{Frank1966}{{9}{1966}{{Frank}}{{}}}
+\bibcite{Howell2016}{{10}{2016}{{Howell et~al.}}{{}}}
+\bibcite{Kimeldorf1970}{{11}{1970}{{Kimeldorf and Wahba}}{{}}}
+\newlabel{eq:NDCovariance}{{24}{7}}
+\newlabel{eq:NDSolution}{{25}{7}}
+\newlabel{eq:NDFourierSoln}{{26}{7}}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Applications}{7}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Strain Rate in Southern California}{7}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Time Depenent Strain Rate in Cascadia}{7}}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Discussion and Conclusion}{7}}
-\bibcite{Shen2011}{{18}{2011}{{Shen et~al.}}{{}}}
-\bibcite{Tape2009}{{19}{2009}{{Tape et~al.}}{{}}}
-\bibcite{Tarantola2005}{{20}{2005}{{Tarantola}}{{}}}
-\bibcite{Trefethen2000}{{21}{2000}{{Trefethen}}{{}}}
-\bibcite{Wright2006}{{22}{2006}{{Wright and Fornberg}}{{}}}
+\bibcite{Larsson2003}{{12}{2003}{{Larsson and Fornberg}}{{}}}
+\bibcite{Murray2000}{{13}{2000}{{Murray and Lisowski}}{{}}}
+\bibcite{Ohtani2010}{{14}{2010}{{Ohtani et~al.}}{{}}}
+\bibcite{Prescott1976}{{15}{1976}{{Prescott}}{{}}}
+\bibcite{Rasmussen2006}{{16}{2006}{{Rasmussen and Williams}}{{}}}
+\bibcite{Savage1986}{{17}{1986}{{Savage et~al.}}{{}}}
+\bibcite{Shen2015}{{18}{2015}{{Shen et~al.}}{{}}}
+\bibcite{Shen1996}{{19}{1996}{{Shen et~al.}}{{}}}
+\bibcite{Shen2011}{{20}{2011}{{Shen et~al.}}{{}}}
+\bibcite{Tape2009}{{21}{2009}{{Tape et~al.}}{{}}}
+\bibcite{Tarantola2005}{{22}{2005}{{Tarantola}}{{}}}
+\bibcite{Trefethen2000}{{23}{2000}{{Trefethen}}{{}}}
+\bibcite{Wright2006}{{24}{2006}{{Wright and Fornberg}}{{}}}
