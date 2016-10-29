@@ -61,17 +61,16 @@ Howell, S., Smith-Konter, B., Frazer, N., Tong, X., and Sandwell, D. (2016).
   California}.
 \newblock {\em Nature Geoscience}, (June).
 
-\bibitem[Kimeldorf and Wahba, 1970]{Kimeldorf1970}
-Kimeldorf, G.~S. and Wahba, G. (1970).
-\newblock {A Correspondence Between Bayesian Estimation on Stochastic Processes
-  and Smoothing by Splines}.
-\newblock {\em The Annals of Mathematical Statistics}, 41(2):495--502.
-
 \bibitem[Larsson and Fornberg, 2003]{Larsson2003}
 Larsson, E. and Fornberg, B. (2003).
 \newblock {A numerical study of some radial basis function based solution
   methods for elliptic PDEs}.
 \newblock {\em Computers and Mathematics with Applications}, 46:891--902.
+
+\bibitem[Matheron, 1963]{Matheron1963}
+Matheron, G. (1963).
+\newblock {Principles of geostatistics}.
+\newblock {\em Economic Geology}, 58(8):1246--1266.
 
 \bibitem[Murray and Lisowski, 2000]{Murray2000}
 Murray, M.~H. and Lisowski, M. (2000).
@@ -132,10 +131,22 @@ Tarantola, A. (2005).
   estimation}}.
 \newblock SIAM.
 
+\bibitem[Tikhonov and Arsenin, 1978]{Tikhonov1978}
+Tikhonov, A.~N. and Arsenin, V.~Y. (1978).
+\newblock {Solutions of Ill-Posed Problems . by A . N . Tikhonov ; V . Y .
+  Arsenin Review by : John B . Bell Stable URL :
+  http://www.jstor.org/stable/2006360 .}
+\newblock {\em American Mathematical Society}, 32(144):1320--1322.
+
 \bibitem[Trefethen, 2000]{Trefethen2000}
 Trefethen, L.~N. (2000).
 \newblock {\em {Spectral Methods in Matlab}}.
 \newblock SIAM.
+
+\bibitem[Wahba, 1990]{Wahba1990}
+Wahba, G. (1990).
+\newblock {\em {Spline Models for Observational Data}}.
+\newblock Philadelphia.
 
 \bibitem[Wright and Fornberg, 2006]{Wright2006}
 Wright, G.~B. and Fornberg, B. (2006).

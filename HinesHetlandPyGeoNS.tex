@@ -9,7 +9,7 @@
 \usepackage{arydshln}
 \begin{document}
 
-\section{Introduction}
+\section{Introduction}\label{sec:Introduction}
 
 Crustal strain rates are fundementally important quantities for assessing seismic hazard. This is because the locations where strain is rapidly accumulating are the locations where we can expect strain energy to be released seismically.  It is then important to develop and improve upon methods for mapping strain in tectonically active regions because such maps could concievably feed into seismic hazard models such as UCERF3 \citep{Field2014}. 
 
@@ -25,20 +25,22 @@ The method proposed in this paper has numerous advantages which set it apart fro
 
 We begin this paper by summarizing the RBF-FD method and explaining how we construct differentiation matrices for scattered data. We then introduce the smoothing strategy, which is applied to the observed geodetic data prior to differentiation.  We then provide two real world demonstraitions of our method for calculating strain rates.  First we calculate the long term strain rates in Southern California from the CMM3 velocity data set \citep{Shen2011}, and we verify that our results are consistent with other studies. We then calculate time dependent strain rates in Cascadia from the GPS data provided by UNAVCO.  In Cascadia, we analyze strain resulting from slow slip events and compare it to the long term tectonic strain accumulation. Slow slip events are found to produce compression in the Olympic Peninsula, which is in addition to the compression resulting from tectonic loading.  Further south in Oregon, the slow slip events tend to release the compressional strain that is accumulated tectonically.  While similar conclusions have been drawn from fault slip inversions for slow slip events, it is important to recognize that slip inversion are the product of inverting an ill-conditioned matrix making it difficult to determine whether slip inferences are real or just an artifact of the inversion.  The strain rates presented in this paper are more direct observations and can be interpretted with a higher degree of confidence. 
 
-\section{Method}
-\subsection{Differentiating Scattered Data}
+\section{Method}\label{sec:Method}
+\subsection{Differentiating Scattered Data}\label{sec:Differentiating}
 
-We begin by briefly summarizing the RBF-FD method and we refer the reader to \citet{Wright2006} or \citet{Fornberg2015} for additional details. Consider a set of $N$ nodes $\mathbf{x} = \{x_1, ..., x_N\}$ in $\mathbb{R}^d$ and corresponding observations of a scalar valued functions $\mathbf{u} = \{u(x_1), ..., u(x_N)\}$.  We want to find a differentiation matrix $\mathbf{L}$, such that $\mathbf{Lu}$ approximates the linear differential operator $\mathcal{L}$ acting on $u$ at nodes $x_1, \dots, x_N$.  For each node $x_i$ we approximate $\mathcal{L}[u(x)]\big|_{x=x_i}$ as a weighted sum of $\{u(x_j): j \in \mathcal{S}_i\}$ where $\mathcal{S}_i$ consist of $i$ and the subscripts for the $n-1$ nearest neighboring nodes to $x_i$.  The approximation can be written as
+In this section we briefly summarizing the RBF-FD method and we refer the reader to \citet{Wright2006} or \citet{Fornberg2015} for additional details. Consider a set of nodes $\mathbf{x} = \{x_1, ..., x_N\}$ in $\mathbb{R}^d$ and corresponding observations of a scalar valued functions $\mathbf{u} = \{u(x_1), ..., u(x_N)\}$.  We want to find a differentiation matrix $\mathbf{L}$, such that $\mathbf{Lu}$ approximates the linear differential operator $\mathcal{L}$ acting on $u$ at nodes $x_1, \dots, x_N$.  For each node $x_i$ we approximate $\mathcal{L}[u(x)]\big|_{x=x_i}$ as a weighted sum of $\{u(x_j): j \in \mathcal{S}_i\}$ where $\mathcal{S}_i$ consist of $i$ and the subscripts for the $n-1$ nearest neighboring nodes to $x_i$.  The approximation can be written as
 
-\begin{equation}\label{eq.RBFFDApprox}
+\begin{equation}\label{eq:RBFFDApprox}
 \mathcal{L}[u(x)]\big|_{x=x_i} \approx \sum_{j \in \mathcal{S}_i} L_{ij} u(x_j)
 \end{equation}
-where $L_{ij}$ are the weights making up the differentiation matrix $\mathbf{L}$.  We refer to $x_i$ and its $n-1$ nearest neighbors as the stencil for $x_i$, and it is denoted as $\mathbf{x}^i = \{x_j : j \in \mathcal{S}_i\} = \{x^i_1,..., x^i_n\}$. The corresponding weights for each node in $\mathbf{x}^i$ are denoted as $\mathbf{w}^i = \{L_{ij} : j \in \mathcal{S}_i\} = \{w^i_1,...w^i_n\}$.  We can then equivalently write eq. (\ref{eq.RBFFDApprox}) as 
-\begin{equation}\label{eq.RBFFDApproxAlt}
+where $L_{ij}$ are the weights making up the differentiation matrix $\mathbf{L}$.  We refer to $x_i$ and its $n-1$ nearest neighbors as the stencil for $x_i$, and it is denoted as $\mathbf{x}^i = \{x_j : j \in \mathcal{S}_i\} = \{x^i_1,..., x^i_n\}$. The corresponding weights for each node in $\mathbf{x}^i$ are denoted as $\mathbf{w}^i = \{L_{ij} : j \in \mathcal{S}_i\} = \{w^i_1,...w^i_n\}$.  We can then equivalently write eq. (\ref{eq:RBFFDApprox}) as 
+
+\begin{equation}\label{eq:RBFFDApproxAlt}
 \mathcal{L}[u(x)]\big|_{x=x_i} \approx \sum_{j=1}^n w^i_j u(x^i_j).
 \end{equation}
 Following \citet{Fornberg2015}, we find the components of $\mathbf{w}^i$, and thus also of $\mathbf{L}$, by solving the linear system of equations
-\begin{equation}\label{eq.RBFFDWeights}
+
+\begin{equation}\label{eq:RBFFDWeights}
 \left[
       \begin{array}{ccc:ccc}
       \phi(||x^i_1 - x^i_1||) & \cdots & \phi(||x^i_n - x^i_1||) & \psi_1(x^i_1) & \cdots & \psi_m(x^i_1) \\
@@ -77,18 +79,21 @@ Following \citet{Fornberg2015}, we find the components of $\mathbf{w}^i$, and th
   \end{array}
 \right]
 \end{equation}
-for each stencil.  In eq. (\ref{eq.RBFFDWeights}), $\phi$ is a radial basis function (RBF) which we describe below, $||\bullet||$ indicates the $L_2$ norm, $\psi_i$ are monomial basis functions that span the space of all $d$-dimensional polynomials with a specified degree $p$ (e.g. $\{1, x, y\}$ for $d=2$ and $p=1$), and $\lambda_i$ are parameters that are estimated along with $w^i_j$ when eq. (\ref{eq.RBFFDWeights}) is inverted but they serve no purpose and can be discarded. 
+for each stencil. In eq. (\ref{eq:RBFFDWeights}), $\phi$ is a radial basis function (RBF) which we describe below, $||\bullet||$ indicates the $L_2$ norm, $\psi_i$ are monomial basis functions that span the space of all $d$-dimensional polynomials with a specified degree $p$ (e.g. $\{1, x, y\}$ for $d=2$ and $p=1$), and $\lambda_i$ are parameters that are estimated along with $w^i_j$ when eq. (\ref{eq:RBFFDWeights}) is inverted but they serve no purpose and can be discarded. 
 
 Throughout this paper we use a cubic RBF for $\phi$,
-\begin{equation}\label{eq.Cubic}
+
+\begin{equation}\label{eq:Cubic}
 \phi(r) = r^3.
 \end{equation}
 The cubic RBF is an odd degree polyharmonic spline which has the benefit of being scale invariant and thus there is no scaling parameter that needs to be optimized, unlike for many other common choices of RBFs \citep[e.g.][]{Larsson2003}.  We note that the results presented in this paper remain virtually unchanged when we use other polyharmonic splines for $\phi$, which is consistent with the findings of \citet{Flyer2016}. 
 
-We must also elaborate on the stencil size, $n$, and the polynomial order $m$.  We choose $m$ to be equal to the order of the derivative which we are approximating.  This choice is based on the analysis of \citet{Flyer2016} and it ensures that eq. (\ref{eq.RBFFDApprox}) will converge to the true derivative as the distance between nodes decreases.  The accuracy of eq. (\ref{eq.RBFFDApprox}) also generally increases with larger values of $n$, but at the expense of computation costs.  We then choose $n$ to be just large enough so that larger values in $n$ do not produce noticable changes in the derivative approximation. We find that $n=30$ is an appropriate choice for the demonstrations in this paper.  It is worth noting that it is not possible to invert eq. (\ref{eq.RBFFDWeights}) when the number of nodes is less than the number of monomial basis functions, and so $n$ must be greater than or equal to ${{p+d}\choose{d}}$.     
+We now elaborate on the stencil size, $n$, and the polynomial degree, $p$.  We choose $p$ to be equal to the degree of the derivative which we are approximating. This choice is based on the analysis of \citet{Flyer2016} and it ensures that eq. (\ref{eq:RBFFDApprox}) will converge to the true derivative as the distance between nodes decreases. The accuracy of eq. (\ref{eq:RBFFDApprox}) also generally improves with larger values of $n$, but at the expense of computational costs. We then choose $n$ to be large enough for eq. (\ref{eq:RBFFDApprox}) to converge. For the demonstrations in this paper, we find that $n=30$ is an appropriate choice.  It is worth noting that eq. (\ref{eq:RBFFDWeights}) cannot be inverted when the number of nodes is less than the number of monomial basis functions, $m$.  We then have a lower bound on $n$ which is $n \ge m = {{p+d}\choose{d}}$.   
 
-\subsection{Smoothing}
-We discuss a method to smooth observed data, $u_\mathrm{obs}$, which can be spatial, temporal, or higher dimensional data, and the observations are generally irregularly spaced.  Methods which handle this task often fall in at least one of two catagories.  One approach is to fit a set of basis functions to the observations using least-squares or regularized least-squares \citep[e.g.][]{Fasshauer2007}.  Smoothing splines can be viewed in this context where the basis functions being fit to the observation are polyharmonic splines.  The second catagory is Gaussian process regression, which is a Bayesian technique where a stochastic prior model is assumed for the underlying signal \citep[e.g.][]{Rasmussen2006}.  Kriging is among the better known examples of Gaussian process regression.  The two approaches are not always distinct.  For example, \citet{Kimeldorf1970} showed that smoothing splines can be cast as a Bayesian estimation problem with the appropriate stochastic prior model.  Our method is an example of Gaussian process regression where our smoothed solution, $u_\mathrm{post}$, incorporates $u_\mathrm{obs}$ and a stochastic prior model for the underlying signal which we are trying to recover.  We constrain $u_\mathrm{post}$ with the observation equation
+As mentioned, the stencil $\mathbf{x^i}$ consists of the $n$ nearest neighbors to $x_i$.  An obvious assumption in eq. (\ref{eq:RBFFDApprox}) is that $u(x)$ is sufficiently smooth over the footprint of $\mathbf{x}^i$. If there is a known discontinuity in $u(x)$, then it is still possible for eq. (\ref{eq:RBFFDApprox}) to accurately approximate $\mathcal{L}[u(x)]$ as long as no stencils overlap the discontinuity. Programatically, this can be easily implemented by redefining the distance norm used to determine the nearest neighbors.  When there is a known discontinuity, we define the distance between two nodes to be the $L_2$ norm, unless the line segment connecting the two nodes intersects the discontinuity. If there is an intersection then the distance between the two nodes is considered infinite. We use this modified distance norm to account for the known creeping segment of the San Andreas fault in Section \ref{sec:ApplicationsSoCal}.  
+
+\subsection{RBF-FD Filter}\label{sec:Filter}
+We now introduce the RBF-FD filter which is a method for smoothing irregularly spaced $d$-dimensional data.  Existing methods for performing this task often fall in one of two categories.  One approach is to fit a set of basis functions to the observations using least-squares or regularized least-squares \citep[e.g.][]{Fasshauer2007}.  The second category is Gaussian process regression, which is a Bayesian technique where a stochastic prior model is assumed for the underlying signal \citep[e.g.][]{Rasmussen2006}.  Kriging is among the better known examples of Gaussian process regression \citep{Matheron1963}.  The RBF-FD filter is also an example of Gaussian process regression, and it distinguishes itself from other methods because it is computationally efficient and because it can be conventiently viewed as a low-pass filter with a user defined cut-off frequency. Furthermore, the RBF-FD filter can easily be designed so that the data is not smoothed across known discontinuities. In the following discussion of the RBF-FD filter, we seek to find a smoothed solution, $u_\mathrm{post}$, from the irregularly spaced, observed data, $u_\mathrm{obs}$. We constrain $u_\mathrm{post}$ with the observation equation
 
 \begin{equation}\label{eq:Data}
   u_\mathrm{post} = u_\mathrm{obs} + \epsilon,\ \ \ \epsilon \sim \mathcal{N}(0,\mathbf{C}_\mathrm{obs}),
@@ -109,7 +114,7 @@ and is itself a Gaussian process with a distribution described by
 \begin{equation}
   u_\mathrm{post} \sim \mathcal{N}(\bar{u}_\mathrm{post},\mathbf{C}_\mathrm{post}).
 \end{equation}
-We use $\bar{u}_\mathrm{post}$ and $\mathbf{C}_\mathrm{post}$ to denote the mean and covariance of $u_\mathrm{post}$ respectively.  Using Bayesian linear regression \citep[e.g.][]{Tarantola2005} these values are found to be  
+We use $\bar{u}_\mathrm{post}$ and $\mathbf{C}_\mathrm{post}$ to denote the mean and covariance of $u_\mathrm{post}$ respectively.  Using Bayesian linear regression \citep{Tarantola2005} these values are found to be  
 
 \begin{equation}\label{eq:GeneralSolution}
 \begin{split}
@@ -122,9 +127,9 @@ We use $\bar{u}_\mathrm{post}$ and $\mathbf{C}_\mathrm{post}$ to denote the mean
 \end{split}
 \end{equation}
  
-$\mathbf{C}_\mathrm{obs}$ is presumably well known, while $\mathbf{C}_\mathrm{prior}$ needs to be chosen based on an understanding of the underlying signal which we are trying to estimate.  With a judicious choice of $\mathbf{C}_\mathrm{prior}$,  eq. (\ref{eq:GeneralSolution}) can be made equivalent to several well established smoothing methods.  In particular, we demonstrate how eq. (\ref{eq:GeneralSolution}) can be viewed as a low-pass filter with a well defined cutoff frequency. This is first demonstrated for filtering one-dimensional data, and the extension to higher dimensions follows naturally.  
+$\mathbf{C}_\mathrm{obs}$ is presumably well known, while $\mathbf{C}_\mathrm{prior}$ needs to be chosen based on an understanding of the underlying signal which we are trying to estimate. In Section \ref{sec:Smoothing1D} we discuss our choice for $\mathbf{C}_\mathrm{prior}$ and provide demonstrations with one-dimensional data.  The natural extension for $\mathbf{C}_\mathrm{prior}$ when dealing with $d$-dimensional data is discussed in Section \ref{sec:SmoothingND}.  
 
-\subsubsection{One-dimensional smoothing}
+\subsubsection{Filtering in One Dimension}\label{sec:Smoothing1D}
 For one-dimensional data we consider a prior which can be stated implicitly as
 
 \begin{equation}\label{eq:ImplicitPrior1D}
@@ -133,9 +138,9 @@ For one-dimensional data we consider a prior which can be stated implicitly as
 where $\mathbf{D}_n$ is an $n$'th order differentiation matrix, and $q$ is white noise with constant variance $\lambda^2$.  If we momentarily ignore the fact that $\mathbf{D}_n$ is not invertible then we can explicitly write our prior covariance as
 
 \begin{equation}\label{eq:ExplicitPrior1D}
-\mathbf{C_\mathrm{prior}} = \lambda^2(\mathbf{D}_n^T\mathbf{D}_n)^{-1},
+\mathbf{C_\mathrm{prior}} = \lambda^2(\mathbf{D}_n^T\mathbf{D}_n)^{-1}.
 \end{equation}
-and the filtered mean and covariance are described by
+The filtered mean and covariance for the posterior are then 
 \begin{equation}\label{eq:1DSolution}
 \begin{split}
 \bar{u}_\mathrm{post} &= (\mathbf{C}_\mathrm{obs}^{-1} +   
@@ -146,7 +151,7 @@ and the filtered mean and covariance are described by
                             \frac{1}{\lambda^2}\mathbf{D}_n^T\mathbf{D}_n)^{-1}.
 \end{split}
 \end{equation}
-This filtered solution is closely tied to several well established methods of smoothing.  For example, one can immediately recognize eq. (\ref{eq:1DSolution}) as an example of Tikhonov regularization. We also note a similarity between eq. (\ref{eq:1DSolution}) and smoothing splines.  To see this similarity, we first recall that in one-dimension, a smoothing spline is defined as the function, $f(t)$, which minimizes,
+This filtered solution is closely tied to several well established methods of smoothing.  For example, one can immediately recognize eq. (\ref{eq:1DSolution}) as an example of Tikhonov regularization \citep{Tikhonov1978}. We also note a similarity between eq. (\ref{eq:1DSolution}) and smoothing splines \citep{Wahba1990}.  To see this similarity, we first recall that in one-dimension, a smoothing spline is defined as the function, $f(t)$, which minimizes,
 
 \begin{equation}\label{eq:SmoothingSpline}
 \sum_{i=1}^P (u_\mathrm{obs}^i - f(t_i))^2 + \alpha \int_{t_1}^{t_P} f^{(n)}(t) dt,
@@ -196,10 +201,12 @@ We can recognize eq. (\ref{eq:1DFourierSoln2}) as an $n$'th order low-pass Butte
 By demonstrating that eq. (\ref{eq:1DSolution}) can be made equivalent to a low-pass filter, it may not be clear why we would ever use eq. (\ref{eq:1DSolution}) when it is far more efficient to filter in the frequency domain through the Fast Fourier Transform.  In order to make use of the Fast Fourier Transform, the observations must be made at a constant sampling rate and the observation noise must be  white with constant variance.  In contrast, these conditions do not need to be met in order to evaluate eq. (\ref{eq:1DSolution}).  The question is then whether eq. (\ref{eq:1DSolution}) still effectively acts as a low-pass filter when the idealized conditions are not met.  
 
 We address this question here with two numerical demonstrations.  In this first demonstration we generate 100 samples of synthetic data over the time interval $0<t<1$ yr.  The true signal in the syntethic data is a sine wave with a frequency of 1 yr$^{-1}$ and 1 mm amplitude.  We obscure the synthetic data with white noise that does not have a constant variance.  We randomly pick a variance for each datum from a uniform random distribution ranging from 0.5 to 2 mm$^2$.  For the period from 1 to 2 years, we assign a variance of 25 mm$^2$ to the data, effectively making the data uniformitive for the filtered solution.  The synthetic data and its estimated power spectral density are plotted in Figure \ref{fig:Demo1}.  Our goal is to use eq. (\ref{eq:1DSolution}) as a low-pass filter which damps out frequencies that are higher than our signal.  Since our data does not have constant variance, we cannot choose a cutoff frequency from eq. (\ref{eq:VariableChange}).  Instead we define a characteristic data variance as
+
 \begin{equation}
 \frac{1}{\bar{\sigma^2}} = \frac{1}{P} \mathrm{tr}\left(\mathbf{C}_\mathrm{obs}^{-1}\right),
 \end{equation}
 where $P$ is the number of observations, and we relate $\lambda$ to $\omega_c$ by
+
 \begin{equation}\label{eq:VariableChange2}
 \lambda^2 = (2\pi\omega_c)^{2n}\bar{\sigma}^2.  
 \end{equation}
@@ -211,7 +218,7 @@ In this demonstration $D_n$ is still the spectral differentiation matrix and we 
 \label{fig:Demo1}
 \end{figure}
 
-We present a similar demonstration to show that eq. (\ref{eq:1DSolution}) effectively acts as a low-pass filter even when the observations are not uniformly spaced.  We take samples over the time interval $(0,10)$ yr, where the sampling rate is $0.05$ yr$^{-1}$ for the first 5 years and $0.0125$ yr$^{-1}$ for the last 5 years.  We use the same underlying signal from the previous demonstration and we add noise with a constant variance of $1$ mm$^2$.  We keep $n=2$ but since we are dealing with non-uniformly spaced data, we can no longer use the periodic spectral differentiation matrix, and $\mathbf{D}_n$ is instead a first-order accurate finite difference matrix for arbitrarily spaced data \citep{Fornberg1996}.  Once again, our cutoff frequency is $\omega_c = 2$ yr$^{-1}$.  The synthetic data and filtered solution are shown in panel A of Figure \ref{fig:Demo2}.  The power spectral density for the time intervals $(0,5)$ and $(5,10)$ yr are shown in panel B and C, respectively.  In both panels B and C, the spectral density of the filtered solution diverges from the spectral density of the synthetic observations at the expected cutoff frequency of $\omega_c$.  For frequencies above ${\sim}5$ yr$^{-1}$, the rate that the spectral content decays is slower than what is predicted by the transfer function in eq. (\ref{eq:1DFourierSoln2}). This is most pronounced in panel C, and we attribute the discrepancy to our lower order differentiation matrix. Barring the high frequencies which have negligable power in $\bar{u}_\mathrm{post}$, the power spectral density of $\bar{u}_\mathrm{post}$ relative to $u_\mathrm{obs}$ is accurately described by the transfer function in eq. (\ref{eq:1DFourierSoln2}), despite our use of non-uniform spacing.
+We present a similar demonstration to show that eq. (\ref{eq:1DSolution}) effectively acts as a low-pass filter even when the observations are not uniformly spaced.  We take samples over the time interval $(0,10)$ yr, where the sampling rate is $0.05$ yr$^{-1}$ for the first 5 years and $0.0125$ yr$^{-1}$ for the last 5 years.  We use the same underlying signal from the previous demonstration and we add noise with a constant variance of $1$ mm$^2$.  We keep $n=2$ but since we are dealing with non-uniformly spaced data, we can no longer use the periodic spectral differentiation matrix, and $\mathbf{D}_n$ is instead a first-order accurate finite difference matrix for arbitrarily spaced data, which can be computed with traditional finite difference methods \citet{Fornberg1996} or the procedure in Section \ref{sec:Differentiating}.  Once again, our cutoff frequency is $\omega_c = 2$ yr$^{-1}$.  The synthetic data and filtered solution are shown in panel A of Figure \ref{fig:Demo2}.  The power spectral density for the time intervals $(0,5)$ and $(5,10)$ yr are shown in panel B and C, respectively.  In both panels B and C, the spectral density of the filtered solution diverges from the spectral density of the synthetic observations at the expected cutoff frequency of $\omega_c$.  For frequencies above ${\sim}5$ yr$^{-1}$, the rate that the spectral content decays is slower than what is predicted by the transfer function in eq. (\ref{eq:1DFourierSoln2}). This is most pronounced in panel C, and we attribute the discrepancy to our lower order differentiation matrix. Barring the high frequencies which have negligable power in $\bar{u}_\mathrm{post}$, the power spectral density of $\bar{u}_\mathrm{post}$ relative to $u_\mathrm{obs}$ is accurately described by the transfer function in eq. (\ref{eq:1DFourierSoln2}), despite our use of non-uniform spacing.
 
 
 \begin{figure}
@@ -220,7 +227,7 @@ We present a similar demonstration to show that eq. (\ref{eq:1DSolution}) effect
 \label{fig:Demo2}
 \end{figure}
 
-\subsubsection{Smoothing in Higher Dimensions} 
+\subsubsection{Filtering in Higher Dimensions}\label{sec:SmoothingND} 
 We expand our discussion to smoothing data which is observed in $d$-dimensional space.  The filtered solution is still given by eq. (\ref{eq:GeneralSolution}), and we consider the prior model
 
 \begin{equation}
@@ -231,7 +238,7 @@ where $\mathbf{L}_n$ is a differentiation matrix which approximates the operatio
 \begin{equation}
   \sum_{i=1}^d\frac{\partial^n}{\partial x_i^n} 
 \end{equation} 
-and $n$ is an even integer. The corresponding covariance matrix is then
+and $n$ is an even integer. In general, we can construct $\mathbf{L}_n$ for arbitrarily spaced data with the strategy described in Section \ref{sec:Differentiating}. The corresponding covariance matrix is then
 
 \begin{equation}\label{eq:NDCovariance}
 \mathbf{C}_\mathrm{prior} = \lambda^2\left(\mathbf{L}_n^T\mathbf{L}_n\right)^{-1}. 
@@ -248,21 +255,25 @@ Using the change of variables from eq. (\ref{eq:VariableChange2}), the solution 
                             \frac{1}{(2\pi\omega_c)^{2n}\bar{\sigma}^2}\mathbf{L}_n^T\mathbf{L}_n)^{-1}.
 \end{split}
 \end{equation}
-If we again assume that the observation have constant variance and $L_n$ is the corresponding spectral differentiation matrix, then the d-dimensional discrete Fourier transform of $\bar{u}_\mathrm{post}$ is 
+If we again assume that the observation are regularly spaced, have constant variance, and $\mathbf{L}_n$ is the corresponding spectral differentiation matrix, then the d-dimensional discrete Fourier transform of $\bar{u}_\mathrm{post}$ is 
 
 \begin{equation}\label{eq:NDFourierSoln}
   \hat{u}_\mathrm{post}(\omega_1, \dots, \omega_d) = 
   \frac{1}{1 + \left(\sum_{i=1}^d \left(\frac{\omega_i}{\omega_c}\right)^n\right)^2} \hat{u}_\mathrm{obs}.
 \end{equation}
-The transfer function in eq. (\ref{eq:NDFourierSoln}) can once again be recognized as a low-pass filter.  Namely, in the limit as $n \to \infty$, the transfer function becomes a $d$-dimensional box which is zero for all the frequency tuples, $(\omega_1,\dots,\omega_n)$, which have a component greater than $\omega_c$. 
+The transfer function in eq. (\ref{eq:NDFourierSoln}) can once again be recognized as a low-pass filter.  Namely, in the limit as $n \to \infty$, the transfer function becomes a $d$-dimensional box which is zero for all the frequency tuples, $(\omega_1,\dots,\omega_n)$, which have a component greater than $\omega_c$.
 
-\section{Applications}
+When the data is not regularly spaced, eq. (\ref{eq:NDSolution}) is no longer a low-pass filter, strictly speaking, because the Discrete Fourier Transform is not clearly defined in that case. Nonetheless, numerical tests verify that the shortest feature wavelength retained in the filtered solution is consistent with the specified cutoff frequency, regardless of the data spacing.  For this reason, we argue that eq. (\ref{eq:NDSolution}) effectively acts as a low-pass filter for irregularly spaced, $d$-dimensional data.
 
-\subsection{Strain Rate in Southern California}
+\section{Applications}\label{sec:Applications}
 
-\subsection{Time Depenent Strain Rate in Cascadia}
+\subsection{Strain Rate in Southern California}\label{sec:ApplicationsSoCal}
+give definition of strain
+remark on how uncertainties are computed and also how they dont account for error in L
 
-\section{Discussion and Conclusion}
+\subsection{Time Depenent Strain Rate in Cascadia}\label{sec:ApplicationsCascadia}
+
+\section{Discussion and Conclusion}\label{sec:Discussion}
 % discuss potential applications for slip models
 
 % discuss how we remove errors like reference frame and seasonals
