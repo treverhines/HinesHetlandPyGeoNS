@@ -29,7 +29,7 @@ def psd(u,time,T=None):
   df = freq[1] - freq[0]
   F = ndft_matrix(time,freq)
   uhat = F.dot(u)/N
-  pow = uhat.conj()*uhat
+  pow = (uhat.conj()*uhat).real
   freq = freq[:N//2]
   pow = 2*pow[:N//2]/df
   return freq[1:],pow[1:]

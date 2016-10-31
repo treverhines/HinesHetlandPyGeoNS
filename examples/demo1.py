@@ -48,9 +48,9 @@ cutoff = 2.0
 signal_freq = 1.0
 min_time = 0.0
 max_time = 5.0
-var = 1.0*np.ones(P)
 var = np.random.uniform(0.5,2.0,P)
 var[20:40] = 25.0
+
 var_bar = 1.0/np.mean(1.0/var)
 lamb_square = (2*np.pi*cutoff)**(2*N)*var_bar
 
@@ -61,9 +61,8 @@ signal = 1*np.sin(2*np.pi*time*signal_freq)
 data = signal + 1*np.random.normal(0.0,np.sqrt(var))
 
 # compute differentiation matrix
-#D = spectral_diff_matrix(P,time[1]-time[0],N)
-D = rbf.fd.diff_matrix_1d(time[:,None],(N,)).toarray()
-
+D = spectral_diff_matrix(P,time[1]-time[0],N)
+#D = rbf.fd.weight_matrix(time[:,None],time[:,None],(N,)).toarray()
 # perform inversion
 Cobs_inv = np.diag(1.0/var)
 Cprior_inv = 1.0/lamb_square*D.T.dot(D)
@@ -91,7 +90,7 @@ def true_filter(freq):
   return 1.0/(1.0 + (freq/cutoff)**(2*N))
 
 ax2.set_xlabel(r'frequency [1/yr]')
-ax2.set_ylabel(r'power spectral density [mm**2 yr]')
+ax2.set_ylabel(r'power spectral density [$\mathregular{mm^2}$ yr]')
 # plot frequency content of observation
 freq,pow = psd(data,time)
 ax2.loglog(freq,pow,'k',lw=1,label=r'$u_\mathrm{obs}$',zorder=2)
