@@ -90,7 +90,7 @@ def true_filter(freq):
   return 1.0/(1.0 + (freq/cutoff)**(2*N))
 
 ax2.set_xlabel(r'frequency [1/yr]')
-ax2.set_ylabel(r'power spectral density [$\mathregular{mm^2} \dot $yr]')
+ax2.set_ylabel(r'power spectral density [$\mathregular{mm^2}$ yr]')
 # plot frequency content of observation
 freq,pow = psd(data,time)
 ax2.loglog(freq,pow,'k',lw=1,label=r'$u_\mathrm{obs}$',zorder=2)

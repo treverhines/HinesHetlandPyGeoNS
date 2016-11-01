@@ -29,11 +29,10 @@
 \newlabel{eq:RBFFDWeights}{{3}{2}}
 \newlabel{eq:Cubic}{{4}{2}}
 \citation{Fasshauer2007}
+\citation{Hastie1990}
 \citation{Rasmussen2006}
 \citation{Matheron1963}
 \citation{Tarantola2005}
-\citation{Tikhonov1978}
-\citation{Wahba1990}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.2}RBF-FD Filter}{3}}
 \newlabel{sec:Filter}{{2.2}{3}}
 \newlabel{eq:Data}{{5}{3}}
@@ -44,9 +43,11 @@
 \newlabel{sec:Smoothing1D}{{2.2.1}{3}}
 \newlabel{eq:ImplicitPrior1D}{{10}{3}}
 \newlabel{eq:ExplicitPrior1D}{{11}{3}}
-\newlabel{eq:1DSolution}{{12}{3}}
+\citation{Tikhonov1978}
+\citation{Wahba1990}
 \citation{Craven1979}
 \citation{Trefethen2000}
+\newlabel{eq:1DSolution}{{12}{4}}
 \newlabel{eq:SmoothingSpline}{{13}{4}}
 \newlabel{eq:1DObjective}{{14}{4}}
 \newlabel{eq:Property1}{{15}{4}}
@@ -54,48 +55,49 @@
 \newlabel{eq:1DFourierSoln1}{{17}{4}}
 \newlabel{eq:VariableChange}{{18}{4}}
 \newlabel{eq:1DFourierSoln2}{{19}{4}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Panel A shows $u_\mathrm  {obs}$ (black scatter points), $u_\mathrm  {post}$ (blue line), and the true signal which we are trying to recover (red line). The lines on each scatter point and the light blue region show the one standard deviation uncertainty for the observations and filtered solution respectively. Panel B shows the estimated power spectral density for the observed, filtered, and true signal. The black dashed line is the squared transfer function in eq. (19\hbox {}) with $\omega _c=2$ yr$^{-1}$, which roughly indicates how eq. (12\hbox {}) scales the frequency content of $u_\mathrm  {obs}$. If the data variances were constant then the frequency content of $u_\mathrm  {obs}$ and $\mathaccentV {bar}016{u}_\mathrm  {post}$ would be exactly related by the black dashed line.}}{5}}
-\newlabel{fig:Demo1}{{1}{5}}
 \newlabel{eq:VariableChange2}{{21}{5}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2}Filtering in Higher Dimensions}{5}}
+\newlabel{sec:SmoothingND}{{2.2.2}{5}}
+\newlabel{eq:NDCovariance}{{24}{5}}
+\newlabel{eq:NDSolution}{{25}{5}}
 \bibstyle{apalike}
 \bibdata{mybib}
 \bibcite{Beavan2001}{{1}{2001}{{Beavan and Haines}}{{}}}
-\bibcite{Craven1979}{{2}{1979}{{Craven and Wahba}}{{}}}
-\bibcite{Fasshauer2007}{{3}{2007}{{Fasshauer}}{{}}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2}Filtering in Higher Dimensions}{6}}
-\newlabel{sec:SmoothingND}{{2.2.2}{6}}
-\newlabel{eq:NDCovariance}{{24}{6}}
-\newlabel{eq:NDSolution}{{25}{6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Panel A shows $u_\mathrm  {obs}$ (black scatter points), $u_\mathrm  {post}$ (blue line), and the true signal which we are trying to recover (red line). The lines on each scatter point and the light blue region show the one standard deviation uncertainty for the observations and filtered solution respectively. Panel B shows the estimated power spectral density for the observed, filtered, and true signal. The black dashed line is the squared transfer function in eq. (19\hbox {}) with $\omega _c=2$ yr$^{-1}$, which roughly indicates how eq. (12\hbox {}) scales the frequency content of $u_\mathrm  {obs}$. If the data variances were constant then the frequency content of $u_\mathrm  {obs}$ and $\mathaccentV {bar}016{u}_\mathrm  {post}$ would be exactly related by the black dashed line.}}{6}}
+\newlabel{fig:Demo1}{{1}{6}}
 \newlabel{eq:NDFourierSoln}{{26}{6}}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Applications}{6}}
 \newlabel{sec:Applications}{{3}{6}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Strain Rate in Southern California}{6}}
 \newlabel{sec:ApplicationsSoCal}{{3.1}{6}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Time Depenent Strain Rate in Cascadia}{6}}
-\newlabel{sec:ApplicationsCascadia}{{3.2}{6}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Discussion and Conclusion}{6}}
-\newlabel{sec:Discussion}{{4}{6}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Panel A shows $u_\mathrm  {obs}$ (black scatter points), $u_\mathrm  {post}$ (blue line), and the true signal which we are trying to recover (red line). The light blue region show the one standard deviation uncertainty for $u_\mathrm  {post}$. The uncertainties for the observations are all 1 mm and are not shown for the sake of clarity. Panel B shows the estimated power spectral density for the observed, filtered, and true signal over the time interval (0,5) yr. Panel C is the same as panel B except for the time interval (5,10) yr. In both panel B and C the black dashed line is the squared transfer function in eq. (19\hbox {}) with $\omega _c=2$ yr$^{-1}$.}}{7}}
 \newlabel{fig:Demo2}{{2}{7}}
+\bibcite{Craven1979}{{2}{1979}{{Craven and Wahba}}{{}}}
+\bibcite{Fasshauer2007}{{3}{2007}{{Fasshauer}}{{}}}
 \bibcite{Feigl1993}{{4}{1993}{{Feigl et~al.}}{{}}}
 \bibcite{Field2014}{{5}{2014}{{Field et~al.}}{{}}}
 \bibcite{Flyer2016}{{6}{2016}{{Flyer et~al.}}{{}}}
 \bibcite{Fornberg2015}{{7}{2015}{{Fornberg and Flyer}}{{}}}
 \bibcite{Frank1966}{{8}{1966}{{Frank}}{{}}}
-\bibcite{Howell2016}{{9}{2016}{{Howell et~al.}}{{}}}
-\bibcite{Larsson2003}{{10}{2003}{{Larsson and Fornberg}}{{}}}
-\bibcite{Matheron1963}{{11}{1963}{{Matheron}}{{}}}
-\bibcite{Murray2000}{{12}{2000}{{Murray and Lisowski}}{{}}}
-\bibcite{Ohtani2010}{{13}{2010}{{Ohtani et~al.}}{{}}}
-\bibcite{Prescott1976}{{14}{1976}{{Prescott}}{{}}}
-\bibcite{Rasmussen2006}{{15}{2006}{{Rasmussen and Williams}}{{}}}
-\bibcite{Savage1986}{{16}{1986}{{Savage et~al.}}{{}}}
-\bibcite{Shen2015}{{17}{2015}{{Shen et~al.}}{{}}}
-\bibcite{Shen1996}{{18}{1996}{{Shen et~al.}}{{}}}
-\bibcite{Shen2011}{{19}{2011}{{Shen et~al.}}{{}}}
-\bibcite{Tape2009}{{20}{2009}{{Tape et~al.}}{{}}}
-\bibcite{Tarantola2005}{{21}{2005}{{Tarantola}}{{}}}
-\bibcite{Tikhonov1978}{{22}{1978}{{Tikhonov and Arsenin}}{{}}}
-\bibcite{Trefethen2000}{{23}{2000}{{Trefethen}}{{}}}
-\bibcite{Wahba1990}{{24}{1990}{{Wahba}}{{}}}
-\bibcite{Wright2006}{{25}{2006}{{Wright and Fornberg}}{{}}}
+\bibcite{Hastie1990}{{9}{1990}{{Hastie and Tibshirani}}{{}}}
+\bibcite{Howell2016}{{10}{2016}{{Howell et~al.}}{{}}}
+\bibcite{Larsson2003}{{11}{2003}{{Larsson and Fornberg}}{{}}}
+\bibcite{Matheron1963}{{12}{1963}{{Matheron}}{{}}}
+\bibcite{Murray2000}{{13}{2000}{{Murray and Lisowski}}{{}}}
+\bibcite{Ohtani2010}{{14}{2010}{{Ohtani et~al.}}{{}}}
+\bibcite{Prescott1976}{{15}{1976}{{Prescott}}{{}}}
+\bibcite{Rasmussen2006}{{16}{2006}{{Rasmussen and Williams}}{{}}}
+\bibcite{Savage1986}{{17}{1986}{{Savage et~al.}}{{}}}
+\bibcite{Shen2015}{{18}{2015}{{Shen et~al.}}{{}}}
+\bibcite{Shen1996}{{19}{1996}{{Shen et~al.}}{{}}}
+\bibcite{Shen2011}{{20}{2011}{{Shen et~al.}}{{}}}
+\bibcite{Tape2009}{{21}{2009}{{Tape et~al.}}{{}}}
+\bibcite{Tarantola2005}{{22}{2005}{{Tarantola}}{{}}}
+\bibcite{Tikhonov1978}{{23}{1978}{{Tikhonov and Arsenin}}{{}}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Time Depenent Strain Rate in Cascadia}{8}}
+\newlabel{sec:ApplicationsCascadia}{{3.2}{8}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Discussion and Conclusion}{8}}
+\newlabel{sec:Discussion}{{4}{8}}
+\bibcite{Trefethen2000}{{24}{2000}{{Trefethen}}{{}}}
+\bibcite{Wahba1990}{{25}{1990}{{Wahba}}{{}}}
+\bibcite{Wright2006}{{26}{2006}{{Wright and Fornberg}}{{}}}

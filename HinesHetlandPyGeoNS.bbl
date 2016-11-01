@@ -50,6 +50,11 @@ Frank, C.~F. (1966).
 \newblock {Deduction of earth strains from survey data}.
 \newblock {\em Bulletin of the Seismological Society of America}, 56(1):35--42.
 
+\bibitem[Hastie and Tibshirani, 1990]{Hastie1990}
+Hastie, T.~J. and Tibshirani, R.~J. (1990).
+\newblock {\em {Generalized Additive Models}}, volume~1.
+\newblock Chapman and Hall, London.
+
 \bibitem[Howell et~al., 2016]{Howell2016}
 Howell, S., Smith-Konter, B., Frazer, N., Tong, X., and Sandwell, D. (2016).
 \newblock {The vertical fingerprint of earthquake cycle loading in southern
