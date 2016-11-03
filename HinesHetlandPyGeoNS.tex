@@ -204,49 +204,32 @@ Based on eq. (\ref{eq:1DFourierSoln2}), we can recognize the frequency response 
 \label{fig:FrequencyResponse}
 \end{figure}
 
-If eq. (\ref{eq:1DSolution}) is an LTI filter then it is far more efficient to evaluate $\mathbf{\bar{u}}_\mathrm{post}$ in the frequency domain with eq. (\ref{eq:1DFourierSoln2}) and the aid of the Fast Fourier Transform.  For GPS data, it would not be appropiate to assume that eq. (\ref{eq:1DSolution}) is an LTI filter because neither the data uncertainties nor the sampling rates are constant.  When the LTI conditions are not satisfied, we can still smooth the data in the time domain with eq. (\ref{eq:1DSolution}); however, it is no longer clear whether eq. (\ref{eq:1DSolution}) will still effectively act as a low-pass filter which removes frequencies above the chosen cutoff. 
+The above Fourier analysis reveals how eq. (\ref{eq:1DSolution}) will behave under LTI assumptions.  For the GPS data considered in this paper, this assumption is not appropriate because neither the data uncertainties nor the sampling rates are constant. When the LTI conditiosn are not satisfied, it is no longer obvious how eq. (\ref{eq:1DSolution}) behaves or whether it can still be viewed as a low-pass filter with cutoff frequency $\omega_c$.  
 
-We address this question by inspecting the eigenvalues, $\mathbf{s}=\{s_1,...s_N\}$, and eigenvectors, $\mathbf{V}=\{\mathbf{v}_1,..,\mathbf{v}_n\}$, of the matrix mapping $\mathbf{u}_\mathrm{obs}$ to $\mathbf{\bar{u}}_\mathrm{post}$ in eq. (\ref{eq:1DSolution}),
+The behavior of eq. (\ref{eq:1DSolution}) can be revealed by analyzing the eigen decomposition of the matrix mapping $\mathbf{u}_\mathrm{obs}$ to $\mathbf{\bar{u}}_\mathrm{post}$,
 
 \begin{equation}\label{eq:Kernel}
 \mathbf{K} = (\mathbf{C}_\mathrm{obs}^{-1} + 
               \frac{1}{(2\pi\omega_c)^{2n}\sigma^2}\mathbf{D}_n^T\mathbf{D}_n)^{-1}\mathbf{C}_\mathrm{obs}^{-1}.
 \end{equation}
+The eigenvalues of $\mathbf{K}$, $s_1, \dots, s_N$, are real and bounded between 0 and 1.  The eigenvectors, $\mathbf{v}_1, \dots,\mathbf{v}_N$, are real and, when $\mathbf{K}$ is symmetric (e.g. when $\mathbf{C}_\mathrm{obs} = \sigma^2 \mathbf{I}$), form an orthogonal basis set.  Each eigenvalue, $s_i$,  describes the amount that $\mathbf{v}_i$ will be shrunk under the mapping $\mathbf{K}$.  The eigenvectors associated with eigenvalues close to 1 can then be interpretted as components which are retained in $\mathbf{\bar{u}}_\mathrm{post}$. When the LTI conditions are satisfied, the above Fourier analysis reveals that $\mathbf{v}_1, \dots, \mathbf{v}_N$ are a set of orthogonal sinusoids and $s_1, \dots s_N$ are the coresponding frequency responses from eq. (\ref{eq:1DFourierSoln2}). In Figure \ref{fig:Demo1} and \ref{fig:Demo2} we show the eigen decomposition of $\mathrm{K}$ under four different conditions; 1) $\mathrm{K}$ is an LTI filter; 2) we do not assume the data is periodic (i.e. $\mathrm{D}_n$ is not a periodic differentiation matrix); 3) The data uncertainty is not constant; 4) the data sampling rate is not constant. In all cases, the eigenvectors still resemble sinuisoids and the eigenvalues still decay in a manner consistent with the frequency response function in eq. (\ref{eq:1DFourierSoln2}). Specifically, the eigenvectors associated with eigenvalues greater than or equal to 0.5 resemble sinusoids with frequencies less than or equal to $\omega_c$. The remaining eigenvectors resemble sinusoids with frequencies greater than $\omega_c$ and they have eigenvalues that are effectively 0.  We can conclude that eq. (\ref{eq:1DSolution}) still effectively behaves as a low-pass filter with cutoff frequency $\omega_c$, even when the LTI conditions are not satisfied.  
 
-In the case of constant data uncertainty, K is symmetric and thus the eigenvectors form an orthogonal set.
+There are a few features in the eigenvectors for $\mathbf{K}$ that further illuminate the behavior of eq. \ref{eq:1DSolution}.  
 
+1) The periodic spectral differentiation matrix enforces periodicity on the smoothed solution.  Using a standard finite difference matrix for $\mathbf{D}_n$ does not enforce periodicity. Instead $\mathbf{u}_\mathrm{post}$ tends to have more exteme values at the edges of the data domain. This can be observed by inspecting the eigenvectors and noting that most of their extreme values are at the domain boundary
 
-We can decompose $\mathbf{u}_\mathrm{obs}$ and $\mathbf{\bar{u}}_\mathrm{post}$ as 
+2) Nonuniform data uncertainty results in sinuisoids with varying frequency. Over the interval where the data is noisier, the eigenvectors have a longer wavelength, which is desireable behavior because $\mathbf{u}_\mathrm{post}$ cannot contort to fit the dubious data.  Furthermore, in the limit that uncertainty goes to zero the eigenvectors converge to something and thus we have a way to deal with missing data. 
 
-which emphasizes that $\mathbf{K}$ acts to s  
-and each eigenvalue, $s_i$, indicates how much is between 0 and 1 and indicates how much the projection of $\mathbf{v}_i$ on will be attenuated in $\mathbf{\bar{u}}_\mathrm{post}$.  We can then consider $\mathbf{\bar{u}}_\mathrm{post}$ to be composed of the eigenvectors corresponding to eigenvalues close to 1.  In the case where $\mathbf{K}$ is an LTI filter, $\mathbf{V}$ is a set of orthogonal sinusoids and $\mathbf{s}$ are the coresponding frequency responses from eq. (\ref{eq:1DFourierSoln2}).  We show in Figure \ref{fig:Demo1} and \ref{fig:Demo2} that $\mathbf{V}$ still resemble sinusoids when the LTI conditions are not satisfied and the eigenvectors associated with eigenvalues ${\gtrsim}0.5$ have a characteristic frequency $\lesssim \omega_c$.  We thus conclude that eq. (\ref{eq:1DSolution}) effectively behaves as a low-pass filter with frequency $\omega_c$ when LTI conditions are not satistified; however there are some noteworthy features in the eigendecompositon of $\mathbf{K}$ which we elaborate on below.
+Since the data uncertainties are not constant, we must define a characteristic uncertainty $\bar{\sigma}$ to replace $\sigma$ when eq. (\ref{eq:VariableChange}) is used to determine the penalty parameter.  We find an appropriate choice to be 
 
-  There are a few noteworthy features in the eigendecomposition of $\mathbf{K}$ when nuanced differences that  
+\begin{equation}
+\frac{1}{\bar{\sigma^2}} = \frac{1}{P} \mathrm{tr}\left(\mathbf{C}_\mathrm{obs}^{-1}\right),
+\end{equation}
+where $P$ is the number of observations.  We now determine the penalty parameter $\lambda$ which is consistent with the user specified cutoff frequency $\omega_c$ with the relationship
 
+It is also worth pointing out that $\mathbf{u}_\mathrm{post}$ asymptotically approaches a solution that is not significantly different from that shown in Figure \ref{fig:Demo1} when the variance for $\mathbf{u}_\mathrm{obs}$ increases to infinity over the interval $1<t<2$.  This too is desirable behaviour because one could then surmise that an appropriate way to handle missing data with eq. (\ref{eq:1DSolution}) is to assign $\mathbf{u}_\mathrm{obs}$ an infinite variance for the missing time period.  With this insight, we can then extend the application of eq. (\ref{eq:1DSolution}) from data smoothing to data interpolation and extrapolation.   
 
-
-  We use 0.5 as reference value because the 
-
-
-  
-
-The eigenvectors which have a frequency greater than $\omega_c$, have an eigenvalue greater 0.5, and we use this    
-
-We show the eigenvectors and  Figure \ref{fig:Demo1}B, we show the eigenvectors    
-
-The eigenvectos determine the frequency content of eq. \ref{eq:1DSolution} behaves 
-
-From eq. (\ref{eq:1DFourierSoln2}) we can see the eigenvectors with a frequency of ${\sim}\omega_c$ will have a corresponding eigenvalue of ${\sim}0.5$.  
-
-
-
-The 
-
- Furthermore, the eigenvectors corresponding to have a characteristic frequency that is lower than $\omega_c$, thus demonstrating the eq. (\ref{eq:1DSolution}) behaves effectively as a low pass filter with a cutoff frequency $\omega_c$.  There are a few noteworthy points to be made for each demonstration in Figures \ref{fig:Demo1} and \ref{fig:Demo2}.  have resemble higher frequency eigenvectors demonstration higher frequency eigenvectors decay log-linearly with  with log-linearly with f This   which  will  When the  of the the frequency response a  We can then Inspecting the eigenvectors and eigenvalues of  $\mathbf{G}$ is equivalent to analyzing the frequency response for an LTI filter.  For in which case the eigenvectors would consist of sinusoids and the eigenvalues would be the associated points on the frequency response curve.corresponding 
-
-When the idealized conditions allowing  In Figure \ref{fig:Demo1}A-C we provide a filtering demonstration where the idealized data conditions allowing $\mathbf{G}$ to be viewed as a low-pass filter are met. Namely, the sampling rate and the data uncertainty are constant, and $\mathbf{D}_n$ is the periodic spectral differentiation matrix.  In this demonstration we use $\omega_c = 5$. The synthetic data and filtered solution are shown in Figure \ref{fig:Demo1}A.  The eignevectors and eigenvalues of $\mathbf{G}$ are shown in Figure \ref{fig:Demo1}B and \ref{fig:Demo1}C, respectively.  As we would expect, the eigenvectors of $\mathbf{G}$ are sinusoids with varying frequencies and the eigenvalues of $\mathbf{G}$ are the corresponding points on the frequency response curve in Figure \ref{fig:FrequencyResponse}.  We highlight the eigenvector corresponding to an eigenvalue of ${\sim}0.5$, which is a sinusoid with frequency $\omega_c$.
-
-Based on the frequency response from eq. \ref{eq:1DFourierSoln2}, we find the   We highlight the eigenvector corresponding to a eigenvalue of ${\sim}0.5$ which is a sinusoid with frequency $\omega_c$.    and eigenval   for $\mathbf{D_n}$.      
+3) When the data sampling rate is nonuniform, the frequency of the eigenvectors remains constant.  However, the amplitude of the eigenvectors decreases with higher frequency. This reflects the fact that $\mathbf{u}_\mathrm{post}$ is more tightly constrained where there is more data. 
 
 \begin{figure}
 \includegraphics[scale=1.0]{figures/figure2}
@@ -259,23 +242,6 @@ Based on the frequency response from eq. \ref{eq:1DFourierSoln2}, we find the   
 \caption{eigenvectors and eigenvalues}   
 \label{fig:Demo2}
 \end{figure}
-
-Under the idealized conditions where $\mathbf{G}$ can be viewed as a filter in the Fourier domain, is a low-pass filter When $\mathbf{D_n}$ is the spectral   
-
-The eigenvectors of $\mathbf{G}$ be scaled down if it were the be damped would be and eigenvectors of $\mathbf{G}$ tell us which  indicate how much which   with numerical demonstrations. 
-
-We provide an example here demonstrating that eq. (\ref{eq:1DSolution}) still behaves as a low-pass filter with a frequency response described by eq. (\ref{eq:1DFourierSoln2}) when the data uncertainty is not constant.  We provide another demonstration in Section \ref{sec:SmoothingND} where the observations are no longer regularly spaced. Since the data uncertainties are not constant, we must define a characteristic uncertainty $\bar{\sigma}$ to replace $\sigma$ when eq. (\ref{eq:VariableChange}) is used to determine the penalty parameter.  We find an appropriate choice to be 
-
-\begin{equation}
-\frac{1}{\bar{\sigma^2}} = \frac{1}{P} \mathrm{tr}\left(\mathbf{C}_\mathrm{obs}^{-1}\right),
-\end{equation}
-where $P$ is the number of observations.  We now determine the penalty parameter $\lambda$ which is consistent with the user specified cutoff frequency $\omega_c$ with the relationship
-
-\begin{equation}\label{eq:VariableChange2}
-\lambda^2 = (2\pi\omega_c)^{2n}\bar{\sigma}^2.  
-\end{equation}
-In this demonstration we generate 100 samples of synthetic data over the time interval $0<t<1$ yr.  The true signal in the syntethic data is a sine wave with a frequency of 1 yr$^{-1}$ and 1 mm amplitude.  We obscure the synthetic data with white noise.  The variance of the noise for each datum is randomly pick from a uniform distribution ranging from 0.5 to 2 mm$^2$.  For the period from 1 to 2 years, we assign a variance of 25 mm$^2$ to the data, effectively making the data uninformitive.  The synthetic data and its estimated power spectral density are plotted in Figure \ref{fig:Demo1}.  We use eq. (\ref{eq:1DSolution}) to damp out the the added noise and attempt to recover the original sine wave signal.  We use the spectral differentiation matrix for $\mathbf{D}_n$ with $n=2$.  The cutoff frequency is chosen to be $\omega_c=2$ yr$^{-1}$.  The filtered solution and its frequency content are plotted Figure \ref{fig:Demo1}.  Based on panel B, the frequency content of $\mathbf{\bar{u}}_\mathrm{post}$ tapers off at higher frequencies at roughly the rate predicted by eq. (\ref{eq:1DFourierSoln2}). However, the frequency content of subsections of $\mathbf{\bar{u}}_\mathrm{post}$ appears to change depending on the variance of $\mathbf{u}_\mathrm{obs}$. For example, Over the interval $1<t<2$, where the variance of $\mathbf{u}_\mathrm{obs}$ is higher, $\mathbf{\bar{u}}_\mathrm{post}$ lacks the higher frequency oscillations that can be seen in the remainder of the time series. This is desirable behavior because we do not want $\mathbf{\bar{u}}_\mathrm{post}$ contorting to fit dubious data.  It is also worth pointing out that $\mathbf{u}_\mathrm{post}$ asymptotically approaches a solution that is not significantly different from that shown in Figure \ref{fig:Demo1} when the variance for $\mathbf{u}_\mathrm{obs}$ increases to infinity over the interval $1<t<2$.  This too is desirable behaviour because one could then surmise that an appropriate way to handle missing data with eq. (\ref{eq:1DSolution}) is to assign $\mathbf{u}_\mathrm{obs}$ an infinite variance for the missing time period.  With this insight, we can then extend the application of eq. (\ref{eq:1DSolution}) from data smoothing to data interpolation and extrapolation.   
-
 
 \subsubsection{Filtering in Higher Dimensions}\label{sec:SmoothingND} 
 We expand our discussion to smoothing data which is observed in $d$-dimensional space.  The filtered solution is still given by eq. (\ref{eq:GeneralSolution}), and we consider the prior model
