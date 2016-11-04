@@ -134,7 +134,7 @@ col2_ylim = (-0.25,0.25)
 col3_ylim = (3e-5,3e0)
 col3_xlim = (5e-1,1.7e2)
 gray1 = (0.6,0.6,0.6)
-gray2 = (0.6,0.6,0.6)
+gray2 = (0.6,0.6,1.0)
 
 N = 100
 w = 5.0 # cutoff frequency
@@ -179,7 +179,8 @@ ax.set_ylim(col2_ylim)
 
 # Column 3
 ax = axs[0][2]
-ax.loglog(np.arange(1,N+1),val,'.',markersize=5,color='k')
+ax.loglog(np.arange(1,N+1)[val<0.5],val[val<0.5],'k.',mec='k',markersize=5)
+ax.loglog(np.arange(1,N+1)[val>0.5],val[val>0.5],'b.',mec='b',markersize=5)
 ax.loglog(np.arange(1,N+1)[val>0.5][-1],val[val>0.5][-1],'b.',mec='b',markersize=15)
 ax.set_ylim(col3_ylim)
 ax.set_xlim(col3_xlim)
@@ -227,7 +228,8 @@ ax.set_ylim(col2_ylim)
 
 # Column 3
 ax = axs[1][2]
-ax.loglog(np.arange(1,N+1),val,'.',markersize=5,color='k')
+ax.loglog(np.arange(1,N+1)[val<0.5],val[val<0.5],'k.',mec='k',markersize=5)
+ax.loglog(np.arange(1,N+1)[val>0.5],val[val>0.5],'b.',mec='b',markersize=5)
 ax.loglog(np.arange(1,N+1)[val>0.5][-1],val[val>0.5][-1],'b.',mec='b',markersize=15)
 ax.set_ylim(col3_ylim)
 ax.set_xlim(col3_xlim)
@@ -240,11 +242,6 @@ ax.grid()
 x = np.linspace(0.0,1.0,N)
 s = 0.1*np.ones(N) # uncertainties
 s[(x>0.2) & (x < 0.5)] = 0.3
-# XXXXXXXXXXXX
-s[(x>0.2) & (x < 0.5)] = np.inf
-# XXXXXXXXXXXX
-
-
 t = np.sqrt(x) + 0.2*np.sin(4*np.pi*x) 
 u = t + np.random.normal(0.0,s)
 D = rbf.fd.weight_matrix(x[:,None],x[:,None],diffs=(2,)).toarray()
@@ -283,7 +280,8 @@ ax.set_ylim(col2_ylim)
 
 # Column 3
 ax = axs[2][2]
-ax.loglog(np.arange(1,N+1),val,'.',markersize=5,color='k')
+ax.loglog(np.arange(1,N+1)[val<0.5],val[val<0.5],'k.',mec='k',markersize=5)
+ax.loglog(np.arange(1,N+1)[val>0.5],val[val>0.5],'b.',mec='b',markersize=5)
 ax.loglog(np.arange(1,N+1)[val>0.5][-1],val[val>0.5][-1],'b.',mec='b',markersize=15)
 ax.set_ylim(col3_ylim)
 ax.set_xlim(col3_xlim)
@@ -329,7 +327,8 @@ ax.set_ylim(col2_ylim)
 
 # Column 3
 ax = axs[3][2]
-ax.loglog(np.arange(1,N+1),val,'.',markersize=5,color='k')
+ax.loglog(np.arange(1,N+1)[val<0.5],val[val<0.5],'k.',mec='k',markersize=5)
+ax.loglog(np.arange(1,N+1)[val>0.5],val[val>0.5],'b.',mec='b',markersize=5)
 ax.loglog(np.arange(1,N+1)[val>0.5][-1],val[val>0.5][-1],'b.',mec='b',markersize=15)
 ax.set_ylim(col3_ylim)
 ax.set_xlim(col3_xlim)
