@@ -284,6 +284,15 @@ The frequency response for eq. (\ref{eq:NDSolution}) can once again be recognize
 
 We demonstrate smoothing synthetic, scattered, two-dimensional vector data where there is a known discontinuity which we do not want to smooth across (Figure \ref{fig:Demo3}). The synthetic data is intended to simulates GPS velocities near a creeping fault segment. We generate the synthetic data with the elastic dislocation solution provided by \citet{Okada1992} and obscure the underlying signal with white noise. We smooth both directional components of the synthetic data independently with eq. (\ref{eq:NDSolution}).  When constructing $\mathbf{L}_n$, we do not allow any finite difference stencils to overlap the discontinuity (see Section \ref{sec:Differentiating}).  Figure \ref{fig:Demo3}A and \ref{fig:Demo3}B show the observed, $\mathbf{u}_\mathrm{obs}$, and smoothed, $\mathbf{u}_\mathrm{post}$, data compared to the true signal, respectively.  As noted in Section \ref{sec:Smoothing1D}, $\mathbf{u}_\mathrm{post}$ tends to have the highest uncertainty at the domain edges, and that is where $\mathbf{u}_\mathrm{post}$ does the poorest job at recovering the original signal.  Nonetheless, almost every smoothed datum in $\mathbf{u}_\mathrm{post}$ is an improvement over $\mathbf{u}_\mathrm{obs}$ at representing the underlying signal. 
 
+\subsection{Numerical Notes}
+Do not compute the inverse for upost!
+
+This is well conditioned and lends itself well to iterative matrix solvers
+
+The posterior covariance matrix is generally dense.  If memory does not permit the covariance matrix to be computed and one is only interested in the the data uncertainties then one can find the uncertainties by...
+
+The posterior uncertainty does not account for error in L  
+
 \section{Applications}\label{sec:Applications}
 
 \subsection{Strain Rate in Southern California}\label{sec:ApplicationsSoCal}
