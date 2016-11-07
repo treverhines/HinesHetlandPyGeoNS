@@ -13,7 +13,7 @@ fig,ax = plt.subplots(figsize=(4,3.2))
 ax.minorticks_on()
 ax.grid()
 ax.set_ylim(1e-5,1e1)
-ax.set_xlabel(r'$\mathregular{\omega / \omega_c}$')
+ax.set_xlabel(r'$\mathregular{\omega / \omega_c}$',fontsize=10,labelpad=-1)
 
 u = freq_response(freq,1)
 ax.loglog(freq,u,'k-')

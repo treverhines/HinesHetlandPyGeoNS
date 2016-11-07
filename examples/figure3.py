@@ -39,22 +39,22 @@ fig,axs = plt.subplots(1,2,figsize=(7,3.5),
                                     'left':0.075,
                                     'top':0.975,
                                     'right':0.975,
-                                    'wspace':0.15,
-                                    'hspace':0.15})
+                                    'wspace':0.2,
+                                    'hspace':0.2})
 
 
 axs[0].set_aspect('equal')
 axs[0].tick_params(labelsize=10)
 axs[0].minorticks_on()
-axs[0].set_xlabel(r'$\mathregular{x_1}$',labelpad=-1,fontsize=10)
-axs[0].set_ylabel(r'$\mathregular{x_2}$',labelpad=-4,fontsize=10)
+axs[0].set_xlabel(r'$\mathregular{x_1 \cdot \omega_c}$',labelpad=-1,fontsize=10)
+axs[0].set_ylabel(r'$\mathregular{x_2 \cdot \omega_c}$',labelpad=-4,fontsize=10)
 #axs[0].get_xaxis().set_visible(False)
 #axs[0].get_yaxis().set_visible(False)
 axs[1].set_aspect('equal')
 axs[1].tick_params(labelsize=10)
 axs[1].minorticks_on()
-axs[1].set_xlabel(r'$\mathregular{x_1}$',labelpad=-1,fontsize=10)
-axs[1].set_ylabel(r'$\mathregular{x_2}$',labelpad=-4,fontsize=10)
+axs[1].set_xlabel(r'$\mathregular{x_1 \cdot \omega_c}$',labelpad=-1,fontsize=10)
+axs[1].set_ylabel(r'$\mathregular{x_2 \cdot \omega_c}$',labelpad=-4,fontsize=10)
 #axs[1].get_xaxis().set_visible(False)
 #axs[1].get_yaxis().set_visible(False)
 axs[0].text(0.05,0.05,'A',transform=axs[0].transAxes,
@@ -97,24 +97,29 @@ u_smooth = G.dot(u)
 v_smooth = G.dot(v)
 
 # plot the results
-q = Quiver(axs[0],x[:,0],x[:,1],u,v,sigma=(s,s,0.0*s),
-           scale=0.4,width=0.005,color=(0.2,0.2,1.0),zorder=1,
+q = Quiver(axs[0],x[:,0]*w,x[:,1]*w,u,v,sigma=(s,s,0.0*s),
+           scale=2.0,width=0.005,color=(0.2,0.2,1.0),zorder=1,
            ellipse_kwargs={'edgecolors':(0.2,0.2,1.0)})
 axs[0].add_collection(q)
-q = Quiver(axs[0],x[:,0],x[:,1],u_true,v_true,sigma=(0*s,0*s,0.0*s),
-           scale=0.4,width=0.005,color='k',zorder=0)
+q = Quiver(axs[0],x[:,0]*w,x[:,1]*w,u_true,v_true,scale_units='xy',angles='xy',
+           scale=2.0,width=0.005,color='k',zorder=0)
 axs[0].add_collection(q)
 
-q = Quiver(axs[1],x[:,0],x[:,1],u_smooth,v_smooth,sigma=(s_smooth,s_smooth,0.0*s),
-           scale=0.4,width=0.005,color=(0.2,0.2,1.0),zorder=1,
+q = Quiver(axs[1],x[:,0]*w,x[:,1]*w,u_smooth,v_smooth,sigma=(s_smooth,s_smooth,0.0*s),
+           scale=2.0,width=0.005,color=(0.2,0.2,1.0),zorder=1,
            ellipse_kwargs={'edgecolors':(0.2,0.2,1.0)})
 axs[1].add_collection(q)
-q = Quiver(axs[1],x[:,0],x[:,1],u_true,v_true,sigma=(0*s,0*s,0.0*s),
-           scale=0.4,width=0.005,color='k',zorder=0)
+q = Quiver(axs[1],x[:,0]*w,x[:,1]*w,u_true,v_true,scale_units='xy',angles='xy',
+           scale=2.0,width=0.005,color='k',zorder=0)
 axs[1].add_collection(q)
 
-for s in smp: axs[0].plot(vert[s,0],vert[s,1],'r--',lw=1,zorder=0)
-for s in smp: axs[1].plot(vert[s,0],vert[s,1],'r--',lw=1,zorder=0)
+
+axs[0].set_xlim((-1.2,1.2))
+axs[1].set_xlim((-1.2,1.2))
+axs[0].set_ylim((-1.2,1.2))
+axs[1].set_ylim((-1.2,1.2))
+for s in smp: axs[0].plot(vert[s,0]*w,vert[s,1]*w,'r--',lw=1,zorder=0)
+for s in smp: axs[1].plot(vert[s,0]*w,vert[s,1]*w,'r--',lw=1,zorder=0)
 
 #plt.tight_layout()
 plt.show()

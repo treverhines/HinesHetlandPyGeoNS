@@ -84,6 +84,13 @@ Ohtani, R., McGuire, J.~J., and Segall, P. (2010).
   transient deformation signals in GPS arrays}.
 \newblock {\em Journal of Geophysical Research: Solid Earth}, 115(12):1--17.
 
+\bibitem[Okada, 1992]{Okada1992}
+Okada, Y. (1992).
+\newblock {Internal deformation due to shear and tensile faults in a half
+  space}.
+\newblock {\em Bulletin of the Seismological Society of America},
+  82(2):1018--1040.
+
 \bibitem[Prescott, 1976]{Prescott1976}
 Prescott, W.~H. (1976).
 \newblock {An extension of Frank's method for obtaining crustal shear strains
@@ -95,6 +102,11 @@ Prescott, W.~H. (1976).
 Rasmussen, C.~E. and Williams, C. K.~I. (2006).
 \newblock {\em {Gaussian processes for machine learning}}.
 \newblock The MIT Press.
+
+\bibitem[Sandwell and Wessel, 2016]{Sandwell2016}
+Sandwell, D.~T. and Wessel, P. (2016).
+\newblock {Interpolation of 2-D vector data using constraints from elasticity}.
+\newblock {\em Geophysical Research Letters}, pages 1--7.
 
 \bibitem[Savage et~al., 1986]{Savage1986}
 Savage, J.~C., Prescott, W.~H., and Gu, G. (1986).

@@ -120,14 +120,24 @@ axs[0][2].set_xlabel('eigenvalue number',fontsize=10,labelpad=-1)
 axs[1][2].set_xlabel('eigenvalue number',fontsize=10,labelpad=-1)
 axs[2][2].set_xlabel('eigenvalue number',fontsize=10,labelpad=-1)
 axs[3][2].set_xlabel('eigenvalue number',fontsize=10,labelpad=-1)
-axs[0][1].set_xlabel('x',fontsize=10,labelpad=-1)
-axs[1][1].set_xlabel('x',fontsize=10,labelpad=-1)
-axs[2][1].set_xlabel('x',fontsize=10,labelpad=-1)
-axs[3][1].set_xlabel('x',fontsize=10,labelpad=-1)
-axs[0][0].set_xlabel('x',fontsize=10,labelpad=-1)
-axs[1][0].set_xlabel('x',fontsize=10,labelpad=-1)
-axs[2][0].set_xlabel('x',fontsize=10,labelpad=-1)
-axs[3][0].set_xlabel('x',fontsize=10,labelpad=-1)
+
+axs[0][1].set_xlabel(r'$\mathregular{x \cdot \omega_c}$',fontsize=10,labelpad=-1)
+axs[1][1].set_xlabel(r'$\mathregular{x \cdot \omega_c}$',fontsize=10,labelpad=-1)
+axs[2][1].set_xlabel(r'$\mathregular{x \cdot \omega_c}$',fontsize=10,labelpad=-1)
+axs[3][1].set_xlabel(r'$\mathregular{x \cdot \omega_c}$',fontsize=10,labelpad=-1)
+
+axs[0][0].set_xlabel(r'$\mathregular{x \cdot \omega_c}$',fontsize=10,labelpad=-1)
+axs[1][0].set_xlabel(r'$\mathregular{x \cdot \omega_c}$',fontsize=10,labelpad=-1)
+axs[2][0].set_xlabel(r'$\mathregular{x \cdot \omega_c}$',fontsize=10,labelpad=-1)
+axs[3][0].set_xlabel(r'$\mathregular{x \cdot \omega_c}$',fontsize=10,labelpad=-1)
+
+#axs[1][1].set_xlabel('x',fontsize=10,labelpad=-1)
+#axs[2][1].set_xlabel('x',fontsize=10,labelpad=-1)
+#axs[3][1].set_xlabel('x',fontsize=10,labelpad=-1)
+#axs[0][0].set_xlabel('x',fontsize=10,labelpad=-1)
+#axs[1][0].set_xlabel('x',fontsize=10,labelpad=-1)
+#axs[2][0].set_xlabel('x',fontsize=10,labelpad=-1)
+#axs[3][0].set_xlabel('x',fontsize=10,labelpad=-1)
 
 col1_ylim = (-0.6,1.6)
 col2_ylim = (-0.25,0.25)
@@ -137,7 +147,7 @@ gray1 = (0.6,0.6,0.6)
 gray2 = (0.6,0.6,1.0)
 
 N = 100
-w = 20.0 # cutoff frequency
+w = 5.0 # cutoff frequency
 #####################################################################
 # idealized conditions:
 #   periodic spectral differentiation matrix
@@ -161,10 +171,10 @@ vec,val = significant_eigenvectors(G)
 # Column 1
 ax = axs[0][0]
 ax.minorticks_on()
-ax.errorbar(x,u,s,fmt='.',capsize=0,label='observed',markersize=5,color=gray1,zorder=0)
-ax.plot(x,t,'r-',label='true signal',zorder=0.5)
-ax.plot(x,z,'b-',label='filtered',zorder=1)
-ax.fill_between(x,z-2*y,z+2*y,color='b',alpha=0.3,edgecolor='none',zorder=1)
+ax.errorbar(x*w,u,s,fmt='.',capsize=0,label='observed',markersize=5,color=gray1,zorder=0)
+ax.plot(x*w,t,'r-',label='true signal',zorder=0.5)
+ax.plot(x*w,z,'b-',label='filtered',zorder=1)
+ax.fill_between(x*w,z-2*y,z+2*y,color='b',alpha=0.3,edgecolor='none',zorder=1)
 #ax.set_xlabel('x',fontsize=12)
 #ax.legend(loc=4,frameon=False,fontsize=12)
 ax.set_ylim(col1_ylim)
@@ -173,8 +183,8 @@ ax.set_ylim(col1_ylim)
 # Column 2
 ax = axs[0][1]
 ax.minorticks_on()
-ax.plot(x,vec,'-',color=gray2)
-ax.plot(x,vec[:,-1],'b-',lw=2)
+ax.plot(x*w,vec,'-',color=gray2)
+ax.plot(x*w,vec[:,-1],'b-',lw=2)
 ax.set_ylim(col2_ylim)
 
 # Column 3
@@ -209,10 +219,10 @@ vec,val = significant_eigenvectors(G)
 # Column 1
 ax = axs[1][0]
 ax.minorticks_on()
-ax.errorbar(x,u,s,fmt='.',capsize=0,label='observed',markersize=5,color=gray1,zorder=0)
-ax.plot(x,t,'r-',label='true signal',zorder=0.5)
-ax.plot(x,z,'b-',label='filtered',zorder=1)
-ax.fill_between(x,z-2*y,z+2*y,color='b',alpha=0.3,edgecolor='none',zorder=1)
+ax.errorbar(x*w,u,s,fmt='.',capsize=0,label='observed',markersize=5,color=gray1,zorder=0)
+ax.plot(x*w,t,'r-',label='true signal',zorder=0.5)
+ax.plot(x*w,z,'b-',label='filtered',zorder=1)
+ax.fill_between(x*w,z-2*y,z+2*y,color='b',alpha=0.3,edgecolor='none',zorder=1)
 #ax.set_xlabel('x',fontsize=12)
 #ax.legend(loc=4,frameon=False,fontsize=12)
 ax.set_ylim(col1_ylim)
@@ -221,8 +231,8 @@ ax.set_ylim(col1_ylim)
 # Column 2
 ax = axs[1][1]
 ax.minorticks_on()
-ax.plot(x,vec,'-',color=gray2)
-ax.plot(x,vec[:,-1],'b-',lw=2)
+ax.plot(x*w,vec,'-',color=gray2)
+ax.plot(x*w,vec[:,-1],'b-',lw=2)
 #ax.set_xlabel('x',fontsize=12)
 ax.set_ylim(col2_ylim)
 
@@ -261,10 +271,10 @@ print('max = %s' % np.max(val))
 # Column 1
 ax = axs[2][0]
 ax.minorticks_on()
-ax.errorbar(x,u,s,fmt='.',capsize=0,label='observed',markersize=5,color=gray1,zorder=0)
-ax.plot(x,t,'r-',label='true signal',zorder=0.5)
-ax.plot(x,z,'b-',label='filtered',zorder=1)
-ax.fill_between(x,z-2*y,z+2*y,color='b',alpha=0.3,edgecolor='none',zorder=1)
+ax.errorbar(x*w,u,s,fmt='.',capsize=0,label='observed',markersize=5,color=gray1,zorder=0)
+ax.plot(x*w,t,'r-',label='true signal',zorder=0.5)
+ax.plot(x*w,z,'b-',label='filtered',zorder=1)
+ax.fill_between(x*w,z-2*y,z+2*y,color='b',alpha=0.3,edgecolor='none',zorder=1)
 #ax.set_xlabel('x',fontsize=12)
 #ax.legend(loc=4,frameon=False,fontsize=12)
 ax.set_ylim(col1_ylim)
@@ -273,8 +283,8 @@ ax.set_ylim(col1_ylim)
 # Column 2
 ax = axs[2][1]
 ax.minorticks_on()
-ax.plot(x,vec,'-',color=gray2)
-ax.plot(x,vec[:,-1],'b-',lw=2)
+ax.plot(x*w,vec,'-',color=gray2)
+ax.plot(x*w,vec[:,-1],'b-',lw=2)
 ax.set_ylim(col2_ylim)
 #ax.set_xlabel('x',fontsize=12)
 
@@ -310,10 +320,10 @@ vec,val = significant_eigenvectors(G)
 # Column 1
 ax = axs[3][0]
 ax.minorticks_on()
-ax.errorbar(x,u,s,fmt='.',capsize=0,label='observed',markersize=5,color=gray1,zorder=0)
-ax.plot(x,t,'r-',label='true signal',zorder=0.5)
-ax.plot(x,z,'b-',label='filtered',zorder=1)
-ax.fill_between(x,z-2*y,z+2*y,color='b',alpha=0.3,edgecolor='none',zorder=1)
+ax.errorbar(x*w,u,s,fmt='.',capsize=0,label='observed',markersize=5,color=gray1,zorder=0)
+ax.plot(x*w,t,'r-',label='true signal',zorder=0.5)
+ax.plot(x*w,z,'b-',label='filtered',zorder=1)
+ax.fill_between(x*w,z-2*y,z+2*y,color='b',alpha=0.3,edgecolor='none',zorder=1)
 #ax.legend(loc=4,frameon=False,fontsize=12)
 ax.set_ylim(col1_ylim)
 #ax.grid()
@@ -321,8 +331,8 @@ ax.set_ylim(col1_ylim)
 # Column 2
 ax = axs[3][1]
 ax.minorticks_on()
-ax.plot(x,vec,'-',color=gray2)
-ax.plot(x,vec[:,-1],'b-',lw=2)
+ax.plot(x*w,vec,'-',color=gray2)
+ax.plot(x*w,vec[:,-1],'b-',lw=2)
 ax.set_ylim(col2_ylim)
 
 # Column 3
