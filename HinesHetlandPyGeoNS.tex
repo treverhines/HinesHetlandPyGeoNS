@@ -27,12 +27,12 @@ We begin this paper by summarizing the RBF-FD method and explaining how we const
 \section{Method}\label{sec:Method}
 \subsection{Differentiating Scattered Data}\label{sec:Differentiating}
 
-In this section we briefly summarizing the RBF-FD method and we refer the reader to \citet{Wright2006} or \citet{Fornberg2015} for additional details. Consider a set of nodes $\mathbf{x} = \{x_1, ..., x_N\}$ in $\mathbb{R}^d$ and a corresponding vector $\mathbf{u} = [u(x_1), ..., u(x_N)]^T$.  We want to find a differentiation matrix $\mathbf{L}$, such that $\mathbf{Lu}$ approximates the linear differential operator $\mathcal{L}$ acting on $u$ at $\mathbf{x}$.  For each node $x_i$ we approximate $\mathcal{L}[u(x)]\big|_{x=x_i}$ as a weighted sum of $\{u(x_j): j \in \mathcal{S}_i\}$ where $\mathcal{S}_i$ consist of $i$ and the indices for the $n-1$ nearest neighboring nodes to $x_i$.  The approximation can be written as
+In this section we briefly summarizing the RBF-FD method and we refer the reader to \citet{Wright2006} or \citet{Fornberg2015} for additional details. Consider a set of nodes $\mathbf{x} = \{x_1, ..., x_N\}$ in $\mathbb{R}^d$ and a corresponding vector $\mathbf{u} = [u(x_1), ..., u(x_N)]^T$.  We want to find a differentiation matrix $\mathbf{L}$, such that $\mathbf{Lu}$ approximates the linear differential operator $\mathcal{L}$ acting on $u$ at $\mathbf{x}$.  For each node $x_i$ we approximate $\mathcal{L}[u(x)]\big|_{x=x_i}$ as a weighted sum of $\{u(x_j): j \in \mathcal{N}_i\}$ where $\mathcal{N}_i$ consist of $i$ and the indices for the $n-1$ nearest neighboring nodes to $x_i$.  The approximation can be written as
 
 \begin{equation}\label{eq:RBFFDApprox}
-\mathcal{L}[u(x)]\big|_{x=x_i} \approx \sum_{j \in \mathcal{S}_i} L_{ij} u(x_j)
+\mathcal{L}[u(x)]\big|_{x=x_i} \approx \sum_{j \in \mathcal{N}_i} L_{ij} u(x_j)
 \end{equation}
-where $L_{ij}$ are the weights making up the differentiation matrix $\mathbf{L}$.  We refer to $x_i$ and its $n-1$ nearest neighbors as the stencil for $x_i$, and we denote the stencil as $\mathbf{x}^i = \{x_j : j \in \mathcal{S}_i\} = \{x^i_1,..., x^i_n\}$. The corresponding weights for each node in $\mathbf{x}^i$ are denoted as $\mathbf{w}^i = \{L_{ij} : j \in \mathcal{S}_i\} = \{w^i_1,...w^i_n\}$.  We can then equivalently write eq. (\ref{eq:RBFFDApprox}) as 
+where $L_{ij}$ are the weights making up the differentiation matrix $\mathbf{L}$.  We refer to $x_i$ and its $n-1$ nearest neighbors as the stencil for $x_i$, and we denote the stencil as $\mathbf{x}^i = \{x_j : j \in \mathcal{N}_i\} = \{x^i_1,..., x^i_n\}$. The corresponding weights for each node in $\mathbf{x}^i$ are denoted as $\mathbf{w}^i = \{L_{ij} : j \in \mathcal{N}_i\} = \{w^i_1,...w^i_n\}$.  We can then equivalently write eq. (\ref{eq:RBFFDApprox}) as 
 
 \begin{equation}\label{eq:RBFFDApproxAlt}
 \mathcal{L}[u(x)]\big|_{x=x_i} \approx \sum_{j=1}^n w^i_j u(x^i_j).
@@ -153,7 +153,7 @@ The mean and covariance for the posterior are then
 This solution is closely tied to several well established methods of smoothing.  For example, one can immediately recognize eq. (\ref{eq:1DSolution}) as an example of Tikhonov regularization \citep{Tikhonov1978}. We also note a similarity between eq. (\ref{eq:1DSolution}) and smoothing splines \citep{Wahba1990}.  To see this similarity, recall that a one-dimensional smoothing spline is defined as the function, $f(t)$, which minimizes,
 
 \begin{equation}\label{eq:SmoothingSpline}
-\sum_{i=1}^N \big((\mathbf{u_\mathrm{obs}})_i - f(t_i)\big)^2 + \alpha \int_{t_1}^{t_N} f^{(n)}(t) dt,
+\sum_{i=1}^N \big((\mathbf{u_\mathrm{obs}})_i - f(t_i)\big)^2 + \alpha \int_{t_1}^{t_N} f^{(n)}(t)^2 dt,
 \end{equation}
 where $(\mathbf{u_\mathrm{obs}})_i$ is an observation at time $t_i$, $N$ is the number of observations, $\alpha$ is a smoothing parameter, and $f^{(n)}$ denotes the $n$'th time derivative of $f$.
 In comparison, if we ignore data uncertainties (i.e. $\mathbf{C}_\mathrm{obs}=\mathbf{I}$), $\mathbf{\bar{u}}_\mathrm{post}$ is the discrete function which minimizes  
