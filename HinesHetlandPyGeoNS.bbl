@@ -103,6 +103,11 @@ Rasmussen, C.~E. and Williams, C. K.~I. (2006).
 \newblock {\em {Gaussian processes for machine learning}}.
 \newblock The MIT Press.
 
+\bibitem[Rue and Held, 2005]{Rue2005}
+Rue, H. and Held, L. (2005).
+\newblock {\em {Gaussian Markov Random Fields: Theory and Applications}}.
+\newblock Chapman and Hall, Boca Raton.
+
 \bibitem[Sandwell and Wessel, 2016]{Sandwell2016}
 Sandwell, D.~T. and Wessel, P. (2016).
 \newblock {Interpolation of 2-D vector data using constraints from elasticity}.

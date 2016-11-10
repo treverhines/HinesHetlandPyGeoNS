@@ -165,7 +165,7 @@ If the sampling rate for $\mathbf{u}_\mathrm{obs}$ is constant and the penalty p
 
 We discuss the penalty parameter, $\lambda$. One common method for choosing an appropriate penalty parameter is generalized cross-validation \citep{Craven1979}, which yields a smoothed solution with the maximum predictive power. There is merit to using an entirely objective approach such as cross-validation, and this would be approriate if there is no prior knowledge of the signal's characteristic period. Otherwise, it may be better to chose a penalty parameter that damps out all the high frequency oscillations which are known to be noise. 
 
-We demonstrate how $\lambda$ can be chosen so that frequencies greater than $\omega_c$ are attenuated.  We make the simplifying assumption that eq. (\ref{eq:1DSolution}) is a linear time-invariant (LTI) filter.  In doing so, we assume that $\mathbf{u}_\mathrm{obs}$ has a constant sampling rate, the data uncertainty is constant and uncorrelated ($\mathbf{C}_\mathrm{obs} = \sigma \mathbf{I}$), and $\mathbf{u}_\mathrm{prior}$ is periodic. We enforce periodicity in $\mathbf{u}_\mathrm{prior}$ by using a periodic spectral differentiation matrix \citep[e.g.][]{Trefethen2000} for $\mathbf{D}_n$.  Under a discrete Fourier transform, the periodic spectral differentiation matrix has the properties 
+We demonstrate how $\lambda$ can be chosen so that frequencies greater than $\omega_c$ are attenuated.  We make the simplifying assumption that eq. (\ref{eq:1DSolution}) is a linear time-invariant (LTI) filter.  In doing so, we assume that $\mathbf{u}_\mathrm{obs}$ has a constant sampling rate, the data uncertainty is constant and uncorrelated ($\mathbf{C}_\mathrm{obs} = \sigma \mathbf{I}$), and $\mathbf{u}_\mathrm{prior}$ is periodic. We enforce periodicity in $\mathbf{u}_\mathrm{prior}$ by making $\mathbf{D}_n$ the periodic spectral differentiation matrix \citep[e.g.][]{Trefethen2000}. Under the discrete Fourier transform, $\mathbf{D}_n$ then has the properties 
 
 \begin{equation}\label{eq:Property1}
   \mathcal{F}\left[\mathbf{D}_n \mathbf{g}\right]_k = (2\pi i\omega_k)^n \mathcal{F}\left[\mathbf{g}\right]_k
@@ -274,7 +274,13 @@ If we again assume that the observation are regularly spaced, have constant vari
   \mathcal{F}\left[\mathbf{\bar{u}}_\mathrm{post}\right]_k = 
   \frac{1}{1 + \left(\sum_{i=1}^d \left(\frac{\omega_{ik}}{\omega_c}\right)^n\right)^2} \mathcal{F}\left[\mathbf{u}_\mathrm{obs}\right]_k.
 \end{equation}
-The frequency response for eq. (\ref{eq:NDSolution}) can once again be recognized as a low-pass filter with cutoff frequency $\omega_c$.  In the limit as $n \to \infty$, the frequency response becomes a $d$-dimensional box which is zero for all the frequency tuples which have at least one component whos magnitude is greater than $\omega_c$.  It can be verified through eigen decomposition that eq. (\ref{eq:NDSolution}) behaves as a low-pass filter with cutoff frequency $\omega_c$ even when the idealized conditions are not satisfied.   
+The frequency response for eq. (\ref{eq:NDSolution}) can once again be recognized as a low-pass filter with cutoff frequency $\omega_c$.  In the limit as $n \to \infty$, the frequency response becomes a $d$-dimensional box which is zero for all the frequency tuples which have at least one component whos magnitude is greater than $\omega_c$. 
+When the idealized conditions are not satisfied, eq. (\ref{eq:NDSolution}) exhibits the same behavior as noted in Section \ref{sec:Smoothing1D}. In particular, it can be verified through eigen decomposition that the frequency content of $\mathbf{u}_\mathrm{post}$ is consistent with $\omega_c$, regardless of the spacing or uncertainty of $\mathbf{u}_\mathrm{obs}$.
+   
+\subsubsection{Accounting for Known Discontinuities}
+
+If we use the RBF-FD method to generate $\mathbf{L}_n$, then $\mathbf{u}_\mathrm{prior}$ can be considered a Gaussian Markov random field (GMRF) \citep[e.g.][]{Rue2005}.  A GMRF is defined as ...
+
 
 \begin{figure}
 \includegraphics[scale=1.0]{figures/figure4}
