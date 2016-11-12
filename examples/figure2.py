@@ -131,14 +131,6 @@ axs[1][0].set_xlabel(r'$\mathregular{x \cdot \omega_c}$',fontsize=10,labelpad=-1
 axs[2][0].set_xlabel(r'$\mathregular{x \cdot \omega_c}$',fontsize=10,labelpad=-1)
 axs[3][0].set_xlabel(r'$\mathregular{x \cdot \omega_c}$',fontsize=10,labelpad=-1)
 
-#axs[1][1].set_xlabel('x',fontsize=10,labelpad=-1)
-#axs[2][1].set_xlabel('x',fontsize=10,labelpad=-1)
-#axs[3][1].set_xlabel('x',fontsize=10,labelpad=-1)
-#axs[0][0].set_xlabel('x',fontsize=10,labelpad=-1)
-#axs[1][0].set_xlabel('x',fontsize=10,labelpad=-1)
-#axs[2][0].set_xlabel('x',fontsize=10,labelpad=-1)
-#axs[3][0].set_xlabel('x',fontsize=10,labelpad=-1)
-
 col1_ylim = (-0.6,1.6)
 col2_ylim = (-0.25,0.25)
 col3_ylim = (3e-5,3e0)
@@ -302,10 +294,12 @@ ax.grid()
 #   constant uncertainty
 #   constant spacing
 x = np.linspace(0.05,1.0,N)**2
+
 s = 0.1*np.ones(N) # uncertainties
 t = np.sqrt(x) + 0.2*np.sin(4*np.pi*x) 
 u = t + np.random.normal(0.0,s)
 D = rbf.fd.weight_matrix(x[:,None],x[:,None],diffs=(2,)).toarray()
+
 C = np.diag(1.0/s**2) # inverse covariance
 # generalized inverse
 b = np.sqrt(N/np.sum(1.0/s**2)) # mean uncertainty
