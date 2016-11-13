@@ -86,7 +86,7 @@ u = u_true + np.random.normal(0.0,s)
 v = v_true + np.random.normal(0.0,s)
 
 # smooth the data
-D = rbf.fd.weight_matrix(x,x,diffs=[[2,0],[0,2]],vert=vert,smp=smp,size=30).toarray()
+D = rbf.fd.weight_matrix(x,x,diffs=[[2,0],[0,2]],vert=vert,smp=smp,n=30).toarray()
 C = np.diag(1.0/s**2) # inverse covariance
 b = np.sqrt(N/np.sum(1.0/s**2)) # mean uncertainty
 p = np.sqrt((2*np.pi*w)**4*b**2)

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.8.24)  11 NOV 2016 09:34
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.8.24)  13 NOV 2016 17:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -619,52 +619,55 @@ Package amsmath Warning: Foreign command \atopwithdelims;
 File: figures/figure1.pdf Graphic file (type pdf)
 
 <use figures/figure1.pdf>
-Package pdftex.def Info: figures/figure1.pdf used on input line 201.
+Package pdftex.def Info: figures/figure1.pdf used on input line 199.
 (pdftex.def)             Requested size: 289.07928pt x 231.26341pt.
  <figures/figure2.pdf, id=26, 505.89pt x 361.35pt>
 File: figures/figure2.pdf Graphic file (type pdf)
 
 <use figures/figure2.pdf>
-Package pdftex.def Info: figures/figure2.pdf used on input line 209.
+Package pdftex.def Info: figures/figure2.pdf used on input line 207.
 (pdftex.def)             Requested size: 505.88875pt x 361.34912pt.
 
-Overfull \hbox (22.19188pt too wide) in paragraph at lines 209--210
+Overfull \hbox (22.19188pt too wide) in paragraph at lines 207--208
 [][] 
  []
 
-[4] <figures/figure3.pdf, id=30, 505.89pt x 361.35pt>
+[4] [5 <./figures/figure1.pdf> <./figures/figure2.pdf
+
+pdfTeX warning: pdflatex (file ./figures/figure2.pdf): PDF inclusion: multiple 
+pdfs with page group included in a single page
+>] <figures/figure3.pdf, id=107, 505.89pt x 361.35pt>
 File: figures/figure3.pdf Graphic file (type pdf)
 
 <use figures/figure3.pdf>
-Package pdftex.def Info: figures/figure3.pdf used on input line 241.
+Package pdftex.def Info: figures/figure3.pdf used on input line 239.
 (pdftex.def)             Requested size: 505.88875pt x 361.34912pt.
 
-Overfull \hbox (22.19188pt too wide) in paragraph at lines 241--242
+Overfull \hbox (22.19188pt too wide) in paragraph at lines 239--240
 [][] 
  []
 
-[5 <./figures/figure1.pdf>] [6 <./figures/figure2.pdf>] [7 <./figures/figure3.p
-df>] <figures/figure4.pdf, id=162, 505.89pt x 252.945pt>
+[6 <./figures/figure3.pdf>]
+<figures/figure4.pdf, id=157, 505.89pt x 252.945pt>
 File: figures/figure4.pdf Graphic file (type pdf)
-
-<use figures/figure4.pdf>
-Package pdftex.def Info: figures/figure4.pdf used on input line 287.
+ <use figures/figure4.pdf>
+Package pdftex.def Info: figures/figure4.pdf used on input line 289.
 (pdftex.def)             Requested size: 505.88875pt x 252.94438pt.
 
-Overfull \hbox (22.19188pt too wide) in paragraph at lines 287--288
+Overfull \hbox (22.19188pt too wide) in paragraph at lines 289--290
 [][] 
  []
 
-[8] (./HinesHetlandPyGeoNS.bbl [9 <./figures/figure4.pdf>]) [10]
+[7] (./HinesHetlandPyGeoNS.bbl [8 <./figures/figure4.pdf>] [9]) [10]
 (./HinesHetlandPyGeoNS.aux) ) 
 Here is how much of TeX's memory you used:
  3822 strings out of 494910
  49860 string characters out of 6179836
- 127421 words of memory out of 5000000
+ 129419 words of memory out of 5000000
  7052 multiletter control sequences out of 15000+600000
  7822 words of font info for 30 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 38i,17n,24p,1842b,220s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,17n,24p,1851b,262s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/
 amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
 ts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
@@ -679,10 +682,10 @@ pe1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
 blic/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /symbols/msbm10.pfb>
-Output written on HinesHetlandPyGeoNS.pdf (10 pages, 402485 bytes).
+Output written on HinesHetlandPyGeoNS.pdf (10 pages, 402842 bytes).
 PDF statistics:
- 245 PDF objects out of 1000 (max. 8388607)
- 122 compressed objects within 2 object streams
+ 244 PDF objects out of 1000 (max. 8388607)
+ 121 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
