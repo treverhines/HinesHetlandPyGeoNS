@@ -1,5 +1,21 @@
 \begin{thebibliography}{}
 
+\bibitem[Argus et~al., 1999]{Argus1999}
+Argus, D.~F., Heflin, M.~B., Donnellan, A., Webb, F.~H., Dong, D., Hurst,
+  K.~J., Jefferson, D.~C., Lyzenga, G.~A., Watkins, M.~M., and Zumberge, J.~F.
+  (1999).
+\newblock {Shortening and thickening of metropolitan Los Angeles measured and
+  inferred by using geodesy}.
+\newblock {\em Geology}, 27(8):703--706.
+
+\bibitem[Argus et~al., 2005]{Argus2005}
+Argus, D.~F., Heflin, M.~B., Peltzer, G., Cramp{\'{e}}, F., and Webb, F.~H.
+  (2005).
+\newblock {Interseismic strain accumulation and anthropogenic motion in
+  metropolitan Los Angeles}.
+\newblock {\em Journal of Geophysical Research B: Solid Earth},
+  110(B04401):1--26.
+
 \bibitem[Beavan and Haines, 2001]{Beavan2001}
 Beavan, J. and Haines, J. (2001).
 \newblock {Contemporary horizontal velocity and strain rate fields of the
@@ -66,6 +82,12 @@ Larsson, E. and Fornberg, B. (2003).
 \newblock {A numerical study of some radial basis function based solution
   methods for elliptic PDEs}.
 \newblock {\em Computers and Mathematics with Applications}, 46:891--902.
+
+\bibitem[Lisowski et~al., 1991]{Lisowski1991}
+Lisowski, M., Savage, J.~C., and Prescott, W.~H. (1991).
+\newblock {The velocity field along the San Andreas Fault in central and
+  southern California}.
+\newblock {\em Journal of Geophysical Research}, 96(B5):8369.
 
 \bibitem[Matheron, 1963]{Matheron1963}
 Matheron, G. (1963).
