@@ -306,7 +306,7 @@ The posterior uncertainty does not account for error in L
 We provide a demonstration in which we estimate the long term strain rates in southern California from the SCEC crustal motion map (CMM4)\citep{Shen2011}.  The crustal motion map provides an estimate of time-averaged horizontal velocities at over one thousand irregularly spaced points in sothern California.  The CMM4 is constrained by three decades of geodetic data and velocities have been corrected for coseismic and postseismic motions.  We independently smooth easting and northing components of the CMM4 velocities with the RBF-FD filter using a cutoff frequency $\omega_c=0.01\ \mathrm{km}^{-1}$. We do not smooth the velocities across the creeping segment of the San Andreas Fault (SAF), which extends from Parkfield to Hollister.  We show a comparison between the CMM4 velocities and smoothed velocities as supplementary material. We then differentiate the smoothed velocities with the RBF-FD scheme to find the velocity gradient and strain rates.  The estimated strain rates, complete with propagated uncertainties, are shown in Figure \ref{fig:SoCal1}, and it accurately illuminates well known features.  The strain map highlights the SAF and shows that the orientation of maximum shear strain runs parallel with the SAF strike \citep{Lisowski1991}.  Shear strain rates along the SAF are particularly high ($0.3-0.4$ micro-strain per year) in the Salton Trough and at the ends of the creeping segment. We can observe N-S contraction in the Los Angeles basin at a rate of $0.1-0.2$ micro-strain per year \citep{Shen1996,Argus1999,Argus2005}. We also observe a diffuse band of shear strain along the Eastern California shear zone (cite). These results are also consistent with the strain map by \citet{Shen2015}, which was derived from the same data set. 
 
 \begin{figure}
-\includegraphics[scale=1.0]{figures/figure5}
+\includegraphics[scale=1.0]{figures/figure5.png}
 \caption{Southern California strain map}   
 \label{fig:SoCal1}
 \end{figure}
@@ -314,7 +314,7 @@ We provide a demonstration in which we estimate the long term strain rates in so
 The uncertainties on our strain estimates are shown as semi-transparent fields around the strain glyphs, and it may appear that our inferred strain rates are overly confident. In particular, the uncertainties on the estimated strain rates in Nevada are surprisingly low, given the sparse station coverage.  There are two sources of error which could potentially result in underestimated uncertainties: (1) we could have chosen a cutoff frequency that is too low for the geophysical signal that we are interested in and (2) the data coverage may be too sparse for the differentiation matrices to be accurate numerical approximations of the corresponding differential operators. The former is a well recognized bias inherent in any smoothing method \citep{Hastie1990}, and we address the latter here. Ideally, we would want the average distance between adjacent stations to be ${<}1/\omega_c$. Such a dense coverage would ensure that the differentiation matrix used to estimate the velocity gradient is sufficiently accurate. In this demonstration, the data spacing in Nevada is comparable to $1/\omega_c=100$ km. One remedy for the sparse coverage is to use the RBF-FD filter to interpolate the smoothed solution onto a finer grid of points and then find the velocity gradient of the denser smoothed data set. As suggested in Section \ref{sec:Filter}, the RBF-FD filter can be used for interpolation by treating the interpolation points as data with infinite uncertainty. Doing so will increase the accuracy of velocity gradient estimates, but at the expense of increased computational cost.  Figure \ref{fig:SoCal2}A shows a map of estimated strain rates where we improved the accuracy of velocity gradient estimate by interpolating the smoothed velocities on a grid with a ${\sim}5$ km spacing.  The inferred strain rates at points along the SAF, where the coverage is sufficiently dense, do not appear to be significantly improved by the added interpolation points. The uncertainties on the strain rates in Nevada are much higher, and likely more appropriate, when we included the interpolation points.
 
 \begin{figure}
-\includegraphics[scale=1.0]{figures/figure6}
+\includegraphics[scale=1.0]{figures/figure6.png}
 \caption{Southern California strain map}   
 \label{fig:SoCal2}
 \end{figure}
@@ -329,6 +329,12 @@ In Figure \ref{fig:SoCal2}B, we highligh the creeping segment of the SAF, which 
 % discuss how we remove errors like reference frame and seasonals
 
 % discuss how this can be used for tikhonov regularization
+
+% Discuss similarities with PCA used in Dong2006 and common mode error by ...
+% note that these errors are due to long wavelength features which get removed in strain calculations!!!
+% see strain method by almendinger2007
+
+% mention the scec geodetic transient exercise Lohman2013 and references therein
 
 \bibliographystyle{apalike}
 \bibliography{mybib}  
