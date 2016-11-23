@@ -22,6 +22,12 @@ Beavan, J. and Haines, J. (2001).
   Pacific-Australian plate boundary zone through New Zealand}.
 \newblock {\em Journal of Geophysical Research}, 106(B1):741--770.
 
+\bibitem[Cecil et~al., 2004]{Cecil2004}
+Cecil, T., Qian, J., and Osher, S. (2004).
+\newblock {Numerical methods for high dimensional Hamilton-Jacobi equations
+  using radial basis functions}.
+\newblock {\em Journal of Computational Physics}, 196(1):327--347.
+
 \bibitem[Craven and Wahba, 1979]{Craven1979}
 Craven, P. and Wahba, G. (1979).
 \newblock {Smoothing noisy data with spline functions: estimating the correct
@@ -33,11 +39,12 @@ Fasshauer, G.~E. (2007).
 \newblock {\em {Meshfree Approximation Method with Matlab}}.
 \newblock World Scientific Publishing Co., Singapore.
 
-\bibitem[Feigl et~al., 1993]{Feigl1993}
-Feigl, K.~L., Agnew, D.~C., Bock, Y., and Dong, D. (1993).
-\newblock {Space Geodetic Measurement of Crustal Deformation in Central and
-  Southern California, 1984–1992}.
-\newblock {\em Journal of Geophysical Research}, 98(B12):21 677--21 712.
+\bibitem[Feigl et~al., 1990]{Feigl1990}
+Feigl, K.~L., King, R.~W., and Jordan, T.~H. (1990).
+\newblock {Geodetic measurement of tectonic deformation in the Santa Maria Fold
+  and Thrust Belt, California}.
+\newblock {\em Journal of Geophysical Research: Solid Earth},
+  95(B3):2679--2699.
 
 \bibitem[Field et~al., 2014]{Field2014}
 Field, E.~H., Arrowsmith, R.~J., Biasi, G.~P., Bird, P., Dawson, T.~E., Felzer,
@@ -71,11 +78,12 @@ Hastie, T.~J. and Tibshirani, R.~J. (1990).
 \newblock {\em {Generalized Additive Models}}, volume~1.
 \newblock Chapman and Hall, London.
 
-\bibitem[Howell et~al., 2016]{Howell2016}
-Howell, S., Smith-Konter, B., Frazer, N., Tong, X., and Sandwell, D. (2016).
-\newblock {The vertical fingerprint of earthquake cycle loading in southern
-  California}.
-\newblock {\em Nature Geoscience}, (June).
+\bibitem[Holt and Shcherbenko, 2013]{Holt2013}
+Holt, W.~E. and Shcherbenko, G. (2013).
+\newblock {Toward a Continuous Monitoring of the Horizontal Displacement
+  Gradient Tensor Field in Southern California Using cGPS Observations from
+  Plate Boundary Observatory (PBO)}.
+\newblock {\em Seismological Research Letters}, 84(3):455--467.
 
 \bibitem[Larsson and Fornberg, 2003]{Larsson2003}
 Larsson, E. and Fornberg, B. (2003).
@@ -159,6 +167,14 @@ Shen, Z.~K., King, R.~W., Agnew, D.~C., Wang, M., Herring, T.~A., Dong, D., and
   1970-2004: The SCEC crustal motion map}.
 \newblock {\em Journal of Geophysical Research: Solid Earth}, 116(11):1--19.
 
+\bibitem[Shu et~al., 2003]{Shu2003}
+Shu, C., Ding, H., and Yeo, K. (2003).
+\newblock {Local radial basis function-based differential quadrature method and
+  its application to solve two-dimensional incompressible Navier–Stokes
+  equations}.
+\newblock {\em Computer Methods in Applied Mechanics and Engineering},
+  192(7-8):941--954.
+
 \bibitem[Tape et~al., 2009]{Tape2009}
 Tape, C., Mus{\'{e}}, P., Simons, M., Dong, D., and Webb, F. (2009).
 \newblock {Multiscale estimation of GPS velocity fields}.
@@ -176,6 +192,12 @@ Tikhonov, A.~N. and Arsenin, V.~Y. (1978).
   Arsenin Review by : John B . Bell Stable URL :
   http://www.jstor.org/stable/2006360 .}
 \newblock {\em American Mathematical Society}, 32(144):1320--1322.
+
+\bibitem[Tolstykh and Shirobokov, 2003]{Tolstykh2003}
+Tolstykh, A.~I. and Shirobokov, D.~A. (2003).
+\newblock {On using radial basis functions in a "finite difference mode" with
+  applications to elasticity problems}.
+\newblock {\em Computational Mechanics}, 33(1):68--79.
 
 \bibitem[Trefethen, 2000]{Trefethen2000}
 Trefethen, L.~N. (2000).
