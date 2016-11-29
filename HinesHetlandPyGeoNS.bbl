@@ -16,11 +16,23 @@ Argus, D.~F., Heflin, M.~B., Peltzer, G., Cramp{\'{e}}, F., and Webb, F.~H.
 \newblock {\em Journal of Geophysical Research B: Solid Earth},
   110(B04401):1--26.
 
+\bibitem[Bartlow et~al., 2011]{Bartlow2011}
+Bartlow, N.~M., Miyazaki, S., Bradley, A.~M., and Segall, P. (2011).
+\newblock {Space‐time correlation of slip and tremor during the 2009 Cascadia
+  slow slip event}.
+\newblock 38(L18309):1--6.
+
 \bibitem[Beavan and Haines, 2001]{Beavan2001}
 Beavan, J. and Haines, J. (2001).
 \newblock {Contemporary horizontal velocity and strain rate fields of the
   Pacific-Australian plate boundary zone through New Zealand}.
 \newblock {\em Journal of Geophysical Research}, 106(B1):741--770.
+
+\bibitem[Burgette et~al., 2009]{Burgette2009}
+Burgette, R.~J., Weldon, R.~J., and Schmidt, D.~A. (2009).
+\newblock {Interseismic uplift rates for western Oregon and along-strike
+  variation in locking on the Cascadia subduction zone}.
+\newblock {\em Journal of Geophysical Research: Solid Earth}, 114(1):1--24.
 
 \bibitem[Cecil et~al., 2004]{Cecil2004}
 Cecil, T., Qian, J., and Osher, S. (2004).
@@ -33,6 +45,11 @@ Craven, P. and Wahba, G. (1979).
 \newblock {Smoothing noisy data with spline functions: estimating the correct
   degree of smoothing by the method of generalized cross-validation}.
 \newblock {\em Numerische Mathematik}, 403:377--403.
+
+\bibitem[Dragert et~al., 2001]{Dragert2001}
+Dragert, G., Wang, K., and James, T.~S. (2001).
+\newblock {A silent slip event on the deeper Cascadia subduction interface.}
+\newblock {\em Science}, 292:1525--1528.
 
 \bibitem[Fasshauer, 2007]{Fasshauer2007}
 Fasshauer, G.~E. (2007).
@@ -55,6 +72,12 @@ Field, E.~H., Arrowsmith, R.~J., Biasi, G.~P., Bird, P., Dawson, T.~E., Felzer,
   -The time-independent model}.
 \newblock {\em Bulletin of the Seismological Society of America},
   104(3):1122--1180.
+
+\bibitem[Fl{\"{u}}ck et~al., 1997]{Fluck1997}
+Fl{\"{u}}ck, P., Hyndman, R.~D., and Wang, K. (1997).
+\newblock {3-D dislocation model for great earthquakes of the Cascadia
+  subduction zone}.
+\newblock {\em Journal of Geophysical Research}, 102(B9):20539--20550.
 
 \bibitem[Flyer et~al., 2016]{Flyer2016}
 Flyer, N., Fornberg, B., Bayona, V., and Barnett, G.~A. (2016).
@@ -85,6 +108,12 @@ Holt, W.~E. and Shcherbenko, G. (2013).
   Plate Boundary Observatory (PBO)}.
 \newblock {\em Seismological Research Letters}, 84(3):455--467.
 
+\bibitem[Holtkamp and Brudzinski, 2010]{Holtkamp2010}
+Holtkamp, S. and Brudzinski, M.~R. (2010).
+\newblock {Determination of slow slip episodes and strain accumulation along
+  the Cascadia margin}.
+\newblock {\em Journal of Geophysical Research: Solid Earth}, 115(4):1--21.
+
 \bibitem[Larsson and Fornberg, 2003]{Larsson2003}
 Larsson, E. and Fornberg, B. (2003).
 \newblock {A numerical study of some radial basis function based solution
@@ -101,6 +130,19 @@ Lisowski, M., Savage, J.~C., and Prescott, W.~H. (1991).
 Matheron, G. (1963).
 \newblock {Principles of geostatistics}.
 \newblock {\em Economic Geology}, 58(8):1246--1266.
+
+\bibitem[McCaffrey et~al., 2013]{McCaffrey2013}
+McCaffrey, R., King, R.~W., Payne, S.~J., and Lancaster, M. (2013).
+\newblock {Active tectonics of northwestern U.S. inferred from GPS-derived
+  surface velocities}.
+\newblock {\em Journal of Geophysical Research: Solid Earth}, 118:709--723.
+
+\bibitem[McCaffrey et~al., 2007]{McCaffrey2007}
+McCaffrey, R., Qamar, A.~I., King, R.~W., Wells, R., Khazaradze, G., Williams,
+  C.~A., Stevens, C.~W., Vollick, J.~J., and Zwick, P.~C. (2007).
+\newblock {Fault locking, block rotation and crustal deformation in the Pacific
+  Northwest}.
+\newblock {\em Geophysical Journal International}, 169(3):1315--1340.
 
 \bibitem[Murray and Lisowski, 2000]{Murray2000}
 Murray, M.~H. and Lisowski, M. (2000).
@@ -147,6 +189,17 @@ Sandwell, D.~T. and Wessel, P. (2016).
 Savage, J.~C., Prescott, W.~H., and Gu, G. (1986).
 \newblock {Strain accumulation in southern California, 1973–1984}.
 \newblock {\em Journal of Geophysical Research}, 91(B7):7455--7473.
+
+\bibitem[Schmalzle et~al., 2014]{schmalzle2014}
+Schmalzle, G.~M., McCaffrey, R., and Creager, K.~C. (2014).
+\newblock {Central Cascadia subduction zone creep}.
+\newblock {\em Geochemistry, Geophysics, Geosystems}, pages 1515--1532.
+
+\bibitem[Schmidt and Gao, 2010]{Schmidt2010}
+Schmidt, D.~A. and Gao, H. (2010).
+\newblock {Source parameters and time-dependent slip distributions of slow slip
+  events on the Cascadia subduction zone from 1998 to 2008}.
+\newblock {\em Journal of Geophysical Research: Solid Earth}, 115(4):1--13.
 
 \bibitem[Shen et~al., 2015]{Shen2015}
 Shen, Z., Wang, M., Zeng, Y., and Wang, F. (2015).
@@ -208,6 +261,11 @@ Trefethen, L.~N. (2000).
 Wahba, G. (1990).
 \newblock {\em {Spline Models for Observational Data}}.
 \newblock Philadelphia.
+
+\bibitem[Wech et~al., 2009]{Wech2009}
+Wech, A.~G., Creager, K.~C., and Melbourne, T.~I. (2009).
+\newblock {Seismic and geodetic constraints on Cascadia slow slip}.
+\newblock {\em Journal of Geophysical Research: Solid Earth}, 114(10):1--9.
 
 \bibitem[Wright and Fornberg, 2006]{Wright2006}
 Wright, G.~B. and Fornberg, B. (2006).

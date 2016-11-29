@@ -1,5 +1,4 @@
 \documentclass[10pt,a4paper]{article}
-\usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
@@ -288,7 +287,7 @@ In general, $\mathbf{L}_n$ can be constructed with the RBF-FD scheme described i
 \subsection{Accounting for Known Discontinuities}\label{sec:Discontinuities}
 The RBF-FD filter from Section \ref{sec:Filter} and the RBF-FD differentiation scheme from Section \ref{sec:Differentiating} can both account for known discontinuities from, for example, a creeping fault segment.  When using the RBF-FD scheme to estimate the strain rate from a velocity field, it is important not to use stencils that includes stations which are on opposite sides of a creeping fault segment. Doing so could result in estimated strain rates which are erroneously high. The stencils should thus be constructed so that no two stations within a stencil form an edge which intersects the trace of the creeping segment.  We also construct stencils in this manner when forming the differentiation matrix $\mathbf{L}_n$ from eq. (\ref{eq:NDSolution}).  By doing so, the RBF-FD filter will not produce a solution that is incorrectly tapered across a known discontinuity.
 
-We elaborate on the statistical implications for how we handle discontinuities for the RBF-FD filter.  When $\mathbf{L}_n$ is constructed with the RBF-FD scheme, we can interpret $\mathbf{u}_\mathrm{prior}$ as a Gaussian Markov random field \citep[e.g.][]{Rue2005}.  That is to say, if $\mathbf{u}_\mathrm{prior}$ is known at all stations except for $x_i$, the probability distribution function for $\mathbf{u}_\mathrm{prior}$ at $x_i$ will only depend on $\mathbf{u}_\mathrm{prior}$ at stations within a neighborhood of $x_i$.  The neighborhood consists of all stations which share a stencil with $x_i$. Our strategy for handling discontinuities thus imposes conditional independence between $\mathbf{u}_\mathrm{prior}$ at any two stations which form an edge that intersects the trace of a creeping fault segment. 
+We elaborate on the statistical implications for how we handle discontinuities for the RBF-FD filter.  When $\mathbf{L}_n$ is constructed with the RBF-FD scheme, we can interpret $\mathbf{u}_\mathrm{prior}$ as a Gaussian Markov random field \citep[e.g.][]{Rue2005}.  That is to say, if $\mathbf{u}_\mathrm{prior}$ is known at stations within a neighborhood of $x_i$ then $\mathbf{u}_\mathrm{prior}$ at station $x_i$ is conditionally independent of $\mathbf{u}_\mathrm{prior}$ outside of that neighborhood.  The neighborhood consists of all stations which share a stencil with $x_i$. Our strategy for handling discontinuities thus imposes conditional independence between $\mathbf{u}_\mathrm{prior}$ at any two stations which form an edge that intersects the trace of a creeping fault segment. 
 
 \begin{figure}
 \includegraphics[scale=1.0]{figures/figure4}
@@ -331,6 +330,15 @@ In Figure \ref{fig:SoCal2}B, we highligh the creeping segment of the SAF, which 
 
 \subsection{Time Depenent Strain Rate in Cascadia}\label{sec:ApplicationsCascadia}
 
+\citet{Dragert2001} first discovered slow slip events
+
+Slow slip event depths from \citet{Dragert2001}, \citet{Wech2009}, \citet{Schmidt2010}, \citet{Bartlow2011} show slip concentrated at depths from 30 to 50 km detph.
+ 
+Interseismic locking depths from \citet{Fluck1997}, \citet{Murray2000}, \citet{McCaffrey2007} and \citet{McCaffrey2013}, \citet{Burgette2009}, \citet{schmalzle2014} are consistent with a full locking down to about 20 km.
+
+%Studies which simultaneously looked at intersesimic and ets are \citet{Holtkamp2010} and \citet{Schmalzle2014}
+Studies which simultaneously modeled interseismic and ets are \citet{Holtkamp2010} and \citet{schmalzle2014}
+
 \section{Discussion and Conclusion}\label{sec:Discussion}
 % discuss potential applications for slip models
 
@@ -348,7 +356,9 @@ In Figure \ref{fig:SoCal2}B, we highligh the creeping segment of the SAF, which 
 
 % Note that segalls 2016 paper mentions the gap between interseismic and sse
 
-% mention howell2016, who said some crap about verticals
+% mention howell2016, who said some crap about verticals, mention Hammond2016 so said more sensible crap about verticals
+
+% note that this can be used for smoothing verticals, and compare it with burgette2009
 
 \bibliographystyle{apalike}
 \bibliography{mybib}  
