@@ -244,6 +244,7 @@ ax.grid()
 x = np.linspace(0.0,1.0,N)
 s = 0.1*np.ones(N) # uncertainties
 s[(x>0.2) & (x < 0.5)] = 0.3
+#s = np.random.uniform(0.05,0.2,N)
 t = np.sqrt(x) + 0.2*np.sin(4*np.pi*x) 
 u = t + np.random.normal(0.0,s)
 D = rbf.fd.weight_matrix(x[:,None],x[:,None],diffs=(2,)).toarray()
@@ -303,7 +304,6 @@ D = rbf.fd.weight_matrix(x[:,None],x[:,None],diffs=(2,)).toarray()
 C = np.diag(1.0/s**2) # inverse covariance
 # generalized inverse
 b = np.sqrt(N/np.sum(1.0/s**2)) # mean uncertainty
-print('characteristic sigma %s' % b)
 p = np.sqrt((2*np.pi*w)**4*b**2)
 G = inv(C + 1.0/p**2*D.T.dot(D)).dot(C)
 z = G.dot(u)
