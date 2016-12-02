@@ -34,15 +34,15 @@ We begin this paper by summarizing the RBF-FD scheme and explaining how we const
 \section{Method}\label{sec:Method}
 \subsection{Differentiating Scattered Data}\label{sec:Differentiating}
 
-In this section we briefly summarizing the RBF-FD method and we refer the reader to \citet{Wright2006} or \citet{Fornberg2015} for additional details. Consider a set of nodes $\mathbf{x} = \{x_i\}_{i=1}^N$ in $\mathbb{R}^d$ and a corresponding vector $\mathbf{u} = [u(x_1), ..., u(x_N)]^T$.  We want to find a differentiation matrix $\mathbf{L}$, such that $\mathbf{Lu}$ approximates the linear differential operator $\mathcal{L}$ acting on $u$ at $\mathbf{x}$.  For each node $x_i$ we approximate $\mathcal{L}[u(x)]\big|_{x=x_i}$ as a weighted sum of $\{u(x_j): j \in \mathcal{S}^i\}$ where $\mathcal{S}^i$ consist of $i$ and the indices for the $n-1$ nearest neighboring nodes to $x_i$.  The approximation can be written as
+In this section we briefly summarizing the RBF-FD method and we refer the reader to \citet{Wright2006} or \citet{Fornberg2015} for additional details. Consider a set of observation points $\mathbf{x} = \{x_i\}_{i=1}^N$ in $\mathbb{R}^d$ and a corresponding vector $\mathbf{u} = [u(x_1), ..., u(x_N)]^T$. Consider also a set of target points $\mathbf{y} = \{y_i\}_{i=1}^M$ in $\mathbb{R}^d$. We seek to find a differentiation matrix $\mathbf{L}$, such that $\mathbf{Lu} \approx [\mathcal{L}[u(x)] : x \in \mathbf{y}]^T$, where $\mathcal{L}$ is a differential operator.  For each target point $y_i$, we approximate $\mathcal{L}[u(x)]\big|_{x=y_i}$ as a weighted sum of $\{u(x_j): j \in \mathcal{S}^i\}$, where $\mathcal{S}^i$ consist of the indices for the $n$ nearest points to $y_i$ in $\mathbf{x}$.  The approximation can be written as
 
 \begin{equation}\label{eq:RBFFDApprox}
-\mathcal{L}[u(x)]\big|_{x=x_i} \approx \sum_{j \in \mathcal{S}^i} L_{ij} u(x_j)
+\mathcal{L}[u(x)]\big|_{x=y_i} \approx \sum_{j \in \mathcal{S}^i} L_{ij} u(x_j).
 \end{equation}
-where $L_{ij}$ are the weights making up the differentiation matrix $\mathbf{L}$.  We refer to $x_i$ and its $n-1$ nearest neighbors as the stencil for $x_i$, and we denote the stencil as $\mathbf{x}^i = \{x_j : j \in \mathcal{S}^i\} = \{x^i_j\}_{j=1}^n$. The corresponding weights for each node in $\mathbf{x}^i$ are denoted as $\mathbf{w}^i = \{L_{ij} : j \in \mathcal{S}^i\} = \{w^i_j\}_{j=1}^n$.  We can then equivalently write eq. (\ref{eq:RBFFDApprox}) as 
+We refer to the $n$ nearest points to $y_i$ in $\mathbf{x}$ as the stencil for $y_i$, and we denote the stencil as $\mathbf{x}^i = \{x_j : j \in \mathcal{S}^i\} = \{x^i_j\}_{j=1}^n$. The corresponding weights for each node in $\mathbf{x}^i$ are denoted as $\mathbf{w}^i = \{L_{ij} : j \in \mathcal{S}^i\} = \{w^i_j\}_{j=1}^n$.  We can then equivalently write eq. (\ref{eq:RBFFDApprox}) as 
 
 \begin{equation}\label{eq:RBFFDApproxAlt}
-\mathcal{L}[u(x)]\big|_{x=x_i} \approx \sum_{j=1}^n w^i_j u(x^i_j).
+\mathcal{L}[u(x)]\big|_{x=y_i} \approx \sum_{j=1}^n w^i_j u(x^i_j).
 \end{equation}
 Following \citet{Fornberg2015}, we find the components of $\mathbf{w}^i$, and thus also of $\mathbf{L}$, by solving the linear system of equations
 
@@ -74,14 +74,14 @@ Following \citet{Fornberg2015}, we find the components of $\mathbf{w}^i$, and th
 =
 \left[
   \begin{array}{c}
-  \mathcal{L}\left[ \phi(||x - x^i_1||) \right] \big|_{x=x_i} \\
+  \mathcal{L}\left[ \phi(||x - x^i_1||) \right] \big|_{x=y_i} \\
   \vdots                                                      \\
-  \mathcal{L}\left[ \phi(||x - x^i_n||) \right] \big|_{x=x_i} \\
+  \mathcal{L}\left[ \phi(||x - x^i_n||) \right] \big|_{x=y_i} \\
                                                               \\ \hdashline
                                                               \\  
-  \mathcal{L}\left[ \psi_1(x) \right] \big|_{x=x_i}           \\
+  \mathcal{L}\left[ \psi_1(x) \right] \big|_{x=y_i}           \\
   \vdots                                                      \\
-  \mathcal{L}\left[ \psi_m(x) \right] \big|_{x=x_i}           \\
+  \mathcal{L}\left[ \psi_m(x) \right] \big|_{x=y_i}           \\
   \end{array}
 \right]
 \end{equation}
@@ -95,6 +95,14 @@ Throughout this paper we use a cubic RBF for $\phi$,
 The cubic RBF is an odd degree polyharmonic spline which has the benefit of being scale invariant and thus there is no scaling parameter that needs to be optimized, unlike for many other common choices of RBFs \citep[e.g.][]{Larsson2003}.  We note that the results presented in this paper remain virtually unchanged when we use other polyharmonic splines for $\phi$, which is consistent with the findings of \citet{Flyer2016}. 
 
 We now elaborate on the stencil size, $n$, and the polynomial degree, $p$.  We choose $p$ to be equal to the degree of the derivative which we are approximating. This choice is based on the analysis of \citet{Flyer2016} and it ensures that eq. (\ref{eq:RBFFDApprox}) will converge to the true derivative as the distance between nodes decreases. The accuracy of eq. (\ref{eq:RBFFDApprox}) also generally improves with larger values of $n$, but at the expense of computational costs. We then choose $n$ to be large enough for eq. (\ref{eq:RBFFDApprox}) to converge. For the demonstrations in this paper, we find that $n=30$ is an appropriate choice.  It is worth noting that eq. (\ref{eq:RBFFDWeights}) cannot be inverted when the number of nodes is less than the number of monomial basis functions, $m$.  We then have a lower bound on $n$ which is $n \ge m = {{p+d}\choose{d}}$.   
+
+\begin{figure}
+\includegraphics[scale=1.0]{figures/figure0.pdf}
+\caption{estimated synthetic strain}   
+\label{fig:SynthStrain}
+\end{figure}
+
+In Figure \ref{fig:SynthStrain}, we demonstrate using the RBF-FD scheme to calculate strain from displacements. Our synthetic displacements are from an elastic, strike-slip, interseismic strain accumulation model \citep{Savage1973a}.  We use the RBF-FD scheme to compute the deformation gradients which are then used to obtain estimated strains (panel B and C).  We also calculate strain with the classic method where we assume strain is uniform within each triangle of a Delaunay triangulation of the stations \citep[e.g.][]{Calais2002} (panel A).  For ease of comparison, strain is shown at the same positions for each panel in Figures \ref{fig:SynthStrain}.  The strain estimated with the RBF-FD scheme is notably more accurate than the strain estimated by triangulation.  This should be intuitivate because the RBF-FD scheme uses more data for each estimate.  The strains shown in panel B and C are estimated with a stencil size of 5 and 20, respectively.  As noted above, we can see that there is a point of diminishing returns when increasing the stencil size does not substantially improve the accuracy.  
 
 \subsection{RBF-FD Filter}\label{sec:Filter}
 We calculate strain rates by spatially differentiation geodetically observed velocities.  In order to differentiate noisy velocity data with the method described in Section \ref{sec:Differentiating}, we must first smooth the data. Existing strategies for smoothing scattered data can be classified as parametric and non-parametric approaches.  Parametric approaches involves fitting a set of basis functions to the data, perhaps using least-squares or regularized least-squares \citep[e.g.][]{Fasshauer2007}. Non-parametric approaches include kernel smoothing \citep[e.g.][]{Hastie1990} and Gaussian process regression \citep[e.g.][]{Rasmussen2006}. Kriging is among the better known examples of Gaussian process regression \citep{Matheron1963}.  Many of the wide variety of the existing strategies could surely produce a sufficiently smooth velocity field for us to calculate a coherent strain map. But since the intent of this paper is, in part, to demonstrate the utility of the RBF-FD method in geodesy, we present a smoothing strategy which we refer to as the RBF-FD filter.  This method is non-parametric and it offers several features which we find valuable.  The RBF-FD filter is computationally efficient and stable, it can be viewed as a low-pass filter with a well defined cutoff frequency, and we can easily specify discontinuities which we do not want to smooth across. In the following discussion of the RBF-FD filter, we seek to find a smoothed solution, $\mathbf{u}_\mathrm{post}$, from observed data, $\mathbf{u}_\mathrm{obs}$. We constrain $\mathbf{u}_\mathrm{post}$ with the observation equation
@@ -357,6 +365,8 @@ Studies which simultaneously modeled interseismic and ets are \citet{Holtkamp201
 % mention howell2016, who said some crap about verticals, mention Hammond2016 so said more sensible crap about verticals
 
 % note that this can be used for smoothing verticals, and compare it with burgette2009
+
+% cite eric calais for triangulation strain
 
 \bibliographystyle{apalike}
 \bibliography{mybib}  

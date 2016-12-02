@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.8.22)  2 DEC 2016 00:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.8.24)  2 DEC 2016 16:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -303,111 +303,116 @@ Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
 (amsmath)                 on input line 97.
 
-[3] [4] <figures/figure1.pdf, id=30, 289.08pt x 231.26399pt>
+<figures/figure0.pdf, id=22, 451.6875pt x 433.62pt>
+File: figures/figure0.pdf Graphic file (type pdf)
+ <use figures/figure0.pdf>
+Package pdftex.def Info: figures/figure0.pdf used on input line 100.
+(pdftex.def)             Requested size: 451.68639pt x 433.61894pt.
+
+[3 <./figures/figure0.pdf>] [4]
+<figures/figure1.pdf, id=71, 289.08pt x 231.26399pt>
 File: figures/figure1.pdf Graphic file (type pdf)
-
-<use figures/figure1.pdf>
-Package pdftex.def Info: figures/figure1.pdf used on input line 206.
+ <use figures/figure1.pdf>
+Package pdftex.def Info: figures/figure1.pdf used on input line 214.
 (pdftex.def)             Requested size: 289.07928pt x 231.26341pt.
- <figures/figure2.pdf, id=31, 505.89pt x 361.35pt>
+
+<figures/figure2.pdf, id=72, 505.89pt x 361.35pt>
 File: figures/figure2.pdf Graphic file (type pdf)
-
-<use figures/figure2.pdf>
-Package pdftex.def Info: figures/figure2.pdf used on input line 214.
+ <use figures/figure2.pdf>
+Package pdftex.def Info: figures/figure2.pdf used on input line 222.
 (pdftex.def)             Requested size: 505.88875pt x 361.34912pt.
 
-Overfull \hbox (22.19188pt too wide) in paragraph at lines 214--215
+Overfull \hbox (22.19188pt too wide) in paragraph at lines 222--223
 [][] 
  []
 
-[5 <./figures/figure1.pdf>] [6 <./figures/figure2.pdf>]
-<figures/figure3.pdf, id=113, 505.89pt x 361.35pt>
+[5] [6 <./figures/figure1.pdf> <./figures/figure2.pdf
+
+pdfTeX warning: pdflatex (file ./figures/figure2.pdf): PDF inclusion: multiple 
+pdfs with page group included in a single page
+>] <figures/figure3.pdf, id=153, 505.89pt x 361.35pt>
 File: figures/figure3.pdf Graphic file (type pdf)
- <use figures/figure3.pdf>
-Package pdftex.def Info: figures/figure3.pdf used on input line 246.
+
+<use figures/figure3.pdf>
+Package pdftex.def Info: figures/figure3.pdf used on input line 254.
 (pdftex.def)             Requested size: 505.88875pt x 361.34912pt.
 
-Overfull \hbox (22.19188pt too wide) in paragraph at lines 246--247
+Overfull \hbox (22.19188pt too wide) in paragraph at lines 254--255
 [][] 
  []
 
-[7 <./figures/figure3.pdf>]
-<figures/figure4.pdf, id=164, 505.89pt x 252.945pt>
+[7] [8 <./figures/figure3.pdf>]
+<figures/figure4.pdf, id=207, 505.89pt x 252.945pt>
 File: figures/figure4.pdf Graphic file (type pdf)
  <use figures/figure4.pdf>
-Package pdftex.def Info: figures/figure4.pdf used on input line 291.
+Package pdftex.def Info: figures/figure4.pdf used on input line 299.
 (pdftex.def)             Requested size: 505.88875pt x 252.94438pt.
 
-Overfull \hbox (22.19188pt too wide) in paragraph at lines 291--292
+Overfull \hbox (22.19188pt too wide) in paragraph at lines 299--300
 [][] 
  []
 
-[8] <figures/figure5.png, id=168, 505.89pt x 361.35pt>
+[9 <./figures/figure4.pdf>] <figures/figure5.png, id=237, 505.89pt x 361.35pt>
 File: figures/figure5.png Graphic file (type png)
 
 <use figures/figure5.png>
-Package pdftex.def Info: figures/figure5.png used on input line 314.
+Package pdftex.def Info: figures/figure5.png used on input line 322.
 (pdftex.def)             Requested size: 505.88875pt x 361.34912pt.
-
-Overfull \hbox (22.19188pt too wide) in paragraph at lines 314--315
-[][] 
- []
-
-[9 <./figures/figure4.pdf>] [10 <./figures/figure5.png>]
-<figures/figure6.png, id=203, 505.89pt x 325.215pt>
-File: figures/figure6.png Graphic file (type png)
- <use figures/figure6.png>
-Package pdftex.def Info: figures/figure6.png used on input line 322.
-(pdftex.def)             Requested size: 505.88875pt x 325.2142pt.
 
 Overfull \hbox (22.19188pt too wide) in paragraph at lines 322--323
 [][] 
  []
 
-(./HinesHetlandPyGeoNS.bbl [11 <./figures/figure6.png>]
+<figures/figure6.png, id=239, 505.89pt x 325.215pt>
+File: figures/figure6.png Graphic file (type png)
+ <use figures/figure6.png>
+Package pdftex.def Info: figures/figure6.png used on input line 330.
+(pdftex.def)             Requested size: 505.88875pt x 325.2142pt.
+
+Overfull \hbox (22.19188pt too wide) in paragraph at lines 330--331
+[][] 
+ []
+
+[10] [11 <./figures/figure5.png>] (./HinesHetlandPyGeoNS.bbl
 Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no ê in font cmr10!
- [12]
+ [12 <./figures/figure6.png>] [13]
 Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no ì in font cmr10!
 Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no ì in font cmr10!
-) [13]
-(./HinesHetlandPyGeoNS.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+) [14] (./HinesHetlandPyGeoNS.aux) ) 
 Here is how much of TeX's memory you used:
- 3615 strings out of 494910
- 48889 string characters out of 6179836
- 123652 words of memory out of 5000000
- 6849 multiletter control sequences out of 15000+600000
+ 3627 strings out of 494910
+ 49123 string characters out of 6179836
+ 123733 words of memory out of 5000000
+ 6860 multiletter control sequences out of 15000+600000
  12468 words of font info for 48 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 38i,17n,24p,2478b,252s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-r5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on HinesHetlandPyGeoNS.pdf (13 pages, 783957 bytes).
+ 38i,17n,24p,2478b,264s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmbx7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></
+usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbol
+s/msbm10.pfb>
+Output written on HinesHetlandPyGeoNS.pdf (14 pages, 1941598 bytes).
 PDF statistics:
- 268 PDF objects out of 1000 (max. 8388607)
- 136 compressed objects within 2 object streams
+ 311 PDF objects out of 1000 (max. 8388607)
+ 147 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 31 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 36 words of extra memory for PDF output out of 10000 (max. 10000000)
 

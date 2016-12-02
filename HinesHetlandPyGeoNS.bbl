@@ -34,6 +34,12 @@ Burgette, R.~J., Weldon, R.~J., and Schmidt, D.~A. (2009).
   variation in locking on the Cascadia subduction zone}.
 \newblock {\em Journal of Geophysical Research: Solid Earth}, 114(1):1--24.
 
+\bibitem[Calais et~al., 2002]{Calais2002}
+Calais, E., Nocquet, J.~M., Jouanne, F., and Tardy, M. (2002).
+\newblock {Current strain regime in the Western Alps from continuous Global
+  Positioning System measurements, 1996-2001}.
+\newblock {\em Geology}, 30(7):651--654.
+
 \bibitem[Cecil et~al., 2004]{Cecil2004}
 Cecil, T., Qian, J., and Osher, S. (2004).
 \newblock {Numerical methods for high dimensional Hamilton-Jacobi equations
@@ -184,6 +190,12 @@ Rue, H. and Held, L. (2005).
 Sandwell, D.~T. and Wessel, P. (2016).
 \newblock {Interpolation of 2-D vector data using constraints from elasticity}.
 \newblock {\em Geophysical Research Letters}, pages 1--7.
+
+\bibitem[Savage and Burford, 1973]{Savage1973a}
+Savage, J.~C. and Burford, R.~O. (1973).
+\newblock {Geodetic determination of relative plate motion in central
+  California}.
+\newblock {\em Journal of Geophysical Research}, 78(5):832--845.
 
 \bibitem[Savage et~al., 1986]{Savage1986}
 Savage, J.~C., Prescott, W.~H., and Gu, G. (1986).
