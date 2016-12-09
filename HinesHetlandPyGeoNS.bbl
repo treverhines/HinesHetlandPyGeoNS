@@ -127,6 +127,13 @@ Holtkamp, S. and Brudzinski, M.~R. (2010).
   the Cascadia margin}.
 \newblock {\em Journal of Geophysical Research: Solid Earth}, 115(4):1--21.
 
+\bibitem[Kohn and Ansley, 1987]{Kohn1987}
+Kohn, R. and Ansley, C. (1987).
+\newblock {A new algorithm for spline smoothing based on smoothing a stochastic
+  process}.
+\newblock {\em SIAM journal on scientific and statistical computing},
+  8(1):33--48.
+
 \bibitem[Larsson and Fornberg, 2003]{Larsson2003}
 Larsson, E. and Fornberg, B. (2003).
 \newblock {A numerical study of some radial basis function based solution
