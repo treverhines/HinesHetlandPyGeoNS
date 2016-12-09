@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.8.24)  7 DEC 2016 14:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.8.24)  7 DEC 2016 19:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -390,7 +390,7 @@ Here is how much of TeX's memory you used:
  6863 multiletter control sequences out of 15000+600000
  12468 words of font info for 48 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 38i,17n,24p,2478b,300s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,17n,24p,2478b,298s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/t
 ype1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
 ublic/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
@@ -407,7 +407,7 @@ nts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type
 ic/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
 onts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/s
 ymbols/msbm10.pfb>
-Output written on HinesHetlandPyGeoNS.pdf (15 pages, 1943625 bytes).
+Output written on HinesHetlandPyGeoNS.pdf (15 pages, 1943753 bytes).
 PDF statistics:
  315 PDF objects out of 1000 (max. 8388607)
  150 compressed objects within 2 object streams
